@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1006001001,
+        "pid": "754a08ddf8bcb1cf22f310f09206dd783d42f7dd",
+        "type": 2,
+        "subtype": 1,
+        "name": "QA",
+        "uri": "/{/lang}/backend/qa/dashboard?{?}",
+        "target": "self",
+        "icon": null,
+        "order": 50,
+        "from": "QA",
+        "permission": null,
+        "parent": 1003301001,
+        "children": [
+        ]
+    }
+]
