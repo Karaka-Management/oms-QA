@@ -68,7 +68,7 @@ final class QAQuestionMapper extends DataMapperAbstract
     protected static array $ownsOne = [
         'category' => [
             'mapper' => QACategoryMapper::class,
-            'external' => 'qa_question_category',
+            'self' => 'qa_question_category',
         ],
     ];
 
