@@ -20,9 +20,7 @@ declare(strict_types=1);
 
 $tags = $this->getData('tags');
 
-/**
- * @var \phpOMS\Views\View $this
- */
+/** @var \phpOMS\Views\View $this */
 echo $this->getData('nav')->render();
 ?>
 
