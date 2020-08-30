@@ -102,6 +102,7 @@ final class BackendController extends Controller
 
         return $view;
     }
+
     /**
      * Routing end-point for application behaviour.
      *

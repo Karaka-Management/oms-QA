@@ -20,6 +20,7 @@ namespace Modules\QA\tests\Admin;
 class AdminTest extends \PHPUnit\Framework\TestCase
 {
     protected const MODULE_NAME = 'QA';
+
     protected const URI_LOAD = 'http://127.0.0.1/en/backend/qa';
 
     use \Modules\tests\ModuleTestTrait;
