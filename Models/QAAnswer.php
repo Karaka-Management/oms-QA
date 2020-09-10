@@ -83,7 +83,7 @@ class QAAnswer implements \JsonSerializable
      * @var \DateTime
      * @since 1.0.0
      */
-    private \DateTime $createdAt;
+    private \DateTimeImmutable $createdAt;
 
     /**
      * Constructor.
@@ -92,7 +92,7 @@ class QAAnswer implements \JsonSerializable
      */
     public function __construct()
     {
-        $this->createdAt = new \DateTime('now');
+        $this->createdAt = new \DateTimeImmutable('now');
         $this->createdBy = new NullAccount();
         $this->question  = new NullQAQuestion();
     }
@@ -246,7 +246,7 @@ class QAAnswer implements \JsonSerializable
      *
      * @since 1.0.0
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt() : \DateTimeInterface
     {
         return $this->createdAt;
     }

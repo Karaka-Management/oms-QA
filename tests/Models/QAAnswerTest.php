@@ -34,7 +34,7 @@ class QAAnswerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($answer->isAccepted());
         self::assertEquals(QAAnswerStatus::ACTIVE, $answer->getStatus());
         self::assertEquals(0, $answer->getCreatedBy()->getId());
-        self::assertInstanceOf('\DateTime', $answer->getCreatedAt());
+        self::assertInstanceOf('\DateTimeImmutable', $answer->getCreatedAt());
     }
 
     public function testSetGet() : void

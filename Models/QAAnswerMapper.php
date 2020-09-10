@@ -40,7 +40,7 @@ final class QAAnswerMapper extends DataMapperAbstract
         'qa_answer_status'     => ['name' => 'qa_answer_status',     'type' => 'int',      'internal' => 'status'],
         'qa_answer_accepted'   => ['name' => 'qa_answer_accepted',   'type' => 'bool',     'internal' => 'isAccepted'],
         'qa_answer_created_by' => ['name' => 'qa_answer_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
-        'qa_answer_created_at' => ['name' => 'qa_answer_created_at', 'type' => 'DateTime', 'internal' => 'createdAt', 'readonly' => true],
+        'qa_answer_created_at' => ['name' => 'qa_answer_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
     /**

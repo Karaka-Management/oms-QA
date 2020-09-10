@@ -35,7 +35,7 @@ class QAQuestionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $question->getCategory()->getId());
         self::assertEquals('', $question->getLanguage());
         self::assertEquals(0, $question->getCreatedBy()->getId());
-        self::assertInstanceOf('\DateTime', $question->getCreatedAt());
+        self::assertInstanceOf('\DateTimeImmutable', $question->getCreatedAt());
         self::assertEquals([], $question->getBadges());
     }
 
