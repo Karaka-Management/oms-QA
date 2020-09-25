@@ -12,6 +12,8 @@
  */
 declare(strict_types=1);
 
+use phpOMS\Uri\UriFactory;
+
 /**
  * @todo Orange-Management/Modules#73
  *  Profile pics
@@ -32,7 +34,7 @@ echo $this->getData('nav')->render();
                 <?= $this->printHtml($question->getQuestion()); ?>
             </div>
             <div class="inner">
-                <img alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" data-lazyload="<?= UriFactory::build('{/prefix}' . $question->getCreatedBy()->getImage()->getPath()); ?>">
+                <img alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/prefix}' . $question->getCreatedBy()->getImage()->getPath()); ?>">
             </div>
         </section>
     </div>
