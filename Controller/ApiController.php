@@ -28,6 +28,7 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
+use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * Task class.
@@ -63,6 +64,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQAQuestionCreate($request))) {
             $response->set('qa_question_create', new FormValidation($val));
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
 
             return;
         }
@@ -141,6 +143,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQAAnswerCreate($request))) {
             $response->set('qa_answer_create', new FormValidation($val));
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
 
             return;
         }
@@ -214,6 +217,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQACategoryCreate($request))) {
             $response->set('qa_category_create', new FormValidation($val));
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
 
             return;
         }
