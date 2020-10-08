@@ -24,6 +24,10 @@ use Modules\QA\Models\QAAnswerStatus;
  */
 class QAAnswerTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\QA\Models\QAAnswer
+     * @group module
+     */
     public function testDefault() : void
     {
         $answer = new QAAnswer();
@@ -37,6 +41,10 @@ class QAAnswerTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTimeImmutable', $answer->getCreatedAt());
     }
 
+    /**
+     * @covers Modules\QA\Models\QAAnswer
+     * @group module
+     */
     public function testSetGet() : void
     {
         $answer = new QAAnswer();

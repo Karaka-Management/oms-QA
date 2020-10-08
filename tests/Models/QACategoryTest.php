@@ -22,6 +22,10 @@ use Modules\QA\Models\QACategory;
  */
 class QACategoryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\QA\Models\QACategory
+     * @group module
+     */
     public function testDefault() : void
     {
         $category = new QACategory();
@@ -31,6 +35,10 @@ class QACategoryTest extends \PHPUnit\Framework\TestCase
         self::assertNull($category->getParent());
     }
 
+    /**
+     * @covers Modules\QA\Models\QACategory
+     * @group module
+     */
     public function testSetGet() : void
     {
         $category = new QACategory();

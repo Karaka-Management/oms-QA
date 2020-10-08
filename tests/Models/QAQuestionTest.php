@@ -24,6 +24,10 @@ use Modules\QA\Models\QAQuestionStatus;
  */
 class QAQuestionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\QA\Models\QAQuestion
+     * @group module
+     */
     public function testDefault() : void
     {
         $question = new QAQuestion();
@@ -39,6 +43,10 @@ class QAQuestionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $question->getBadges());
     }
 
+    /**
+     * @covers Modules\QA\Models\QAQuestion
+     * @group module
+     */
     public function testSetGet() : void
     {
         $question = new QAQuestion();

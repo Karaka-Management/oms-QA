@@ -24,6 +24,10 @@ use phpOMS\Utils\RnG\Text;
  */
 class QACategoryMapperTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\QA\Models\QACategoryMapper
+     * @group module
+     */
     public function testCRUD() : void
     {
         $category = new QACategory();
@@ -38,6 +42,10 @@ class QACategoryMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($category->getName(), $categoryR->getName());
     }
 
+    /**
+     * @covers Modules\QA\Models\QACategoryMapper
+     * @group module
+     */
     public function testChildCRUD() : void
     {
         $category = new QACategory();
@@ -55,6 +63,7 @@ class QACategoryMapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers Modules\QA\Models\QACategoryMapper
      * @group volume
      * @group module
      * @coversNothing
