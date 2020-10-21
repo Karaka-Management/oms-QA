@@ -47,7 +47,7 @@ final class QACategoryMapper extends DataMapperAbstract
     protected static array $belongsTo = [
         'parent'  => [
             'mapper' => self::class,
-            'self'   => 'qa_category_parent',
+            'external'   => 'qa_category_parent',
         ],
     ];
 
