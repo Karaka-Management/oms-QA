@@ -52,9 +52,9 @@ final class QAQuestionMapper extends DataMapperAbstract
      */
     protected static array $hasMany = [
         'answers' => [
-            'mapper'   => QAAnswerMapper::class,
-            'table'    => 'qa_answer',
-            'self' => 'qa_answer_question',
+            'mapper'       => QAAnswerMapper::class,
+            'table'        => 'qa_answer',
+            'self'         => 'qa_answer_question',
             'external'     => null,
         ],
     ];
@@ -67,7 +67,7 @@ final class QAQuestionMapper extends DataMapperAbstract
      */
     protected static array $ownsOne = [
         'category' => [
-            'mapper' => QACategoryMapper::class,
+            'mapper'     => QACategoryMapper::class,
             'external'   => 'qa_question_category',
         ],
     ];
@@ -80,7 +80,7 @@ final class QAQuestionMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'createdBy' => [
-            'mapper' => AccountMapper::class,
+            'mapper'     => AccountMapper::class,
             'external'   => 'qa_question_created_by',
         ],
     ];

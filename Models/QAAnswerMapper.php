@@ -51,11 +51,11 @@ final class QAAnswerMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'createdBy' => [
-            'mapper' => AccountMapper::class,
+            'mapper'     => AccountMapper::class,
             'external'   => 'qa_answer_created_by',
         ],
         'question' => [
-            'mapper' => QAQuestionMapper::class,
+            'mapper'     => QAQuestionMapper::class,
             'external'   => 'qa_answer_question',
         ],
     ];
