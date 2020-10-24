@@ -68,7 +68,13 @@ class QAQuestion implements \JsonSerializable
      */
     private ?QACategory $category = null;
 
-    private $language = '';
+    /**
+     * Language
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $language = '';
 
     /**
      * Created by.
