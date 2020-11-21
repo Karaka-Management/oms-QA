@@ -93,12 +93,12 @@ class QAQuestion implements \JsonSerializable
     private \DateTimeImmutable $createdAt;
 
     /**
-     * Badges.
+     * Tags.
      *
      * @var array<int, int|Tag>
      * @since 1.0.0
      */
-    private array $badges = [];
+    private array $tags = [];
 
     /**
      * Answers.
@@ -336,35 +336,35 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Get badges
+     * Get tags
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public function getBadges() : array
+    public function getTags() : array
     {
-        return $this->badges;
+        return $this->tags;
     }
 
     /**
-     * Add badge to question
+     * Add tag to question
      *
-     * @param int|Tag $badge Badge
+     * @param int|Tag $tag Tag
      */
-    public function addBadge($badge) : void
+    public function addTag($tag) : void
     {
-        $this->badges[] = $badge;
+        $this->tags[] = $tag;
     }
 
     /**
-     * Set badges to question
+     * Set tags to question
      *
-     * @param array<int, int|Tag> $badges Badges
+     * @param array<int, int|Tag> $tags Tags
      */
-    public function setBadges(array $badges) : void
+    public function setTags(array $tags) : void
     {
-        $this->badges = $badges;
+        $this->tags = $tags;
     }
 
     /**

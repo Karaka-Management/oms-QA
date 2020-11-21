@@ -34,7 +34,6 @@ final class QACategoryMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'qa_category_id'     => ['name' => 'qa_category_id',     'type' => 'int',    'internal' => 'id'],
-        'qa_category_name'   => ['name' => 'qa_category_name',   'type' => 'string', 'internal' => 'name'],
         'qa_category_parent' => ['name' => 'qa_category_parent', 'type' => 'int',    'internal' => 'parent'],
     ];
 
@@ -48,6 +47,23 @@ final class QACategoryMapper extends DataMapperAbstract
         'parent'  => [
             'mapper'     => self::class,
             'external'   => 'qa_category_parent',
+        ],
+    ];
+
+    /**
+     * Has many relation.
+     *
+     * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
+     * @since 1.0.0
+     */
+    protected static array $hasMany = [
+        'name' => [
+            'mapper'            => QACategoryL11nMapper::class,
+            'table'             => 'qa_category_l11n',
+            'self'              => 'qa_category_l11n_category',
+            'column'            => 'name',
+            'conditional'       => true,
+            'external'          => null,
         ],
     ];
 

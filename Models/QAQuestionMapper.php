@@ -16,6 +16,7 @@ namespace Modules\QA\Models;
 
 use Modules\Admin\Models\AccountMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use Modules\Tag\Models\TagMapper;
 
 /**
  * Mapper class.
@@ -56,6 +57,12 @@ final class QAQuestionMapper extends DataMapperAbstract
             'table'        => 'qa_answer',
             'self'         => 'qa_answer_question',
             'external'     => null,
+        ],
+        'tags' => [
+            'mapper'   => TagMapper::class,
+            'table'    => 'qa_tag',
+            'self'     => 'qa_tag_dst',
+            'external' => 'qa_tag_src',
         ],
     ];
 

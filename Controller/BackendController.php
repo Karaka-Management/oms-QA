@@ -71,7 +71,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-dashboard');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response));
 
-        $list = QAQuestionMapper::getNewest(50);
+        $list = QAQuestionMapper::withConditional('language', $response->getLanguage())::getNewest(50);
         $view->setData('questions', $list);
 
         return $view;

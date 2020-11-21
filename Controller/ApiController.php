@@ -29,6 +29,13 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
+use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Message\NotificationLevel;
+use Modules\QA\Models\QACategoryL11n;
+use Modules\Tag\Models\NullTag;
+use phpOMS\Message\Http\HttpResponse;
+use Modules\Admin\Models\NullAccount;
+use Modules\QA\Models\QACategoryL11nMapper;
 
 /**
  * Task class.
@@ -69,21 +76,23 @@ final class ApiController extends Controller
             return;
         }
 
-        $question = $this->createQAQuestionFromRquest($request);
-        QAQuestionMapper::create($question);
-        $response->set('question', $question->jsonSerialize());
+        $question = $this->createQAQuestionFromRequest($request, $response, $data);
+        $this->createModel($request->getHeader()->getAccount(), $question, QAQuestionMapper::class, 'question', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Question', 'Question successfully created.', $question);
     }
 
     /**
      * Method to create question from request.
      *
-     * @param RequestAbstract $request Request
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
      *
      * @return QAQuestion Returns the created question from the request
      *
      * @since 1.0.0
      */
-    public function createQAQuestionFromRquest(RequestAbstract $request) : QAQuestion
+    public function createQAQuestionFromRequest(RequestAbstract $request, ResponseAbstract $response, $data = null) : QAQuestion
     {
         $mardkownParser = new Markdown();
 
@@ -93,7 +102,23 @@ final class ApiController extends Controller
         $question->setLanguage((string) $request->getData('language'));
         $question->setCategory(new NullQACategory((int) $request->getData('category')));
         $question->setStatus((int) $request->getData('status'));
-        $question->setBadges((array) $request->getData('badges'));
+        $question->setCreatedBy(new NullAccount($request->getHeader()->getAccount()));
+
+        if (!empty($tags = $request->getDataJson('tags'))) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['id'])) {
+                    $request->setData('title', $tag['title'], true);
+                    $request->setData('color', $tag['color'], true);
+                    $request->setData('language', $tag['language'], true);
+
+                    $internalResponse = new HttpResponse();
+                    $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse, $data);
+                    $question->addTag($internalResponse->get($request->getUri()->__toString())['response']);
+                } else {
+                    $question->addTag(new NullTag((int) $tag['id']));
+                }
+            }
+        }
 
         return $question;
     }
@@ -114,7 +139,6 @@ final class ApiController extends Controller
             || ($val['plain'] = empty($request->getData('plain')))
             || ($val['language'] = empty($request->getData('language')))
             || ($val['category'] = empty($request->getData('category')))
-            || ($val['badges'] = empty($request->getData('badges')))
             || ($val['status'] = (
                 $request->getData('status') !== null
                 && !QAQuestionStatus::isValidValue((int) $request->getData('status'))
@@ -148,9 +172,9 @@ final class ApiController extends Controller
             return;
         }
 
-        $answer = $this->createQAAnswerFromRquest($request);
-        QAAnswerMapper::create($answer);
-        $response->set('answer', $answer->jsonSerialize());
+        $answer = $this->createQAAnswerFromRequest($request);
+        $this->createModel($request->getHeader()->getAccount(), $answer, QAAnswerMapper::class, 'answer', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Answer', 'Answer successfully created.', $answer);
     }
 
     /**
@@ -162,7 +186,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function createQAAnswerFromRquest(RequestAbstract $request) : QAAnswer
+    public function createQAAnswerFromRequest(RequestAbstract $request) : QAAnswer
     {
         $mardkownParser = new Markdown();
 
@@ -170,6 +194,7 @@ final class ApiController extends Controller
         $answer->setAnswer((string) $request->getData('plain'));
         $answer->setQuestion(new NullQAQuestion((int) $request->getData('question')));
         $answer->setStatus((int) $request->getData('status'));
+        $answer->setCreatedBy(new NullAccount($request->getHeader()->getAccount()));
 
         return $answer;
     }
@@ -186,8 +211,7 @@ final class ApiController extends Controller
     private function validateQAAnswerCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['plain'] = empty($request->getData('plain')))
+        if (($val['plain'] = empty($request->getData('plain')))
             || ($val['question'] = empty($request->getData('question')))
             || ($val['status'] = (
                 $request->getData('status') !== null
@@ -222,9 +246,20 @@ final class ApiController extends Controller
             return;
         }
 
-        $category = $this->createQACategoryFromRquest($request);
-        QACategoryMapper::create($category);
-        $response->set('category', $category->jsonSerialize());
+        $category = $this->createQACategoryFromRequest($request);
+        $this->createModel($request->getHeader()->getAccount(), $category, QACategoryMapper::class, 'category', $request->getOrigin());
+
+        $l11nRequest = new HttpRequest($request->getUri());
+        $l11nRequest->setData('category', $category->getId());
+        $l11nRequest->setData('name', $request->getData('name'));
+        $l11nRequest->setData('language', $request->getData('language'));
+
+        $l11nQACategory = $this->createQACategoryL11nFromRequest($l11nRequest);
+        $this->createModel($request->getHeader()->getAccount(), $l11nQACategory, QACategoryL11nMapper::class, 'tag_l11n', $request->getOrigin());
+
+        $category->setName($l11nQACategory);
+
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Category', 'Category successfully created.', $category);
     }
 
     /**
@@ -236,13 +271,14 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function createQACategoryFromRquest(RequestAbstract $request) : QACategory
+    public function createQACategoryFromRequest(RequestAbstract $request) : QACategory
     {
-        $mardkownParser = new Markdown();
-
         $category = new QACategory();
-        $category->setName((string) $request->getData('title'));
-        $category->setParent($request->getData('parent') === null ? null : new NullQACategory((int) $request->getData('parent')));
+        //$category->setApp(new NullQAApp((int) ($request->getData('app') ?? 1)));
+
+        if ($request->getData('parent') !== null) {
+            $category->setParent(new NullQACategory((int) $request->getData('parent')));
+        }
 
         return $category;
     }
@@ -259,12 +295,80 @@ final class ApiController extends Controller
     private function validateQACategoryCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['parent'] = empty($request->getData('parent')))
+        if (($val['name'] = empty($request->getData('name')))) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Validate tag l11n create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateQACategoryL11nCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['name'] = empty($request->getData('name')))
+            || ($val['category'] = empty($request->getData('category')))
         ) {
             return $val;
         }
 
         return [];
+    }
+
+    /**
+     * Api method to create tag localization
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiQACategoryL11nCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+        if (!empty($val = $this->validateQACategoryL11nCreate($request))) {
+            $response->set('qa_category_l11n_create', new FormValidation($val));
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+
+            return;
+        }
+
+        $l11nQACategory = $this->createQACategoryL11nFromRequest($request);
+        $this->createModel($request->getHeader()->getAccount(), $l11nQACategory, QACategoryL11nMapper::class, 'qa_category_l11n', $request->getOrigin());
+
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Category localization successfully created', $l11nQACategory);
+    }
+
+    /**
+     * Method to create tag localization from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return QACategoryL11n
+     *
+     * @since 1.0.0
+     */
+    private function createQACategoryL11nFromRequest(RequestAbstract $request) : QACategoryL11n
+    {
+        $l11nQACategory = new QACategoryL11n();
+        $l11nQACategory->setCategory((int) ($request->getData('category') ?? 0));
+        $l11nQACategory->setLanguage((string) (
+            $request->getData('language') ?? $request->getLanguage()
+        ));
+        $l11nQACategory->setName((string) ($request->getData('name') ?? ''));
+
+        return $l11nQACategory;
     }
 }

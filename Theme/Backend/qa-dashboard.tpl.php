@@ -18,8 +18,8 @@ echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <?php foreach ($questions as $question) : ?>
-        <section class="box wf-100 qa-list">
-            <div class="inner">
+        <section class="portlet qa-list">
+            <div class="portlet-body">
                 <div class="row middle-xs">
                     <div class="col-xs-1 scores">
                         <span class="score<?= $this->printHtml($question->hasAccepted() ? ' done' : ''); ?>"><?= $this->printHtml(\count($question->getAnswers())); ?></span>
@@ -29,8 +29,8 @@ echo $this->getData('nav')->render(); ?>
                     </div>
                 </div>
                 <div class="tags">
-                <?php $badges = $question->getBadges(); foreach ($badges as $badge) : ?>
-                    <span class="tag red"><?= $this->printHtml($badge->getName()); ?></span>
+                <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
+                    <span class="tag red"><?= $this->printHtml($tag->getTitle()); ?></span>
                 <?php endforeach; ?>
                 </div>
             </div>
