@@ -71,13 +71,13 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQAQuestionCreate($request))) {
             $response->set('qa_question_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $question = $this->createQAQuestionFromRequest($request, $response, $data);
-        $this->createModel($request->getHeader()->getAccount(), $question, QAQuestionMapper::class, 'question', $request->getOrigin());
+        $this->createModel($request->header->account, $question, QAQuestionMapper::class, 'question', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Question', 'Question successfully created.', $question);
     }
 
@@ -97,12 +97,12 @@ final class ApiController extends Controller
         $mardkownParser = new Markdown();
 
         $question = new QAQuestion();
-        $question->setName((string) $request->getData('title'));
-        $question->setQuestion((string) $request->getData('plain'));
+        $question->name = (string) $request->getData('title');
+        $question->question = (string) $request->getData('plain');
         $question->setLanguage((string) $request->getData('language'));
         $question->setCategory(new NullQACategory((int) $request->getData('category')));
         $question->setStatus((int) $request->getData('status'));
-        $question->setCreatedBy(new NullAccount($request->getHeader()->getAccount()));
+        $question->createdBy = new NullAccount($request->header->account);
 
         if (!empty($tags = $request->getDataJson('tags'))) {
             foreach ($tags as $tag) {
@@ -113,7 +113,7 @@ final class ApiController extends Controller
 
                     $internalResponse = new HttpResponse();
                     $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse, $data);
-                    $question->addTag($internalResponse->get($request->getUri()->__toString())['response']);
+                    $question->addTag($internalResponse->get($request->uri->__toString())['response']);
                 } else {
                     $question->addTag(new NullTag((int) $tag['id']));
                 }
@@ -167,13 +167,13 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQAAnswerCreate($request))) {
             $response->set('qa_answer_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $answer = $this->createQAAnswerFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $answer, QAAnswerMapper::class, 'answer', $request->getOrigin());
+        $this->createModel($request->header->account, $answer, QAAnswerMapper::class, 'answer', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Answer', 'Answer successfully created.', $answer);
     }
 
@@ -191,10 +191,10 @@ final class ApiController extends Controller
         $mardkownParser = new Markdown();
 
         $answer = new QAAnswer();
-        $answer->setAnswer((string) $request->getData('plain'));
-        $answer->setQuestion(new NullQAQuestion((int) $request->getData('question')));
+        $answer->answer = (string) $request->getData('plain');
+        $answer->question = new NullQAQuestion((int) $request->getData('question'));
         $answer->setStatus((int) $request->getData('status'));
-        $answer->setCreatedBy(new NullAccount($request->getHeader()->getAccount()));
+        $answer->createdBy = new NullAccount($request->header->account);
 
         return $answer;
     }
@@ -241,21 +241,21 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQACategoryCreate($request))) {
             $response->set('qa_category_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $category = $this->createQACategoryFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $category, QACategoryMapper::class, 'category', $request->getOrigin());
+        $this->createModel($request->header->account, $category, QACategoryMapper::class, 'category', $request->getOrigin());
 
-        $l11nRequest = new HttpRequest($request->getUri());
+        $l11nRequest = new HttpRequest($request->uri);
         $l11nRequest->setData('category', $category->getId());
         $l11nRequest->setData('name', $request->getData('name'));
         $l11nRequest->setData('language', $request->getData('language'));
 
         $l11nQACategory = $this->createQACategoryL11nFromRequest($l11nRequest);
-        $this->createModel($request->getHeader()->getAccount(), $l11nQACategory, QACategoryL11nMapper::class, 'tag_l11n', $request->getOrigin());
+        $this->createModel($request->header->account, $l11nQACategory, QACategoryL11nMapper::class, 'tag_l11n', $request->getOrigin());
 
         $category->setName($l11nQACategory);
 
@@ -277,7 +277,7 @@ final class ApiController extends Controller
         //$category->setApp(new NullQAApp((int) ($request->getData('app') ?? 1)));
 
         if ($request->getData('parent') !== null) {
-            $category->setParent(new NullQACategory((int) $request->getData('parent')));
+            $category->parent = new NullQACategory((int) $request->getData('parent'));
         }
 
         return $category;
@@ -340,13 +340,13 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQACategoryL11nCreate($request))) {
             $response->set('qa_category_l11n_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $l11nQACategory = $this->createQACategoryL11nFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $l11nQACategory, QACategoryL11nMapper::class, 'qa_category_l11n', $request->getOrigin());
+        $this->createModel($request->header->account, $l11nQACategory, QACategoryL11nMapper::class, 'qa_category_l11n', $request->getOrigin());
 
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Category localization successfully created', $l11nQACategory);
     }
@@ -367,7 +367,7 @@ final class ApiController extends Controller
         $l11nQACategory->setLanguage((string) (
             $request->getData('language') ?? $request->getLanguage()
         ));
-        $l11nQACategory->setName((string) ($request->getData('name') ?? ''));
+        $l11nQACategory->name = (string) ($request->getData('name') ?? '');
 
         return $l11nQACategory;
     }

@@ -42,7 +42,7 @@ class QAQuestion implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Question status.
@@ -58,7 +58,7 @@ class QAQuestion implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private string $question = '';
+    public string $question = '';
 
     /**
      * Category.
@@ -82,7 +82,7 @@ class QAQuestion implements \JsonSerializable
      * @var Account
      * @since 1.0.0
      */
-    private Account $createdBy;
+    public Account $createdBy;
 
     /**
      * Created at.
@@ -90,7 +90,7 @@ class QAQuestion implements \JsonSerializable
      * @var \DateTimeImmutable
      * @since 1.0.0
      */
-    private \DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt;
 
     /**
      * Tags.
@@ -194,58 +194,6 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Get title.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get the question.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getQuestion() : string
-    {
-        return $this->question;
-    }
-
-    /**
-     * Set the question
-     *
-     * @param string $question Question
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setQuestion(string $question) : void
-    {
-        $this->question = $question;
-    }
-
-    /**
      * Get the status
      *
      * @return int
@@ -295,44 +243,6 @@ class QAQuestion implements \JsonSerializable
     public function setCategory(?QACategory $category) : void
     {
         $this->category = $category;
-    }
-
-    /**
-     * Get created by
-     *
-     * @return Account
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedBy() : Account
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set created by
-     *
-     * @param Account $account Created by
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCreatedBy(Account $account) : void
-    {
-        $this->createdBy = $account;
-    }
-
-    /**
-     * Get created at date time
-     *
-     * @return \DateTimeImmutable
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedAt() : \DateTimeImmutable
-    {
-        return $this->createdAt;
     }
 
     /**

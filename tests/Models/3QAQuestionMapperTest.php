@@ -34,11 +34,11 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
     {
         $question = new QAQuestion();
 
-        $question->setName('Question Name');
-        $question->setQuestion('Question content');
+        $question->name = 'Question Name';
+        $question->question = 'Question content';
         $question->setStatus(QAQuestionStatus::ACTIVE);
         $question->setCategory(new NullQACategory(1));
-        $question->setCreatedBy(new NullAccount(1));
+        $question->createdBy = new NullAccount(1);
         $question->setLanguage('en');
 
         $id = QAQuestionMapper::create($question);
@@ -46,12 +46,12 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($id, $question->getId());
 
         $questionR = QAQuestionMapper::get($question->getId());
-        self::assertEquals($question->getName(), $questionR->getName());
-        self::assertEquals($question->getQuestion(), $questionR->getQuestion());
+        self::assertEquals($question->name, $questionR->name);
+        self::assertEquals($question->question, $questionR->question);
         self::assertEquals($question->getStatus(), $questionR->getStatus());
         self::assertEquals($question->getLanguage(), $questionR->getLanguage());
         self::assertEquals($question->getCategory()->getId(), $questionR->getCategory()->getId());
-        self::assertEquals($question->getCreatedBy()->getId(), $questionR->getCreatedBy()->getId());
+        self::assertEquals($question->createdBy->getId(), $questionR->createdBy->getId());
     }
 
     /**
@@ -65,11 +65,11 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
             $text     = new Text();
             $question = new QAQuestion();
 
-            $question->setName($text->generateText(\mt_rand(1, 3)));
-            $question->setQuestion($text->generateText(\mt_rand(100, 500)));
+            $question->name = $text->generateText(\mt_rand(1, 3));
+            $question->question = $text->generateText(\mt_rand(100, 500));
             $question->setStatus(QAQuestionStatus::ACTIVE);
             $question->setCategory(new NullQACategory(\mt_rand(1, 9)));
-            $question->setCreatedBy(new NullAccount(1));
+            $question->createdBy = new NullAccount(1);
             $question->setLanguage('en');
 
             $id = QAQuestionMapper::create($question);

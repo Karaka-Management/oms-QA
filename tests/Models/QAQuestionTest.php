@@ -33,14 +33,14 @@ class QAQuestionTest extends \PHPUnit\Framework\TestCase
         $question = new QAQuestion();
 
         self::assertEquals(0, $question->getId());
-        self::assertEquals('', $question->getName());
-        self::assertEquals('', $question->getQuestion());
+        self::assertEquals('', $question->name);
+        self::assertEquals('', $question->question);
         self::assertEquals(QAQuestionStatus::ACTIVE, $question->getStatus());
         self::assertEquals(0, $question->getCategory()->getId());
         self::assertEquals('', $question->getLanguage());
-        self::assertEquals(0, $question->getCreatedBy()->getId());
-        self::assertInstanceOf('\DateTimeImmutable', $question->getCreatedAt());
-        self::assertEquals([], $question->getBadges());
+        self::assertEquals(0, $question->createdBy->getId());
+        self::assertInstanceOf('\DateTimeImmutable', $question->createdAt);
+        self::assertEquals([], $question->getTags());
     }
 
     /**
@@ -51,18 +51,18 @@ class QAQuestionTest extends \PHPUnit\Framework\TestCase
     {
         $question = new QAQuestion();
 
-        $question->setName('Question Name');
-        $question->setQuestion('Question content');
+        $question->name = 'Question Name';
+        $question->question = 'Question content';
         $question->setStatus(QAQuestionStatus::ACTIVE);
         $question->setCategory(new NullQACategory(1));
-        $question->setCreatedBy(new NullAccount(1));
+        $question->createdBy = new NullAccount(1);
         $question->setLanguage('en');
 
-        self::assertEquals('Question Name', $question->getName());
-        self::assertEquals('Question content', $question->getQuestion());
+        self::assertEquals('Question Name', $question->name);
+        self::assertEquals('Question content', $question->question);
         self::assertEquals(QAQuestionStatus::ACTIVE, $question->getStatus());
         self::assertEquals('en', $question->getLanguage());
         self::assertEquals(1, $question->getCategory()->getId());
-        self::assertEquals(1, $question->getCreatedBy()->getId());
+        self::assertEquals(1, $question->createdBy->getId());
     }
 }

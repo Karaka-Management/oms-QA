@@ -43,7 +43,7 @@ class QAAnswer implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private $answer = '';
+    public $answer = '';
 
     /**
      * Answer raw.
@@ -51,7 +51,7 @@ class QAAnswer implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private $answerRaw = '';
+    public $answerRaw = '';
 
     /**
      * Question
@@ -59,7 +59,7 @@ class QAAnswer implements \JsonSerializable
      * @var QAQuestion
      * @since 1.0.0
      */
-    private QAQuestion $question;
+    public QAQuestion $question;
 
     /**
      * Is accepted answer.
@@ -75,7 +75,7 @@ class QAAnswer implements \JsonSerializable
      * @var Account
      * @since 1.0.0
      */
-    private Account $createdBy;
+    public Account $createdBy;
 
     /**
      * Created at.
@@ -83,7 +83,7 @@ class QAAnswer implements \JsonSerializable
      * @var \DateTimeImmutable
      * @since 1.0.0
      */
-    private \DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt;
 
     /**
      * Constructor.
@@ -211,44 +211,6 @@ class QAAnswer implements \JsonSerializable
     public function isAccepted() : bool
     {
         return $this->isAccepted;
-    }
-
-    /**
-     * Get created by
-     *
-     * @return Account
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedBy() : Account
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set created by
-     *
-     * @param Account $account Creator
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCreatedBy(Account $account) : void
-    {
-        $this->createdBy = $account;
-    }
-
-    /**
-     * Get created at
-     *
-     * @return \DateTimeImmutable
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedAt() : \DateTimeImmutable
-    {
-        return $this->createdAt;
     }
 
     /**

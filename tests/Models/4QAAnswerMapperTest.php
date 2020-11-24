@@ -36,7 +36,7 @@ class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
 
         $answer->setAnswer('Answer content');
         $answer->setStatus(QAAnswerStatus::ACTIVE);
-        $answer->setCreatedBy(new NullAccount(1));
+        $answer->createdBy = new NullAccount(1);
         $answer->setQuestion(new NullQAQuestion(1));
         $answer->setAccepted(true);
 
@@ -49,7 +49,7 @@ class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($answer->getQuestion()->getId(), $answerR->getQuestion()->getId());
         self::assertEquals($answer->getStatus(), $answerR->getStatus());
         self::assertEquals($answer->isAccepted(), $answerR->isAccepted());
-        self::assertEquals($answer->getCreatedBy()->getId(), $answerR->getCreatedBy()->getId());
+        self::assertEquals($answer->createdBy->getId(), $answerR->createdBy->getId());
     }
 
     /**
@@ -64,7 +64,7 @@ class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
             $answer = new QAAnswer();
 
             $answer->setAnswer($text->generateText(\mt_rand(100, 500)));
-            $answer->setCreatedBy(new NullAccount(1));
+            $answer->createdBy = new NullAccount(1);
             $answer->setStatus(QAAnswerStatus::ACTIVE);
             $answer->setQuestion(new NullQAQuestion(1));
 

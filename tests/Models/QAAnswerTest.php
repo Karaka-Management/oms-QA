@@ -37,8 +37,8 @@ class QAAnswerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $answer->getQuestion()->getId());
         self::assertFalse($answer->isAccepted());
         self::assertEquals(QAAnswerStatus::ACTIVE, $answer->getStatus());
-        self::assertEquals(0, $answer->getCreatedBy()->getId());
-        self::assertInstanceOf('\DateTimeImmutable', $answer->getCreatedAt());
+        self::assertEquals(0, $answer->createdBy->getId());
+        self::assertInstanceOf('\DateTimeImmutable', $answer->createdAt);
     }
 
     /**
@@ -52,12 +52,12 @@ class QAAnswerTest extends \PHPUnit\Framework\TestCase
         $answer->setAnswer('Answer content');
         $answer->setStatus(QAAnswerStatus::ACTIVE);
         $answer->setQuestion(new NullQAQuestion(3));
-        $answer->setCreatedBy(new NullAccount(1));
+        $answer->createdBy = new NullAccount(1);
         $answer->setAccepted(true);
 
         self::assertEquals('Answer content', $answer->getAnswer());
         self::assertEquals(QAAnswerStatus::ACTIVE, $answer->getStatus());
-        self::assertEquals(1, $answer->getCreatedBy()->getId());
+        self::assertEquals(1, $answer->createdBy->getId());
         self::assertEquals(3, $answer->getQuestion()->getId());
         self::assertTrue($answer->isAccepted());
     }

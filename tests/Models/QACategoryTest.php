@@ -32,7 +32,7 @@ class QACategoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(0, $category->getId());
         self::assertEquals('', $category->getName());
-        self::assertNull($category->getParent());
+        self::assertEquals(0, $category->parent->getId());
     }
 
     /**
@@ -44,9 +44,9 @@ class QACategoryTest extends \PHPUnit\Framework\TestCase
         $category = new QACategory();
 
         $category->setName('Category Name');
-        $category->setParent(new NullQACategory(1));
+        $category->parent = new NullQACategory(1);
 
         self::assertEquals('Category Name', $category->getName());
-        self::assertEquals(1, $category->getParent()->getId());
+        self::assertEquals(1, $category->parent->getId());
     }
 }

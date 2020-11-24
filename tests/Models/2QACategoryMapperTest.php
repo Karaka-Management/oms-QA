@@ -51,7 +51,7 @@ class QACategoryMapperTest extends \PHPUnit\Framework\TestCase
         $category = new QACategory();
 
         $category->setName('Test Category2');
-        $category->setParent(new NullQACategory(1));
+        $category->parent = new NullQACategory(1);
 
         $id = QACategoryMapper::create($category);
         self::assertGreaterThan(0, $category->getId());
@@ -59,7 +59,7 @@ class QACategoryMapperTest extends \PHPUnit\Framework\TestCase
 
         $categoryR = QACategoryMapper::get($category->getId());
         self::assertEquals($category->getName(), $categoryR->getName());
-        self::assertEquals($category->getParent()->getId(), $categoryR->getParent()->getId());
+        self::assertEquals($category->parent->getId(), $categoryR->parent->getId());
     }
 
     /**

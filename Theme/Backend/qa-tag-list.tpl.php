@@ -40,7 +40,7 @@ echo $this->getData('nav')->render();
                         $url     = \phpOMS\Uri\UriFactory::build('{/prefix}admin/account/settings?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td><a href="<?= $url; ?>"><?= $this->printHtml($value->getId()); ?></a>
-                    <td><a href="<?= $url; ?>"><?= $this->printHtml($value->getName()); ?></a>
+                    <td><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
                         <?php endforeach; ?>
                         <?php if ($c === 0) : ?>
                         <tr><td colspan="2" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

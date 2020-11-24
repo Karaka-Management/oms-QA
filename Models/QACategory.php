@@ -45,10 +45,20 @@ class QACategory implements \JsonSerializable
     /**
      * Parent category.
      *
-     * @var null|QACategory
+     * @var QACategory
      * @since 1.0.0
      */
-    private ?self $parent = null;
+    public self $parent;
+
+    /**
+     * Constructor.
+     *
+     * @sicne 1.0.0
+     */
+    public function __construct()
+    {
+        $this->parent = new NullQACategory();
+    }
 
     /**
      * Get id.
@@ -88,38 +98,12 @@ class QACategory implements \JsonSerializable
         if ($name instanceof QACategoryL11n) {
             $this->name = $name;
         } elseif ($this->name instanceof QACategoryL11n && \is_string($name)) {
-            $this->name->setName($name);
+            $this->name->name = $name;
         } elseif (\is_string($name)) {
             $this->name = new QACategoryL11n();
-            $this->name->setName($name);
+            $this->name->name = $name;
             $this->name->setLanguage($lang);
         }
-    }
-
-    /**
-     * Get the parent category
-     *
-     * @return null|self
-     *
-     * @since 1.0.0
-     */
-    public function getParent() : ?self
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Set the parent category
-     *
-     * @param null|self $parent Parent category
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setParent(?self $parent) : void
-    {
-        $this->parent = $parent;
     }
 
     /**
