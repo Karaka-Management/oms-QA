@@ -14,28 +14,28 @@ declare(strict_types=1);
 
 namespace Modules\QA\Controller;
 
+use Modules\Admin\Models\NullAccount;
 use Modules\QA\Models\NullQACategory;
 use Modules\QA\Models\NullQAQuestion;
 use Modules\QA\Models\QAAnswer;
 use Modules\QA\Models\QAAnswerMapper;
 use Modules\QA\Models\QAAnswerStatus;
 use Modules\QA\Models\QACategory;
+use Modules\QA\Models\QACategoryL11n;
+use Modules\QA\Models\QACategoryL11nMapper;
 use Modules\QA\Models\QACategoryMapper;
 use Modules\QA\Models\QAQuestion;
 use Modules\QA\Models\QAQuestionMapper;
 use Modules\QA\Models\QAQuestionStatus;
+use Modules\Tag\Models\NullTag;
+use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
+use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
-use phpOMS\Message\Http\HttpRequest;
-use phpOMS\Message\NotificationLevel;
-use Modules\QA\Models\QACategoryL11n;
-use Modules\Tag\Models\NullTag;
-use phpOMS\Message\Http\HttpResponse;
-use Modules\Admin\Models\NullAccount;
-use Modules\QA\Models\QACategoryL11nMapper;
 
 /**
  * Task class.
@@ -96,8 +96,8 @@ final class ApiController extends Controller
     {
         $mardkownParser = new Markdown();
 
-        $question = new QAQuestion();
-        $question->name = (string) $request->getData('title');
+        $question           = new QAQuestion();
+        $question->name     = (string) $request->getData('title');
         $question->question = (string) $request->getData('plain');
         $question->setLanguage((string) $request->getData('language'));
         $question->setCategory(new NullQACategory((int) $request->getData('category')));
@@ -190,8 +190,8 @@ final class ApiController extends Controller
     {
         $mardkownParser = new Markdown();
 
-        $answer = new QAAnswer();
-        $answer->answer = (string) $request->getData('plain');
+        $answer           = new QAAnswer();
+        $answer->answer   = (string) $request->getData('plain');
         $answer->question = new NullQAQuestion((int) $request->getData('question'));
         $answer->setStatus((int) $request->getData('status'));
         $answer->createdBy = new NullAccount($request->header->account);

@@ -34,7 +34,7 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
     {
         $question = new QAQuestion();
 
-        $question->name = 'Question Name';
+        $question->name     = 'Question Name';
         $question->question = 'Question content';
         $question->setStatus(QAQuestionStatus::ACTIVE);
         $question->setCategory(new NullQACategory(1));
@@ -65,7 +65,7 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
             $text     = new Text();
             $question = new QAQuestion();
 
-            $question->name = $text->generateText(\mt_rand(1, 3));
+            $question->name     = $text->generateText(\mt_rand(1, 3));
             $question->question = $text->generateText(\mt_rand(100, 500));
             $question->setStatus(QAQuestionStatus::ACTIVE);
             $question->setCategory(new NullQACategory(\mt_rand(1, 9)));

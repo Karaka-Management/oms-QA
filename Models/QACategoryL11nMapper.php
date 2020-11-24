@@ -36,10 +36,10 @@ final class QACategoryL11nMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'qa_category_l11n_id'       => ['name' => 'qa_category_l11n_id',       'type' => 'int',    'internal' => 'id'],
-        'qa_category_l11n_name'    => ['name' => 'qa_category_l11n_name',    'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
+        'qa_category_l11n_id'            => ['name' => 'qa_category_l11n_id',       'type' => 'int',    'internal' => 'id'],
+        'qa_category_l11n_name'          => ['name' => 'qa_category_l11n_name',    'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
         'qa_category_l11n_category'      => ['name' => 'qa_category_l11n_category',      'type' => 'int',    'internal' => 'category'],
-        'qa_category_l11n_language' => ['name' => 'qa_category_l11n_language', 'type' => 'string', 'internal' => 'language'],
+        'qa_category_l11n_language'      => ['name' => 'qa_category_l11n_language', 'type' => 'string', 'internal' => 'language'],
     ];
 
     /**

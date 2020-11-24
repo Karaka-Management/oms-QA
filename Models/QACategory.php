@@ -100,7 +100,7 @@ class QACategory implements \JsonSerializable
         } elseif ($this->name instanceof QACategoryL11n && \is_string($name)) {
             $this->name->name = $name;
         } elseif (\is_string($name)) {
-            $this->name = new QACategoryL11n();
+            $this->name       = new QACategoryL11n();
             $this->name->name = $name;
             $this->name->setLanguage($lang);
         }

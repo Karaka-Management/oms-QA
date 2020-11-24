@@ -51,7 +51,7 @@ class QAQuestionTest extends \PHPUnit\Framework\TestCase
     {
         $question = new QAQuestion();
 
-        $question->name = 'Question Name';
+        $question->name     = 'Question Name';
         $question->question = 'Question content';
         $question->setStatus(QAQuestionStatus::ACTIVE);
         $question->setCategory(new NullQACategory(1));

@@ -154,10 +154,10 @@ class QACategoryL11n implements \JsonSerializable, ArrayableInterface
     public function toArray() : array
     {
         return [
-            'id'       => $this->id,
-            'name'    => $this->name,
+            'id'            => $this->id,
+            'name'          => $this->name,
             'category'      => $this->category,
-            'language' => $this->language,
+            'language'      => $this->language,
         ];
     }
 
