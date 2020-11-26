@@ -44,13 +44,6 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/Modules#70
- *  There is no voting implemented right now, this needs to be added (visually and model/database)
- *
- * @todo Orange-Management/Modules#78
- *  Edit functionality
- *  Currently nothing can be edited (change)
  */
 final class ApiController extends Controller
 {

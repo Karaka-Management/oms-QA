@@ -14,12 +14,6 @@ declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
 
-/**
- * @todo Orange-Management/Modules#73
- *  Profile pics
- *  There are no profile pics in questions and answers. Implement!
- */
-
 $question = $this->getData('question');
 $answers  = $question->getAnswers();
 
