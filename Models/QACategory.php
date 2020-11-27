@@ -87,7 +87,7 @@ class QACategory implements \JsonSerializable
     /**
      * Set name
      *
-     * @param string|TagL11n $name Tag article name
+     * @param string|QACategoryL11n $name Category name
      *
      * @return void
      *
