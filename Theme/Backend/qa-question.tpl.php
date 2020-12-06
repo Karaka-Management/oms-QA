@@ -28,7 +28,9 @@ echo $this->getData('nav')->render();
                 <?= $this->printHtml($question->question); ?>
             </div>
             <div class="inner">
+                <?php if ($question->createdBy->image !== null) : ?>
                 <img alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/prefix}' . $question->createdBy->image->getPath()); ?>">
+                <?php endif; ?>
             </div>
         </section>
     </div>
@@ -39,7 +41,7 @@ echo $this->getData('nav')->render();
     <div class="col-xs-12">
         <section class="box wf-100">
             <div class="inner">
-                <?= $this->printHtml($answer->getAnswer()); ?><?= $this->printHtml($answer->getCreatedAt()->format('Y-m-d')); ?><?= $this->printHtml($answer->createdBy->getId()); ?><?= $this->printHtml($answer->getStatus()); ?><?= $this->printHtml($answer->isAccepted()); ?>
+                <?= $this->printHtml($answer->getAnswer()); ?><?= $this->printHtml($answer->createdAt->format('Y-m-d')); ?><?= $answer->createdBy->getId(); ?><?= $answer->getStatus(); ?><?= $this->printHtml((string) $answer->isAccepted()); ?>
             </div>
         </section>
     </div>
