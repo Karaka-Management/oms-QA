@@ -33,7 +33,7 @@ echo $this->getData('nav')->render();
                         <?php $c = 0; foreach ($tags as $key => $value) : ++$c;
                         $url     = \phpOMS\Uri\UriFactory::build('{/prefix}admin/account/settings?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
-                    <td><a href="<?= $url; ?>"><?= $this->printHtml($value->getId()); ?></a>
+                    <td><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
                         <?php endforeach; ?>
                         <?php if ($c === 0) : ?>

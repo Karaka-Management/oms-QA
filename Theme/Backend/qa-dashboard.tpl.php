@@ -22,7 +22,7 @@ echo $this->getData('nav')->render(); ?>
             <div class="portlet-body">
                 <div class="row middle-xs">
                     <div class="col-xs-1 scores">
-                        <span class="score<?= $this->printHtml($question->hasAccepted() ? ' done' : ''); ?>"><?= $this->printHtml(\count($question->getAnswers())); ?></span>
+                        <span class="score<?= $this->printHtml($question->hasAccepted() ? ' done' : ''); ?>"><?= \count($question->getAnswers()); ?></span>
                     </div>
                     <div class="title col-xs-11">
                         <a href="<?= \phpOMS\Uri\UriFactory::build('{/prefix}qa/question?{?}&id=' . $question->getId()); ?>"><?= $this->printHtml($question->name); ?></a>
