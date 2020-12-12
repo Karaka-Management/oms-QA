@@ -61,6 +61,14 @@ class QAQuestion implements \JsonSerializable
     public string $question = '';
 
     /**
+     * Question.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $questionRaw = '';
+
+    /**
      * Category.
      *
      * @var QACategory

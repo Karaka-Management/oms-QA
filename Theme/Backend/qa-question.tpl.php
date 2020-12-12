@@ -22,9 +22,9 @@ echo $this->getData('nav')->render();
 
 <div class="row">
     <div class="col-xs-12">
-        <section class="box wf-100">
-            <header><h1><?= $this->printHtml($question->name); ?></h1></header>
-            <div class="inner">
+        <section class="portlet">
+            <div class="portlet-head"><?= $this->printHtml($question->name); ?></div>
+            <div class="portlet-body">
                 <?= $this->printHtml($question->question); ?>
             </div>
             <div class="inner">
@@ -39,8 +39,8 @@ echo $this->getData('nav')->render();
 <?php foreach ($answers as $answer) : ?>
 <div class="row">
     <div class="col-xs-12">
-        <section class="box wf-100">
-            <div class="inner">
+        <section class="portlet">
+            <div class="portlet-body">
                 <?= $this->printHtml($answer->getAnswer()); ?><?= $this->printHtml($answer->createdAt->format('Y-m-d')); ?><?= $answer->createdBy->getId(); ?><?= $answer->getStatus(); ?><?= $this->printHtml((string) $answer->isAccepted()); ?>
             </div>
         </section>
