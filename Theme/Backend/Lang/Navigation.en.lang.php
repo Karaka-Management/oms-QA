@@ -14,5 +14,5 @@ declare(strict_types=1);
 
 return ['Navigation' => [
     'Badges' => 'Badges',
-    'QA'     => 'QA',
+    'QA'     => 'Q&A',
 ]];
