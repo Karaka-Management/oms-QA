@@ -91,7 +91,8 @@ final class ApiController extends Controller
 
         $question           = new QAQuestion();
         $question->name     = (string) $request->getData('title');
-        $question->question = (string) $request->getData('plain');
+        $question->questionRaw = (string) $request->getData('plain');
+        $question->question = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $question->setLanguage((string) $request->getData('language'));
         $question->setCategory(new NullQACategory((int) $request->getData('category')));
         $question->setStatus((int) $request->getData('status'));
@@ -185,7 +186,8 @@ final class ApiController extends Controller
         $mardkownParser = new Markdown();
 
         $answer           = new QAAnswer();
-        $answer->answer   = (string) $request->getData('plain');
+        $answer->answerRaw   = (string) $request->getData('plain');
+        $answer->answer   = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $answer->question = new NullQAQuestion((int) $request->getData('question'));
         $answer->setStatus((int) $request->getData('status'));
         $answer->createdBy = new NullAccount($request->header->account);

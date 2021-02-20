@@ -82,6 +82,11 @@
                 "type": "TEXT",
                 "null": false
             },
+            "qa_question_question_raw": {
+                "name": "qa_question_question_raw",
+                "type": "TEXT",
+                "null": false
+            },
             "qa_question_created_at": {
                 "name": "qa_question_created_at",
                 "type": "DATETIME",
@@ -153,6 +158,11 @@
             },
             "qa_answer_answer": {
                 "name": "qa_answer_answer",
+                "type": "TEXT",
+                "null": false
+            },
+            "qa_answer_answer_raw": {
+                "name": "qa_answer_answer_raw",
                 "type": "TEXT",
                 "null": false
             },

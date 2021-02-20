@@ -43,7 +43,7 @@ class QAAnswer implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    public $answer = '';
+    public string $answer = '';
 
     /**
      * Answer raw.
@@ -51,7 +51,7 @@ class QAAnswer implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    public $answerRaw = '';
+    public string $answerRaw = '';
 
     /**
      * Question

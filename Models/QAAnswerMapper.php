@@ -35,6 +35,7 @@ final class QAAnswerMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'qa_answer_id'         => ['name' => 'qa_answer_id',         'type' => 'int',      'internal' => 'id'],
+        'qa_answer_answer_raw'     => ['name' => 'qa_answer_answer_raw',     'type' => 'string',   'internal' => 'answerRaw'],
         'qa_answer_answer'     => ['name' => 'qa_answer_answer',     'type' => 'string',   'internal' => 'answer'],
         'qa_answer_question'   => ['name' => 'qa_answer_question',   'type' => 'int',      'internal' => 'question'],
         'qa_answer_status'     => ['name' => 'qa_answer_status',     'type' => 'int',      'internal' => 'status'],
