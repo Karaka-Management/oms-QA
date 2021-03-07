@@ -28,11 +28,11 @@ echo $this->getData('nav')->render(); ?>
                         <a href="<?= \phpOMS\Uri\UriFactory::build('{/prefix}qa/question?{?}&id=' . $question->getId()); ?>"><?= $this->printHtml($question->name); ?></a>
                     </div>
                 </div>
-                <div class="tags">
-                <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
-                    <span class="tag red"><?= $this->printHtml($tag->getTitle()); ?></span>
-                <?php endforeach; ?>
-                </div>
+            </div>
+            <div class="portlet-foot">
+            <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
+                <span class="tag red"><?= $this->printHtml($tag->getTitle()); ?></span>
+            <?php endforeach; ?>
             </div>
         </section>
         <?php endforeach; ?>
