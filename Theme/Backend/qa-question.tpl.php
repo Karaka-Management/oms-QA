@@ -25,7 +25,7 @@ echo $this->getData('nav')->render();
         <section class="portlet">
             <div class="portlet-head"><?= $this->printHtml($question->name); ?></div>
             <div class="portlet-body">
-                <?= $this->printHtml($question->question); ?>
+                <?= $question->question; ?>
             </div>
             <div class="inner">
                 <?php if ($question->createdBy->image !== null) : ?>

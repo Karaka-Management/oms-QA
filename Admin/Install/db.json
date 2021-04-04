@@ -109,6 +109,37 @@
             }
         }
     },
+    "qa_question_vote": {
+        "name": "qa_question_vote",
+        "fields": {
+            "qa_question_vote_id": {
+                "name": "qa_question_vote_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "qa_question_vote_src": {
+                "name": "qa_question_vote_src",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "qa_question",
+                "foreignKey": "qa_question_id"
+            },
+            "qa_question_vote_dst": {
+                "name": "qa_question_vote_dst",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            },
+            "qa_question_vote_score": {
+                "name": "qa_question_vote_score",
+                "type": "TINYINT",
+                "null": false
+            }
+        }
+    },
     "qa_tag": {
         "name": "qa_tag",
         "fields": {
@@ -185,6 +216,37 @@
                 "null": true,
                 "foreignTable": "qa_question",
                 "foreignKey": "qa_question_id"
+            }
+        }
+    },
+    "qa_answer_vote": {
+        "name": "qa_answer_vote",
+        "fields": {
+            "qa_answer_vote_id": {
+                "name": "qa_answer_vote_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "qa_answer_vote_src": {
+                "name": "qa_answer_vote_src",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "qa_answer",
+                "foreignKey": "qa_answer_id"
+            },
+            "qa_answer_vote_dst": {
+                "name": "qa_answer_vote_dst",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            },
+            "qa_answer_vote_score": {
+                "name": "qa_answer_vote_score",
+                "type": "TINYINT",
+                "null": false
             }
         }
     }
