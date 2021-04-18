@@ -21,7 +21,7 @@ echo $this->getData('nav')->render();
 <div class="row">
     <div class="col-xs-12">
         <div class="box wf-100">
-            <table class="default">
+            <table class="default sticky">
                 <caption><?= $this->getHtml('Badges'); ?><i class="fa fa-download floatRight download btn"></i></caption>
                 <thead>
                 <tr>
