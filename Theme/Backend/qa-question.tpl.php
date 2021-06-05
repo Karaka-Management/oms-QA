@@ -41,7 +41,7 @@ echo $this->getData('nav')->render();
     <div class="col-xs-12">
         <section class="portlet">
             <div class="portlet-body">
-                <?= $this->printHtml($answer->getAnswer()); ?><?= $this->printHtml($answer->createdAt->format('Y-m-d')); ?><?= $answer->createdBy->getId(); ?><?= $answer->getStatus(); ?><?= $this->printHtml((string) $answer->isAccepted()); ?>
+                <?= $answer->answer; ?><?= $this->printHtml($answer->createdAt->format('Y-m-d')); ?><?= $answer->createdBy->getId(); ?><?= $answer->getStatus(); ?><?= $this->printHtml((string) $answer->isAccepted()); ?>
             </div>
         </section>
     </div>

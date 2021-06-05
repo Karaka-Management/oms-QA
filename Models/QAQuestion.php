@@ -14,9 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Admin\Models\Account;
 use Modules\Admin\Models\NullAccount;
+use Modules\Profile\Models\NullProfile;
 use Modules\Tag\Models\Tag;
+use Modules\Profile\Models\Profile;
 
 /**
  * Task class.
@@ -87,10 +88,10 @@ class QAQuestion implements \JsonSerializable
     /**
      * Created by.
      *
-     * @var Account
+     * @var Profile
      * @since 1.0.0
      */
-    public Account $createdBy;
+    public Profile $createdBy;
 
     /**
      * Created at.
@@ -124,7 +125,7 @@ class QAQuestion implements \JsonSerializable
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable('now');
-        $this->createdBy = new NullAccount();
+        $this->createdBy = new NullProfile();
     }
 
     /**

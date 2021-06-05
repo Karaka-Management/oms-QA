@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Admin\Models\AccountMapper;
+use Modules\Profile\Models\ProfileMapper;
 use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 
@@ -88,8 +88,9 @@ final class QAQuestionMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'createdBy' => [
-            'mapper'     => AccountMapper::class,
-            'external'   => 'qa_question_created_by',
+            'mapper' => ProfileMapper::class,
+            'external' => 'qa_question_created_by',
+            'by'   => 'account'
         ],
     ];
 

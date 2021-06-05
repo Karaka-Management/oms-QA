@@ -27,6 +27,12 @@ use Modules\QA\Models\QACategoryMapper;
 use Modules\QA\Models\QAQuestion;
 use Modules\QA\Models\QAQuestionMapper;
 use Modules\QA\Models\QAQuestionStatus;
+use Modules\QA\Models\QAQuestionVote;
+use Modules\QA\Models\QAQuestionVoteMapper;
+use Modules\QA\Models\QAAnswerVote;
+use Modules\QA\Models\QAAnswerVoteMapper;
+use Modules\QA\Models\NullQAQuestionVote;
+use Modules\QA\Models\NullQAAnswerVote;
 use Modules\Tag\Models\NullTag;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
@@ -47,6 +53,57 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  */
 final class ApiController extends Controller
 {
+    /**
+     * Api method to create a question
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiQuestionUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+    }
+
+    /**
+     * Api method to create a question
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiQACategoryUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+    }
+
+    /**
+     * Api method to create a question
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiAnswerUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+    }
+
     /**
      * Api method to create a question
      *
@@ -189,6 +246,7 @@ final class ApiController extends Controller
         $answer->answerRaw   = (string) $request->getData('plain');
         $answer->answer      = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $answer->question    = new NullQAQuestion((int) $request->getData('question'));
+        $answer->isAccepted  = (bool) ($request->getData('accepted') ?? false);
         $answer->setStatus((int) $request->getData('status'));
         $answer->createdBy = new NullAccount($request->header->account);
 
@@ -366,5 +424,127 @@ final class ApiController extends Controller
         $l11nQACategory->name = (string) ($request->getData('name') ?? '');
 
         return $l11nQACategory;
+    }
+
+    /**
+     * Api method to change question vote
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    private function apiChangeQAQuestionVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+        if (!empty($val = $this->validateQuestionVote($request))) {
+            $response->set('qa_question_vote', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $questionVote = QAQuestionVoteMapper::findVote((int) $reqeust->getData('id'), $request->header->account);
+
+        if ($questionVote instanceof NullQAQuestionVote) {
+            $new = new QAQuestionVote();
+            $new->score = (int) $request->getData('type');
+            $new->createdBy = $request->header->account;
+
+            $this->createModel($request->header->account, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
+            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
+        } else {
+            $new = clone $questionVote;
+            $new->score = (int) $request->getData('type');
+
+            $this->updateModel($request->header->account, $questionVote, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
+            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
+        }
+    }
+
+    /**
+     * Validate question vote request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateQuestionVote(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = ($request->getData('id') === null))
+            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type') > 1))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Api method to change answer vote
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    private function apiChangeQAAnswerVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+        if (!empty($val = $this->validateAnswerVote($request))) {
+            $response->set('qa_answer_vote', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $answerVote = QAAnswerVoteMapper::findVote((int) $reqeust->getData('id'), $request->header->account);
+
+        if ($answerVote instanceof NullQAAnswerVote) {
+            $new = new QAAnswerVote();
+            $new->score = (int) $request->getData('type');
+            $new->createdBy = $request->header->account;
+
+            $this->createModel($request->header->account, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
+            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
+        } else {
+            $new = clone $answerVote;
+            $new->score = (int) $request->getData('type');
+
+            $this->updateModel($request->header->account, $answerVote, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
+            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
+        }
+    }
+
+    /**
+     * Validate answer vote request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateAnswerVote(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = ($request->getData('id') === null))
+            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type') > 1))
+        ) {
+            return $val;
+        }
+
+        return [];
     }
 }

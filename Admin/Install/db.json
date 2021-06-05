@@ -119,15 +119,15 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "qa_question_vote_src": {
-                "name": "qa_question_vote_src",
+            "qa_question_vote_question": {
+                "name": "qa_question_vote_question",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "qa_question",
                 "foreignKey": "qa_question_id"
             },
-            "qa_question_vote_dst": {
-                "name": "qa_question_vote_dst",
+            "qa_question_vote_created_by": {
+                "name": "qa_question_vote_created_by",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "account",
@@ -136,6 +136,11 @@
             "qa_question_vote_score": {
                 "name": "qa_question_vote_score",
                 "type": "TINYINT",
+                "null": false
+            },
+            "qa_question_vote_created_at": {
+                "name": "qa_question_vote_created_at",
+                "type": "DATETIME",
                 "null": false
             }
         }
@@ -229,15 +234,15 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "qa_answer_vote_src": {
-                "name": "qa_answer_vote_src",
+            "qa_answer_vote_answer": {
+                "name": "qa_answer_vote_answer",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "qa_answer",
                 "foreignKey": "qa_answer_id"
             },
-            "qa_answer_vote_dst": {
-                "name": "qa_answer_vote_dst",
+            "qa_answer_vote_created_by": {
+                "name": "qa_answer_vote_created_by",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "account",
@@ -246,6 +251,11 @@
             "qa_answer_vote_score": {
                 "name": "qa_answer_vote_score",
                 "type": "TINYINT",
+                "null": false
+            },
+            "qa_answer_vote_created_at": {
+                "name": "qa_answer_vote_created_at",
+                "type": "DATETIME",
                 "null": false
             }
         }

@@ -12,27 +12,27 @@
  */
 declare(strict_types=1);
 
-namespace Modules\QA\Models;
-
-use phpOMS\Stdlib\Base\Enum;
+namespace Modules\QAs\Models;
 
 /**
- * Permision state enum.
+ * Null model
  *
  * @package Modules\QA\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class PermissionState extends Enum
+final class NullQAQuestionVote extends QAQuestionVote
 {
-    public const QA = 1;
-
-    public const QUESTION = 2;
-
-    public const ANSWER = 3;
-
-    public const VOTE = 4;
-
-    public const CATEGORY = 5;
+    /**
+     * Constructor
+     *
+     * @param int $id Model id
+     *
+     * @since 1.0.0
+     */
+    public function __construct(int $id = 0)
+    {
+        $this->id = $id;
+    }
 }

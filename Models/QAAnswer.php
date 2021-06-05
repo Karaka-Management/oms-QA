@@ -35,6 +35,12 @@ class QAAnswer implements \JsonSerializable
      */
     protected int $id = 0;
 
+    /**
+     * Status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     private int $status = QAAnswerStatus::ACTIVE;
 
     /**
@@ -67,7 +73,7 @@ class QAAnswer implements \JsonSerializable
      * @var bool
      * @since 1.0.0
      */
-    private bool $isAccepted = false;
+    public bool $isAccepted = false;
 
     /**
      * Created by.
