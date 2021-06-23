@@ -12,27 +12,46 @@
  */
 declare(strict_types=1);
 
+use phpOMS\Uri\UriFactory;
+use Modules\Media\Models\NullMedia;
+
 $questions = $this->getData('questions');
 echo $this->getData('nav')->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">
         <?php foreach ($questions as $question) : ?>
-        <section class="portlet qa-list">
+        <section class="portlet qa qa-list">
             <div class="portlet-body">
                 <div class="row middle-xs">
-                    <div class="col-xs-1 scores">
-                        <span class="score<?= $this->printHtml($question->hasAccepted() ? ' done' : ''); ?>"><?= \count($question->getAnswers()); ?></span>
+                    <div class="counter-area">
+                        <div class="counter-container">
+                            <span class="counter score<?= $this->printHtml($question->hasAccepted() ? ' done' : ' open'); ?>"><?= $question->getAnswerCount(); ?></span>
+                            <span class="text">Answers</span>
+                        </div>
+                        <div class="counter-container">
+                            <span class="counter"><?= $question->getVoteScore(); ?></span>
+                            <span class="text">Score</span>
+                        </div>
                     </div>
-                    <div class="title col-xs-11">
-                        <a href="<?= \phpOMS\Uri\UriFactory::build('{/prefix}qa/question?{?}&id=' . $question->getId()); ?>"><?= $this->printHtml($question->name); ?></a>
+                    <div class="title">
+                        <a href="<?= UriFactory::build('{/prefix}qa/question?{?}&id=' . $question->getId()); ?>"><?= $this->printHtml($question->name); ?></a>
                     </div>
                 </div>
             </div>
-            <div class="portlet-foot">
-            <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
-                <span class="tag red"><?= $this->printHtml($tag->getTitle()); ?></span>
-            <?php endforeach; ?>
+            <div class="portlet-foot qa-portlet-foot">
+                <div class="tag-list">
+                    <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
+                        <span class="tag"><?= $tag->icon !== null ? '<i class="' . $this->printHtml($tag->icon ?? '') . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
+                    <?php endforeach; ?>
+                </div>
+
+                <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
+                    <span class="name content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></span>
+                    <?php if ($question->createdBy->image !== null && !($question->createdBy->image instanceof NullMedia)) : ?>
+                        <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/prefix}' . $question->createdBy->image->getPath()); ?>">
+                    <?php endif; ?>
+                </a>
             </div>
         </section>
         <?php endforeach; ?>

@@ -57,7 +57,7 @@ class QAAnswerVote
      * @var int
      * @since 1.0.0
      */
-    public int $comment = 0;
+    public int $answer = 0;
 
     /**
      * Score

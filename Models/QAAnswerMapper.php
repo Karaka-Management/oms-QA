@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Admin\Models\AccountMapper;
+use Modules\Profile\Models\ProfileMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
@@ -52,12 +52,28 @@ final class QAAnswerMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'createdBy' => [
-            'mapper'     => AccountMapper::class,
+            'mapper'     => ProfileMapper::class,
             'external'   => 'qa_answer_created_by',
+            'by'   => 'account'
         ],
         'question' => [
             'mapper'     => QAQuestionMapper::class,
             'external'   => 'qa_answer_question',
+        ],
+    ];
+
+    /**
+     * Has many relation.
+     *
+     * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
+     * @since 1.0.0
+     */
+    protected static array $hasMany = [
+        'votes' => [
+            'mapper'       => QAAnswerVoteMapper::class,
+            'table'        => 'qa_answer_vote',
+            'self'         => 'qa_answer_vote_answer',
+            'external'     => null,
         ],
     ];
 

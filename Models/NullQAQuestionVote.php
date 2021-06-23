@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\QAs\Models;
+namespace Modules\QA\Models;
 
 /**
  * Null model

@@ -1,33 +1,114 @@
 .qa-list {
+    .title {
+        a {
+            font-size: 2rem;
+            margin-left: 1rem;
+        }
+    }
+
+    .counter-area {
+        flex-direction: row;
+    }
+
+    .counter-container+.counter-container {
+        margin-left: 10px;
+    }
+}
+
+.qa-question-view {
+    display: flex;
+    flex-direction: row;
+
+    .counter-area {
+        flex-direction: column;
+        margin: 1rem 10px 0 0;
+        min-width: 50px;
+    }
+
+    .counter-container+.counter-container {
+        margin-top: 10px;
+    }
+}
+
+.qa {
+    .qa-accept {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+    }
+
+    .accepted {
+        .qa-accept {
+            color: #81e27d;
+        }
+
+        .portlet {
+            border-top: 3px solid #81e27d;
+        }
+    }
+
+    .qa-vote {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+
+        &.voted {
+            color: #81e27d;
+        }
+    }
+
+    .counter-area {
+        display: flex;
+
+        .counter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .counter {
+            width: 2.3rem;
+            height: 2.8rem;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .text {
+            font-size: .8rem;
+        }
+    }
+
     .score {
         &.closed {
             background: #f00;
         }
 
         &.open {
-            background: #ff0;
+            background: #f8ffa8;
         }
 
         &.done {
-            background: #0f0;
-        }
-
-        padding: 10px;
-        margin-right: 10px;
-        border: 1px solid #ccc;
-    }
-
-    .scores {
-        flex-basis: min-content;
-    }
-
-    .title {
-        a {
-            font-size: 2rem;
+            background: #81e27d;
         }
     }
 
-    .tags {
-        margin-top: 10px;
+    .qa-portlet-foot {
+        display: flex;
+        flex-direction: row;
+        align-items: top;
+
+        .account-info {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+
+            .name {
+                margin-right: 10px;
+            }
+        }
     }
 }

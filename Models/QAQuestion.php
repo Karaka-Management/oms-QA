@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Admin\Models\NullAccount;
 use Modules\Profile\Models\NullProfile;
 use Modules\Tag\Models\Tag;
 use Modules\Profile\Models\Profile;
@@ -116,6 +115,14 @@ class QAQuestion implements \JsonSerializable
      * @since 1.0.0
      */
     private array $answers = [];
+
+    /**
+     * Votes.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private array $votes = [];
 
     /**
      * Constructor.
@@ -284,6 +291,32 @@ class QAQuestion implements \JsonSerializable
     public function setTags(array $tags) : void
     {
         $this->tags = $tags;
+    }
+
+    public function getAnswerCount() : int
+    {
+        return \count($this->answers);
+    }
+
+    public function getVoteScore() : int
+    {
+        $score = 0;
+        foreach ($this->votes as $vote) {
+            $score += $vote->score;
+        }
+
+        return $score;
+    }
+
+    public function getAccountVoteScore(int $account) : int
+    {
+        foreach ($this->votes as $vote) {
+            if ($vote->createdBy->getId() === $account) {
+                return $vote->score;
+            }
+        }
+
+        return 0;
     }
 
     /**

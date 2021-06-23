@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Admin\Models\Account;
-use Modules\Admin\Models\NullAccount;
+use Modules\Profile\Models\NullProfile;
+use Modules\Profile\Models\Profile;
 
 /**
  * Answer class.
@@ -78,10 +78,10 @@ class QAAnswer implements \JsonSerializable
     /**
      * Created by.
      *
-     * @var Account
+     * @var Profile
      * @since 1.0.0
      */
-    public Account $createdBy;
+    public Profile $createdBy;
 
     /**
      * Created at.
@@ -92,6 +92,14 @@ class QAAnswer implements \JsonSerializable
     public \DateTimeImmutable $createdAt;
 
     /**
+     * Votes.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private array $votes = [];
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -99,7 +107,7 @@ class QAAnswer implements \JsonSerializable
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable('now');
-        $this->createdBy = new NullAccount();
+        $this->createdBy = new NullProfile();
         $this->question  = new NullQAQuestion();
     }
 
@@ -205,6 +213,27 @@ class QAAnswer implements \JsonSerializable
     public function setAccepted(bool $accepted) : void
     {
         $this->isAccepted = $accepted;
+    }
+
+    public function getVoteScore() : int
+    {
+        $score = 0;
+        foreach ($this->votes as $vote) {
+            $score += $vote->score;
+        }
+
+        return $score;
+    }
+
+    public function getAccountVoteScore(int $account) : int
+    {
+        foreach ($this->votes as $vote) {
+            if ($vote->createdBy->getId() === $account) {
+                return $vote->score;
+            }
+        }
+
+        return 0;
     }
 
     /**

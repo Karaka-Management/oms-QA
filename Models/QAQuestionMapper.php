@@ -59,6 +59,12 @@ final class QAQuestionMapper extends DataMapperAbstract
             'self'         => 'qa_answer_question',
             'external'     => null,
         ],
+        'votes' => [
+            'mapper'       => QAQuestionVoteMapper::class,
+            'table'        => 'qa_question_vote',
+            'self'         => 'qa_question_vote_question',
+            'external'     => null,
+        ],
         'tags' => [
             'mapper'   => TagMapper::class,
             'table'    => 'qa_tag',

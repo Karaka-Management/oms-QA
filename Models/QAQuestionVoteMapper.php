@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\QA\Models;
 
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use Modules\Admin\Models\AccountMapper;
 
 /**
  * Mapper class.
@@ -35,9 +36,22 @@ final class QAQuestionVoteMapper extends DataMapperAbstract
     protected static array $columns = [
         'qa_question_vote_id'          => ['name' => 'qa_question_vote_id',          'type' => 'int',      'internal' => 'id'],
         'qa_question_vote_score'  => ['name' => 'qa_question_vote_score',  'type' => 'int',      'internal' => 'score'],
-        'qa_question_vote_question'  => ['name' => 'qa_question_vote_comment',  'type' => 'int',      'internal' => 'comment', 'readonly' => true],
+        'qa_question_vote_question'  => ['name' => 'qa_question_vote_question',  'type' => 'int',      'internal' => 'question', 'readonly' => true],
         'qa_question_vote_created_by'  => ['name' => 'qa_question_vote_created_by',  'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
         'qa_question_vote_created_at'  => ['name' => 'qa_question_vote_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+    ];
+
+    /**
+     * Belongs to.
+     *
+     * @var array<string, array{mapper:string, external:string}>
+     * @since 1.0.0
+     */
+    protected static array $belongsTo = [
+        'createdBy' => [
+            'mapper'     => AccountMapper::class,
+            'external'   => 'qa_question_vote_created_by',
+        ],
     ];
 
     /**
@@ -63,4 +77,16 @@ final class QAQuestionVoteMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static string $primaryField = 'qa_question_vote_id';
+
+    public static function findVote(int $question, int $account)
+    {
+        $depth = 3;
+        $query = self::getQuery();
+        $query->where(self::$table . '_' . $depth . '.qa_question_vote_created_by', '=', $account)
+            ->andWhere(self::$table . '_' . $depth . '.qa_question_vote_question', '=', $question);
+
+        $results = self::getAllByQuery($query);
+
+        return \reset($results);
+    }
 }
