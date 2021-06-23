@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Modules\QA\Models;
 
 use Modules\Profile\Models\NullProfile;
-use Modules\Tag\Models\Tag;
 use Modules\Profile\Models\Profile;
+use Modules\Tag\Models\Tag;
 
 /**
  * Task class.

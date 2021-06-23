@@ -12,8 +12,8 @@
  */
 declare(strict_types=1);
 
-use phpOMS\Uri\UriFactory;
 use Modules\Media\Models\NullMedia;
+use phpOMS\Uri\UriFactory;
 
 /** \Modules\QA\Models\QAQuestion $question */
 $question = $this->getData('question');

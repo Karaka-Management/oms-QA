@@ -54,7 +54,7 @@ final class QAAnswerMapper extends DataMapperAbstract
         'createdBy' => [
             'mapper'     => ProfileMapper::class,
             'external'   => 'qa_answer_created_by',
-            'by'   => 'account'
+            'by'         => 'account',
         ],
         'question' => [
             'mapper'     => QAQuestionMapper::class,

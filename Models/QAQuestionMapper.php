@@ -94,9 +94,9 @@ final class QAQuestionMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'createdBy' => [
-            'mapper' => ProfileMapper::class,
+            'mapper'   => ProfileMapper::class,
             'external' => 'qa_question_created_by',
-            'by'   => 'account'
+            'by'       => 'account',
         ],
     ];
 

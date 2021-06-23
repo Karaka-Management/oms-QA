@@ -15,11 +15,16 @@ declare(strict_types=1);
 namespace Modules\QA\Controller;
 
 use Modules\Admin\Models\NullAccount;
+use Modules\Profile\Models\Profile;
+use Modules\QA\Models\NullQAAnswerVote;
 use Modules\QA\Models\NullQACategory;
 use Modules\QA\Models\NullQAQuestion;
+use Modules\QA\Models\NullQAQuestionVote;
 use Modules\QA\Models\QAAnswer;
 use Modules\QA\Models\QAAnswerMapper;
 use Modules\QA\Models\QAAnswerStatus;
+use Modules\QA\Models\QAAnswerVote;
+use Modules\QA\Models\QAAnswerVoteMapper;
 use Modules\QA\Models\QACategory;
 use Modules\QA\Models\QACategoryL11n;
 use Modules\QA\Models\QACategoryL11nMapper;
@@ -29,12 +34,7 @@ use Modules\QA\Models\QAQuestionMapper;
 use Modules\QA\Models\QAQuestionStatus;
 use Modules\QA\Models\QAQuestionVote;
 use Modules\QA\Models\QAQuestionVoteMapper;
-use Modules\QA\Models\QAAnswerVote;
-use Modules\QA\Models\QAAnswerVoteMapper;
-use Modules\QA\Models\NullQAQuestionVote;
-use Modules\QA\Models\NullQAAnswerVote;
 use Modules\Tag\Models\NullTag;
-use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
@@ -42,7 +42,6 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
-use Modules\Profile\Models\Profile;
 
 /**
  * Task class.
@@ -311,7 +310,7 @@ final class ApiController extends Controller
      */
     public function updateAnsweredStatusFromRequest(RequestAbstract $request) : QAAnswer
     {
-        $answer = QAAnswerMapper::get((int) $request->getData('id'));
+        $answer             = QAAnswerMapper::get((int) $request->getData('id'));
         $answer->isAccepted = $request->getData('accepted', 'bool') ?? false;
 
         return $answer;
@@ -481,15 +480,15 @@ final class ApiController extends Controller
         $questionVote = QAQuestionVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
 
         if ($questionVote === false || $questionVote instanceof NullQAQuestionVote || $questionVote === null) {
-            $new = new QAQuestionVote();
-            $new->score = (int) $request->getData('type');
-            $new->question = (int) $request->getData('id');
+            $new            = new QAQuestionVote();
+            $new->score     = (int) $request->getData('type');
+            $new->question  = (int) $request->getData('id');
             $new->createdBy = new NullAccount($request->header->account);
 
             $this->createModel($request->header->account, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
         } else {
-            $new = clone $questionVote;
+            $new        = clone $questionVote;
             $new->score = (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $questionVote, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
@@ -543,15 +542,15 @@ final class ApiController extends Controller
         $answerVote = QAAnswerVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
 
         if ($answerVote === false || $answerVote instanceof NullQAAnswerVote || $answerVote === null) {
-            $new = new QAAnswerVote();
-            $new->score = (int) $request->getData('type');
-            $new->answer = (int) $request->getData('id');
+            $new            = new QAAnswerVote();
+            $new->score     = (int) $request->getData('type');
+            $new->answer    = (int) $request->getData('id');
             $new->createdBy = new NullAccount($request->header->account);
 
             $this->createModel($request->header->account, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
         } else {
-            $new = clone $answerVote;
+            $new        = clone $answerVote;
             $new->score = (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $answerVote, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());

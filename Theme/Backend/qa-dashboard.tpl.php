@@ -12,8 +12,8 @@
  */
 declare(strict_types=1);
 
-use phpOMS\Uri\UriFactory;
 use Modules\Media\Models\NullMedia;
+use phpOMS\Uri\UriFactory;
 
 $questions = $this->getData('questions');
 echo $this->getData('nav')->render(); ?>

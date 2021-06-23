@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
 use Modules\Admin\Models\AccountMapper;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
  * Mapper class.
@@ -35,8 +35,8 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'qa_answer_vote_id'          => ['name' => 'qa_answer_vote_id',          'type' => 'int',      'internal' => 'id'],
-        'qa_answer_vote_score'  => ['name' => 'qa_answer_vote_score',  'type' => 'int',      'internal' => 'score'],
-        'qa_answer_vote_answer'  => ['name' => 'qa_answer_vote_answer',  'type' => 'int',      'internal' => 'answer', 'readonly' => true],
+        'qa_answer_vote_score'       => ['name' => 'qa_answer_vote_score',  'type' => 'int',      'internal' => 'score'],
+        'qa_answer_vote_answer'      => ['name' => 'qa_answer_vote_answer',  'type' => 'int',      'internal' => 'answer', 'readonly' => true],
         'qa_answer_vote_created_by'  => ['name' => 'qa_answer_vote_created_by',  'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
         'qa_answer_vote_created_at'  => ['name' => 'qa_answer_vote_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
