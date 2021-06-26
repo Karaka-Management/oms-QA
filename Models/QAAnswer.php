@@ -215,6 +215,13 @@ class QAAnswer implements \JsonSerializable
         $this->isAccepted = $accepted;
     }
 
+    /**
+     * Get the total vote score
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getVoteScore() : int
     {
         $score = 0;
@@ -225,6 +232,15 @@ class QAAnswer implements \JsonSerializable
         return $score;
     }
 
+    /**
+     * Get the vote score from an account
+     *
+     * @param int $account Account id
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getAccountVoteScore(int $account) : int
     {
         foreach ($this->votes as $vote) {
@@ -234,18 +250,6 @@ class QAAnswer implements \JsonSerializable
         }
 
         return 0;
-    }
-
-    /**
-     * Is the answer accepted
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function isAccepted() : bool
-    {
-        return $this->isAccepted;
     }
 
     /**

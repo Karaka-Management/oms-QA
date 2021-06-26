@@ -242,13 +242,13 @@ final class ApiController extends Controller
     {
         $mardkownParser = new Markdown();
 
-        $answer              = new QAAnswer();
-        $answer->answerRaw   = (string) $request->getData('plain');
-        $answer->answer      = Markdown::parse((string) ($request->getData('plain') ?? ''));
-        $answer->question    = new NullQAQuestion((int) $request->getData('question'));
-        $answer->isAccepted  = false;
+        $answer             = new QAAnswer();
+        $answer->answerRaw  = (string) $request->getData('plain');
+        $answer->answer     = Markdown::parse((string) ($request->getData('plain') ?? ''));
+        $answer->question   = new NullQAQuestion((int) $request->getData('question'));
+        $answer->isAccepted = false;
         $answer->setStatus((int) $request->getData('status'));
-        $answer->createdBy = new NullAccount($request->header->account);
+        $answer->createdBy = new Profile(new NullAccount($request->header->account));
 
         return $answer;
     }

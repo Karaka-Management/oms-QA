@@ -78,12 +78,22 @@ final class QAQuestionVoteMapper extends DataMapperAbstract
      */
     protected static string $primaryField = 'qa_question_vote_id';
 
-    public static function findVote(int $question, int $account)
+    /**
+     * Find vote for question from user
+     *
+     * @param int $question Question id
+     * @param int $account  Account id
+     *
+     * @return QAQuestionVote
+     *
+     * @since 1.0.0
+     */
+    public static function findVote(int $question, int $account) : QAQuestionVote
     {
         $depth = 3;
         $query = self::getQuery();
-        $query->where(self::$table . '_' . $depth . '.qa_question_vote_created_by', '=', $account)
-            ->andWhere(self::$table . '_' . $depth . '.qa_question_vote_question', '=', $question);
+        $query->where(self::$table . '_d' . $depth . '.qa_question_vote_created_by', '=', $account)
+            ->andWhere(self::$table . '_d' . $depth . '.qa_question_vote_question', '=', $question);
 
         $results = self::getAllByQuery($query);
 

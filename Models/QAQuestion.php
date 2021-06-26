@@ -267,6 +267,8 @@ class QAQuestion implements \JsonSerializable
      * @return array
      *
      * @since 1.0.0
+     *
+     * @since 1.0.0
      */
     public function getTags() : array
     {
@@ -277,8 +279,10 @@ class QAQuestion implements \JsonSerializable
      * Add tag to question
      *
      * @param int|Tag $tag Tag
+     *
+     * @since 1.0.0
      */
-    public function addTag($tag) : void
+    public function addTag(int|Tag $tag) : void
     {
         $this->tags[] = $tag;
     }
@@ -287,17 +291,33 @@ class QAQuestion implements \JsonSerializable
      * Set tags to question
      *
      * @param array<int, int|Tag> $tags Tags
+     *
+     * @since 1.0.0
      */
     public function setTags(array $tags) : void
     {
         $this->tags = $tags;
     }
 
+    /**
+     * Count the answers
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getAnswerCount() : int
     {
         return \count($this->answers);
     }
 
+    /**
+     * Get the total vote score
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getVoteScore() : int
     {
         $score = 0;
@@ -308,6 +328,15 @@ class QAQuestion implements \JsonSerializable
         return $score;
     }
 
+    /**
+     * Get the vote score from an account
+     *
+     * @param int $account Account id
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getAccountVoteScore(int $account) : int
     {
         foreach ($this->votes as $vote) {
