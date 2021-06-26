@@ -282,7 +282,7 @@ class QAQuestion implements \JsonSerializable
      *
      * @since 1.0.0
      */
-    public function addTag(int|Tag $tag) : void
+    public function addTag(int | Tag $tag) : void
     {
         $this->tags[] = $tag;
     }
