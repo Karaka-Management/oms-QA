@@ -41,9 +41,9 @@ final class QAQuestionMapper extends DataMapperAbstract
         'qa_question_question'       => ['name' => 'qa_question_question',   'type' => 'string',   'internal' => 'question'],
         'qa_question_question_raw'   => ['name' => 'qa_question_question_raw',   'type' => 'string',   'internal' => 'questionRaw'],
         'qa_question_status'         => ['name' => 'qa_question_status',     'type' => 'int',      'internal' => 'status'],
-        'qa_question_category'       => ['name' => 'qa_question_category',   'type' => 'int',      'internal' => 'category'],
         'qa_question_created_by'     => ['name' => 'qa_question_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
         'qa_question_created_at'     => ['name' => 'qa_question_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'qa_question_app'     => ['name' => 'qa_question_app', 'type' => 'int', 'internal' => 'app'],
     ];
 
     /**
@@ -74,19 +74,6 @@ final class QAQuestionMapper extends DataMapperAbstract
     ];
 
     /**
-     * Has many relation.
-     *
-     * @var array<string, array<string, null|string>>
-     * @since 1.0.0
-     */
-    protected static array $ownsOne = [
-        'category' => [
-            'mapper'     => QACategoryMapper::class,
-            'external'   => 'qa_question_category',
-        ],
-    ];
-
-    /**
      * Belongs to.
      *
      * @var array<string, array{mapper:string, external:string}>
@@ -97,6 +84,10 @@ final class QAQuestionMapper extends DataMapperAbstract
             'mapper'   => ProfileMapper::class,
             'external' => 'qa_question_created_by',
             'by'       => 'account',
+        ],
+        'app' => [
+            'mapper'   => QAAppMapper::class,
+            'external' => 'qa_question_app',
         ],
     ];
 

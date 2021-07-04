@@ -15,8 +15,24 @@ declare(strict_types=1);
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
+/** @var \Modules\QA\Modles\QAQuestion[] $questions */
 $questions = $this->getData('questions');
+
+/** @var \Modules\QA\Modles\QAApp[] $apps */
+$apps = $this->getData('apps');
+
 echo $this->getData('nav')->render(); ?>
+
+<div class="row">
+    <div class="col-xs-12 box">
+        <select>
+            <option value="0"><?= $this->getHtml('All'); ?>
+            <?php foreach ($apps as $app) : ?>
+                <option value="<?= $app->getId(); ?>"><?= $app->name; ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-xs-12">

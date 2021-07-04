@@ -15,14 +15,16 @@ declare(strict_types=1);
 namespace Modules\QA\Controller;
 
 use Modules\QA\Models\QAQuestionMapper;
+use Modules\QA\Models\QAAppMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
+use Modules\QA\Models\QAHelperMapper;
 
 /**
- * Task class.
+ * QA backend controller class.
  *
  * @package Modules\QA
  * @license OMS License 1.0
@@ -70,6 +72,9 @@ final class BackendController extends Controller
         $list = QAQuestionMapper::with('language', $response->getLanguage())::getNewest(50);
         $view->setData('questions', $list);
 
+        $apps = QAAppMapper::getAll();
+        $view->setData('apps', $apps);
+
         return $view;
     }
 
@@ -93,6 +98,9 @@ final class BackendController extends Controller
 
         $question = QAQuestionMapper::get((int) $request->getData('id'));
         $view->addData('question', $question);
+
+        $scores = QAHelperMapper::getAccountScore($question->getAccounts());
+        $view->addData('scores', $scores);
 
         return $view;
     }

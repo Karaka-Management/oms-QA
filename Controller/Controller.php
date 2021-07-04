@@ -17,7 +17,7 @@ namespace Modules\QA\Controller;
 use phpOMS\Module\ModuleAbstract;
 
 /**
- * Task class.
+ * QA controller class.
  *
  * @package Modules\QA
  * @license OMS License 1.0

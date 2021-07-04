@@ -15,11 +15,14 @@ declare(strict_types=1);
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
-/** \Modules\QA\Models\QAQuestion $question */
+/** @var \Modules\QA\Models\QAQuestion $question */
 $question = $this->getData('question');
 
-/** \Modules\QA\Models\QAAnswer[] $answers */
-$answers = $question->getAnswers();
+/** @var \Modules\QA\Models\QAAnswer[] $answers */
+$answers = $question->getAnswersByScore();
+
+/** @var array $scores */
+$scores = $this->getData('scores');
 
 echo $this->getData('nav')->render();
 ?>
@@ -44,9 +47,7 @@ echo $this->getData('nav')->render();
             <section class="portlet">
                 <div class="portlet-head"><?= $this->printHtml($question->name); ?></div>
                 <div class="portlet-body">
-                    <article>
-                        <?= $question->question; ?>
-                    </article>
+                    <article><?= $question->question; ?></article>
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
                     <div class="tag-list">
@@ -56,7 +57,11 @@ echo $this->getData('nav')->render();
                     </div>
 
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
-                        <span class="name content"><?= $this->printHtml($question->createdBy->account->name2); ?>, <?= $this->printHtml($question->createdBy->account->name1); ?></span>
+                        <span class="name">
+                            <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?>, <?= $this->printHtml($question->createdBy->account->name1); ?></div>
+                            <div class="name-score">Score: <?= $scores[$question->createdBy->account->getId()] ?? 0 ?></div>
+                        </span>
+
                         <?php if ($question->createdBy->image !== null && !($question->createdBy->image instanceof NullMedia)) : ?>
                             <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/prefix}' . $question->createdBy->image->getPath()); ?>">
                         <?php endif; ?>
@@ -93,7 +98,10 @@ echo $this->getData('nav')->render();
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $answer->createdBy->getId()); ?>">
-                        <span class="name content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></span>
+                        <span class="name">
+                            <div class="content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></div>
+                            <div class="name-score">Score: <?= $scores[$answer->createdBy->account->getId()] ?? 0 ?></div>
+                        </span>
                         <?php if ($answer->createdBy->image !== null && !($answer->createdBy->image instanceof NullMedia)) : ?>
                             <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/prefix}' . $answer->createdBy->image->getPath()); ?>">
                         <?php endif; ?>

@@ -15,14 +15,14 @@ declare(strict_types=1);
 namespace Modules\QA\Models;
 
 /**
- * Null model
+ * Null model class.
  *
  * @package Modules\QA\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class NullQAAnswerVote extends QAAnswerVote
+final class NullQAApp extends QAApp
 {
     /**
      * Constructor

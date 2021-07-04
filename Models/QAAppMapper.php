@@ -17,14 +17,14 @@ namespace Modules\QA\Models;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
- * Category mapper class.
+ * Mapper class.
  *
  * @package Modules\QA\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class QACategoryL11nMapper extends DataMapperAbstract
+final class QAAppMapper extends DataMapperAbstract
 {
     /**
      * Columns.
@@ -33,10 +33,8 @@ final class QACategoryL11nMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'qa_category_l11n_id'            => ['name' => 'qa_category_l11n_id',       'type' => 'int',    'internal' => 'id'],
-        'qa_category_l11n_name'          => ['name' => 'qa_category_l11n_name',    'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
-        'qa_category_l11n_category'      => ['name' => 'qa_category_l11n_category',      'type' => 'int',    'internal' => 'category'],
-        'qa_category_l11n_language'      => ['name' => 'qa_category_l11n_language', 'type' => 'string', 'internal' => 'language'],
+        'qa_app_id'   => ['name' => 'qa_app_id',   'type' => 'int',    'internal' => 'id'],
+        'qa_app_name' => ['name' => 'qa_app_name', 'type' => 'string', 'internal' => 'name'],
     ];
 
     /**
@@ -45,7 +43,7 @@ final class QACategoryL11nMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'qa_category_l11n';
+    protected static string $table = 'qa_app';
 
     /**
      * Primary field name.
@@ -53,5 +51,5 @@ final class QACategoryL11nMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'qa_category_l11n_id';
+    protected static string $primaryField = 'qa_app_id';
 }

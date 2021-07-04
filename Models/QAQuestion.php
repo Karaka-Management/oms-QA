@@ -19,7 +19,7 @@ use Modules\Profile\Models\Profile;
 use Modules\Tag\Models\Tag;
 
 /**
- * Task class.
+ * QA question class.
  *
  * @package Modules\QA\Models
  * @license OMS License 1.0
@@ -67,14 +67,6 @@ class QAQuestion implements \JsonSerializable
      * @since 1.0.0
      */
     public string $questionRaw = '';
-
-    /**
-     * Category.
-     *
-     * @var QACategory
-     * @since 1.0.0
-     */
-    private ?QACategory $category = null;
 
     /**
      * Language
@@ -125,6 +117,12 @@ class QAQuestion implements \JsonSerializable
     private array $votes = [];
 
     /**
+     * App
+     * @var int
+     */
+    public QAApp $app;
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -133,6 +131,7 @@ class QAQuestion implements \JsonSerializable
     {
         $this->createdAt = new \DateTimeImmutable('now');
         $this->createdBy = new NullProfile();
+        $this->app       = new QAApp();
     }
 
     /**
@@ -148,6 +147,24 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
+     * Finds all accounts in Question
+     * e.g. asked by and all accoounts who answered
+     *
+     * @return array
+     */
+    public function getAccounts() : array
+    {
+        $accounts   = [];
+        $accounts[] = $this->createdBy->account->getId();
+
+        foreach ($this->answers as $answer) {
+            $accounts[] = $answer->createdBy->account->getId();
+        }
+
+        return \array_unique($accounts);
+    }
+
+    /**
      * Does the question have a accepted answer?
      *
      * @return bool
@@ -157,7 +174,7 @@ class QAQuestion implements \JsonSerializable
     public function hasAccepted() : bool
     {
         foreach ($this->answers as $answer) {
-            if ($answer->isAccepted()) {
+            if ($answer->isAccepted) {
                 return true;
             }
         }
@@ -233,32 +250,6 @@ class QAQuestion implements \JsonSerializable
     public function setStatus(int $status) : void
     {
         $this->status = $status;
-    }
-
-    /**
-     * Get the category
-     *
-     * @return QACategory
-     *
-     * @since 1.0.0
-     */
-    public function getCategory() : QACategory
-    {
-        return $this->category ?? new NullQACategory();
-    }
-
-    /**
-     * Set the category
-     *
-     * @param null|QACategory $category Category
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCategory(?QACategory $category) : void
-    {
-        $this->category = $category;
     }
 
     /**
@@ -358,6 +349,34 @@ class QAQuestion implements \JsonSerializable
     public function getAnswers() : array
     {
         return $this->answers;
+    }
+
+    /**
+     * Get answers by score
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getAnswersByScore() : array
+    {
+        $answers = $this->answers;
+        \uasort($answers, [$this, 'sortByScore']);
+
+        return $answers;
+    }
+
+    /**
+     * Sort by score
+     *
+     * @param QAAnswer $a1 Answer 1
+     * @param QAAnswer $a2 Answer 2
+     *
+     * @return int
+     */
+    private function sortByScore(QAAnswer $a1, QAAnswer $a2) : int
+    {
+        return $a2->getVoteScore() <=> $a1->getVoteScore();
     }
 
     /**

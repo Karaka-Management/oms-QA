@@ -6,23 +6,23 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/qa/category(\?.*|$)' => [
+    '^.*/qa/app(\?.*|$)' => [
         [
-            'dest'       => '\Modules\QA\Controller\ApiController:apiQACategoryCreate',
+            'dest'       => '\Modules\QA\Controller\ApiController:apiQAAppCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::CATEGORY,
+                'state'  => PermissionState::APP,
             ],
         ],
         [
-            'dest'       => '\Modules\QA\Controller\ApiController:apiQACategoryUpdate',
+            'dest'       => '\Modules\QA\Controller\ApiController:apiQAAppUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::CATEGORY,
+                'state'  => PermissionState::APP,
             ],
         ],
     ],

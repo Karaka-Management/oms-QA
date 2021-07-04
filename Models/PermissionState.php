@@ -34,5 +34,5 @@ abstract class PermissionState extends Enum
 
     public const VOTE = 4;
 
-    public const CATEGORY = 5;
+    public const APP = 5;
 }

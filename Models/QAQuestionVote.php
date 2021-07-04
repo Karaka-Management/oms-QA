@@ -18,7 +18,7 @@ use Modules\Admin\Models\Account;
 use Modules\Admin\Models\NullAccount;
 
 /**
- * Task class.
+ * QA question vote class.
  *
  * @package Modules\QA\Models
  * @license OMS License 1.0

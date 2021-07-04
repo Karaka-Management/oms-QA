@@ -1,53 +1,18 @@
 {
-    "qa_category": {
-        "name": "qa_category",
+    "qa_app": {
+        "name": "qa_app",
         "fields": {
-            "qa_category_id": {
-                "name": "qa_category_id",
+            "qa_app_id": {
+                "name": "qa_app_id",
                 "type": "INT",
                 "null": false,
                 "primary": true,
                 "autoincrement": true
             },
-            "qa_category_parent": {
-                "name": "qa_category_parent",
-                "type": "INT",
-                "default": null,
-                "null": true,
-                "foreignTable": "qa_category",
-                "foreignKey": "qa_category_id"
-            }
-        }
-    },
-    "qa_category_l11n": {
-        "name": "qa_category_l11n",
-        "fields": {
-            "qa_category_l11n_id": {
-                "name": "qa_category_l11n_id",
-                "type": "INT",
-                "null": false,
-                "primary": true,
-                "autoincrement": true
-            },
-            "qa_category_l11n_name": {
-                "name": "qa_category_l11n_name",
+            "qa_app_name": {
+                "name": "qa_app_name",
                 "type": "VARCHAR(255)",
-                "null": false
-            },
-            "qa_category_l11n_category": {
-                "name": "qa_category_l11n_category",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "qa_category",
-                "foreignKey": "qa_category_id"
-            },
-            "qa_category_l11n_language": {
-                "name": "qa_category_l11n_language",
-                "type": "VARCHAR(2)",
-                "default": null,
-                "null": true,
-                "foreignTable": "language",
-                "foreignKey": "language_639_1"
+                "default": null
             }
         }
     },
@@ -64,8 +29,7 @@
             "qa_question_status": {
                 "name": "qa_question_status",
                 "type": "INT",
-                "default": null,
-                "null": true
+                "null": false
             },
             "qa_question_title": {
                 "name": "qa_question_title",
@@ -99,13 +63,12 @@
                 "foreignTable": "account",
                 "foreignKey": "account_id"
             },
-            "qa_question_category": {
-                "name": "qa_question_category",
+            "qa_question_app": {
+                "name": "qa_question_app",
                 "type": "INT",
-                "default": null,
-                "null": true,
-                "foreignTable": "qa_category",
-                "foreignKey": "qa_category_id"
+                "null": false,
+                "foreignTable": "qa_app",
+                "foreignKey": "qa_app_id"
             }
         }
     },

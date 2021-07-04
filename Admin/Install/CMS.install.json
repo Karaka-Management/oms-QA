@@ -1,0 +1,7 @@
+[
+    {
+        "src": "Modules/QA/Admin/Install/Application/QA",
+        "dest": "Web/QA",
+        "name": "QA"
+    }
+]

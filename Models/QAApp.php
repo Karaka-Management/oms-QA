@@ -14,18 +14,15 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Admin\Models\Account;
-use Modules\Admin\Models\NullAccount;
-
 /**
- * QA answer vote class.
+ * QA app class.
  *
  * @package Modules\QA\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class QAAnswerVote
+class QAApp implements \JsonSerializable
 {
     /**
      * ID.
@@ -36,45 +33,41 @@ class QAAnswerVote
     protected int $id = 0;
 
     /**
-     * Account.
+     * Application name.
      *
-     * @var Account
+     * @var string
      * @since 1.0.0
      */
-    public Account $createdBy;
+    public string $name = '';
 
     /**
-     * Created at
+     * Get id.
      *
-     * @var \DateTimeImmutable
-     * @since 1.0.0
-     */
-    public \DateTimeImmutable $createdAt;
-
-    /**
-     * Comment
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    public int $answer = 0;
-
-    /**
-     * Score
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    public int $score = 0;
-
-    /**
-     * Constructor.
+     * @return int Model id
      *
      * @since 1.0.0
      */
-    public function __construct()
+    public function getId() : int
     {
-        $this->createdBy = new NullAccount();
-        $this->createdAt = new \DateTimeImmutable();
+        return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray() : array
+    {
+        return [
+            'id'   => $this->id,
+            'name' => $this->name,
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

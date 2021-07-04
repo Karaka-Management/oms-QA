@@ -84,11 +84,11 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      * @param int $answer  Answer id
      * @param int $account Account id
      *
-     * @return QAAnswerVote
+     * @return bool|QAAnswerVote
      *
      * @since 1.0.0
      */
-    public static function findVote(int $answer, int $account) : QAAnswerVote
+    public static function findVote(int $answer, int $account) : bool|QAAnswerVote
     {
         $depth = 3;
         $query = self::getQuery();

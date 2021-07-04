@@ -62,4 +62,6 @@
     align-items: center;
     margin-left: auto; }
     .qa .qa-portlet-foot .account-info .name {
-      margin-right: 10px; }
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column; }
