@@ -352,7 +352,7 @@ final class ApiController extends Controller
      */
     public function createQAAppFromRequest(RequestAbstract $request) : QAApp
     {
-        $app = new QAApp();
+        $app       = new QAApp();
         $app->name = $request->getData('name') ?? '';
 
         return $app;

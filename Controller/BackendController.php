@@ -14,14 +14,14 @@ declare(strict_types=1);
 
 namespace Modules\QA\Controller;
 
-use Modules\QA\Models\QAQuestionMapper;
 use Modules\QA\Models\QAAppMapper;
+use Modules\QA\Models\QAHelperMapper;
+use Modules\QA\Models\QAQuestionMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
-use Modules\QA\Models\QAHelperMapper;
 
 /**
  * QA backend controller class.

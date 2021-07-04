@@ -59,7 +59,7 @@ echo $this->getData('nav')->render();
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?>, <?= $this->printHtml($question->createdBy->account->name1); ?></div>
-                            <div class="name-score">Score: <?= $scores[$question->createdBy->account->getId()] ?? 0 ?></div>
+                            <div class="name-score">Score: <?= $scores[$question->createdBy->account->getId()] ?? 0; ?></div>
                         </span>
 
                         <?php if ($question->createdBy->image !== null && !($question->createdBy->image instanceof NullMedia)) : ?>
@@ -100,7 +100,7 @@ echo $this->getData('nav')->render();
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $answer->createdBy->getId()); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></div>
-                            <div class="name-score">Score: <?= $scores[$answer->createdBy->account->getId()] ?? 0 ?></div>
+                            <div class="name-score">Score: <?= $scores[$answer->createdBy->account->getId()] ?? 0; ?></div>
                         </span>
                         <?php if ($answer->createdBy->image !== null && !($answer->createdBy->image instanceof NullMedia)) : ?>
                             <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/prefix}' . $answer->createdBy->image->getPath()); ?>">

@@ -38,7 +38,7 @@ final class QAHelperMapper extends DataMapperAbstract
 	{
         $scores = [];
 
-		$query         = new Builder(self::$db);
+		$query               = new Builder(self::$db);
         $questionScore = $query->select('qa_question_created_by')
             ->selectAs('SUM(qa_question_vote_score)', 'score')
             ->from(QAQuestionVoteMapper::getTable())

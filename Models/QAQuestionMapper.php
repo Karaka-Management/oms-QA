@@ -43,7 +43,7 @@ final class QAQuestionMapper extends DataMapperAbstract
         'qa_question_status'         => ['name' => 'qa_question_status',     'type' => 'int',      'internal' => 'status'],
         'qa_question_created_by'     => ['name' => 'qa_question_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
         'qa_question_created_at'     => ['name' => 'qa_question_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
-        'qa_question_app'     => ['name' => 'qa_question_app', 'type' => 'int', 'internal' => 'app'],
+        'qa_question_app'            => ['name' => 'qa_question_app', 'type' => 'int', 'internal' => 'app'],
     ];
 
     /**

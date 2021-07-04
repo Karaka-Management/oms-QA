@@ -88,7 +88,7 @@ final class QAQuestionVoteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public static function findVote(int $question, int $account) : bool|QAQuestionVote
+    public static function findVote(int $question, int $account) : bool | QAQuestionVote
     {
         $depth = 3;
         $query = self::getQuery();
