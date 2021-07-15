@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
+use Modules\Media\Models\MediaMapper;
 use Modules\Profile\Models\ProfileMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
-use Modules\Media\Models\MediaMapper;
 
 /**
  * Mapper class.
