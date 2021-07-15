@@ -123,6 +123,14 @@ class QAQuestion implements \JsonSerializable
     public QAApp $app;
 
     /**
+     * Media files
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $media = [];
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -391,6 +399,32 @@ class QAQuestion implements \JsonSerializable
     public function addAnswer($answer) : void
     {
         $this->answers[] = $answer;
+    }
+
+    /**
+     * Get all media
+     *
+     * @return Media[]
+     *
+     * @since 1.0.0
+     */
+    public function getMedia() : array
+    {
+        return $this->media;
+    }
+
+    /**
+     * Add media
+     *
+     * @param Media $media Media to add
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addMedia(Media $media) : void
+    {
+        $this->media[] = $media;
     }
 
     /**

@@ -17,6 +17,7 @@ namespace Modules\QA\Models;
 use Modules\Profile\Models\ProfileMapper;
 use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use Modules\Media\Models\MediaMapper;
 
 /**
  * Mapper class.
@@ -70,6 +71,12 @@ final class QAQuestionMapper extends DataMapperAbstract
             'table'    => 'qa_tag',
             'self'     => 'qa_tag_dst',
             'external' => 'qa_tag_src',
+        ],
+        'media'        => [
+            'mapper'   => MediaMapper::class,
+            'table'    => 'qa_question_media',
+            'external' => 'qa_question_media_dst',
+            'self'     => 'qa_question_media_src',
         ],
     ];
 

@@ -72,6 +72,32 @@
             }
         }
     },
+    "qa_question_media": {
+        "name": "qa_question_media",
+        "fields": {
+            "qa_question_media_id": {
+                "name": "qa_question_media_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "qa_question_media_src": {
+                "name": "qa_question_media_src",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "qa_question",
+                "foreignKey": "qa_question_id"
+            },
+            "qa_question_media_dst": {
+                "name": "qa_question_media_dst",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "media",
+                "foreignKey": "media_id"
+            }
+        }
+    },
     "qa_question_vote": {
         "name": "qa_question_vote",
         "fields": {
@@ -184,6 +210,32 @@
                 "null": true,
                 "foreignTable": "qa_question",
                 "foreignKey": "qa_question_id"
+            }
+        }
+    },
+    "qa_answer_media": {
+        "name": "qa_answer_media",
+        "fields": {
+            "qa_answer_media_id": {
+                "name": "qa_answer_media_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "qa_answer_media_src": {
+                "name": "qa_answer_media_src",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "qa_answer",
+                "foreignKey": "qa_answer_id"
+            },
+            "qa_answer_media_dst": {
+                "name": "qa_answer_media_dst",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "media",
+                "foreignKey": "media_id"
             }
         }
     },

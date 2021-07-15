@@ -100,6 +100,14 @@ class QAAnswer implements \JsonSerializable
     private array $votes = [];
 
     /**
+     * Media files
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $media = [];
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -250,6 +258,32 @@ class QAAnswer implements \JsonSerializable
         }
 
         return 0;
+    }
+
+    /**
+     * Get all media
+     *
+     * @return Media[]
+     *
+     * @since 1.0.0
+     */
+    public function getMedia() : array
+    {
+        return $this->media;
+    }
+
+    /**
+     * Add media
+     *
+     * @param Media $media Media to add
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addMedia(Media $media) : void
+    {
+        $this->media[] = $media;
     }
 
     /**

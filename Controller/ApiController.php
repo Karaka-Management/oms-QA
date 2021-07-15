@@ -170,6 +170,20 @@ final class ApiController extends Controller
             }
         }
 
+        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+                [''],
+                $uploadedFiles,
+                $request->header->account,
+                __DIR__ . '/../../../Modules/Media/Files/Modules/QA',
+                '/Modules/QA',
+            );
+
+            foreach ($uploaded as $media) {
+                $question->addMedia($media);
+            }
+        }
+
         return $question;
     }
 
@@ -246,6 +260,20 @@ final class ApiController extends Controller
         $answer->isAccepted = false;
         $answer->setStatus((int) $request->getData('status'));
         $answer->createdBy = new Profile(new NullAccount($request->header->account));
+
+        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+                [''],
+                $uploadedFiles,
+                $request->header->account,
+                __DIR__ . '/../../../Modules/Media/Files/Modules/QA',
+                '/Modules/QA',
+            );
+
+            foreach ($uploaded as $media) {
+                $answer->addMedia($media);
+            }
+        }
 
         return $answer;
     }

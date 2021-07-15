@@ -56,6 +56,10 @@ echo $this->getData('nav')->render();
                         <?php endforeach; ?>
                     </div>
 
+                    <?php $files = $question->getMedia(); foreach ($files as $file) : ?>
+                        <span class="file"><?= $this->printHtml($file->name); ?></span>
+                    <?php endforeach; ?>
+
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?>, <?= $this->printHtml($question->createdBy->account->name1); ?></div>
@@ -90,13 +94,17 @@ echo $this->getData('nav')->render();
                     </div>
                 </div>
             </div>
-            <section class="portlet">
+            <section class="portlet wf-100">
                 <div class="portlet-body">
                     <article>
                         <?= $answer->answer; ?>
                     </article>
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
+                    <?php $files = $answer->getMedia(); foreach ($files as $file) : ?>
+                        <span class="file"><?= $this->printHtml($file->name); ?></span>
+                    <?php endforeach; ?>
+
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $answer->createdBy->getId()); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></div>
