@@ -44,7 +44,7 @@ echo $this->getData('nav')->render();
                     </div>
                 </div>
             </div>
-            <section class="portlet">
+            <section class="portlet wf-100">
                 <div class="portlet-head"><?= $this->printHtml($question->name); ?></div>
                 <div class="portlet-body">
                     <article><?= $question->question; ?></article>

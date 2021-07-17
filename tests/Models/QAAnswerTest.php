@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\QA\tests\Models;
 
+use Modules\Profile\Models\NullProfile;
 use Modules\Admin\Models\NullAccount;
 use Modules\QA\Models\NullQAQuestion;
 use Modules\QA\Models\QAAnswer;
@@ -35,7 +36,7 @@ class QAAnswerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $answer->getId());
         self::assertEquals('', $answer->getAnswer());
         self::assertEquals(0, $answer->getQuestion()->getId());
-        self::assertFalse($answer->isAccepted());
+        self::assertFalse($answer->isAccepted);
         self::assertEquals(QAAnswerStatus::ACTIVE, $answer->getStatus());
         self::assertEquals(0, $answer->createdBy->getId());
         self::assertInstanceOf('\DateTimeImmutable', $answer->createdAt);
@@ -52,13 +53,13 @@ class QAAnswerTest extends \PHPUnit\Framework\TestCase
         $answer->setAnswer('Answer content');
         $answer->setStatus(QAAnswerStatus::ACTIVE);
         $answer->setQuestion(new NullQAQuestion(3));
-        $answer->createdBy = new NullAccount(1);
+        $answer->createdBy = new NullProfile(1);
         $answer->setAccepted(true);
 
         self::assertEquals('Answer content', $answer->getAnswer());
         self::assertEquals(QAAnswerStatus::ACTIVE, $answer->getStatus());
         self::assertEquals(1, $answer->createdBy->getId());
         self::assertEquals(3, $answer->getQuestion()->getId());
-        self::assertTrue($answer->isAccepted());
+        self::assertTrue($answer->isAccepted);
     }
 }

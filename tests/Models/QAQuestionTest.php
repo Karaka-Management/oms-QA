@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\QA\tests\Models;
 
+use Modules\Profile\Models\NullProfile;
 use Modules\Admin\Models\NullAccount;
-use Modules\QA\Models\NullQACategory;
 use Modules\QA\Models\QAQuestion;
 use Modules\QA\Models\QAQuestionStatus;
 
@@ -36,7 +36,6 @@ class QAQuestionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $question->name);
         self::assertEquals('', $question->question);
         self::assertEquals(QAQuestionStatus::ACTIVE, $question->getStatus());
-        self::assertEquals(0, $question->getCategory()->getId());
         self::assertEquals('', $question->getLanguage());
         self::assertEquals(0, $question->createdBy->getId());
         self::assertInstanceOf('\DateTimeImmutable', $question->createdAt);
@@ -54,15 +53,13 @@ class QAQuestionTest extends \PHPUnit\Framework\TestCase
         $question->name     = 'Question Name';
         $question->question = 'Question content';
         $question->setStatus(QAQuestionStatus::ACTIVE);
-        $question->setCategory(new NullQACategory(1));
-        $question->createdBy = new NullAccount(1);
+        $question->createdBy = new NullProfile(1);
         $question->setLanguage('en');
 
         self::assertEquals('Question Name', $question->name);
         self::assertEquals('Question content', $question->question);
         self::assertEquals(QAQuestionStatus::ACTIVE, $question->getStatus());
         self::assertEquals('en', $question->getLanguage());
-        self::assertEquals(1, $question->getCategory()->getId());
         self::assertEquals(1, $question->createdBy->getId());
     }
 }

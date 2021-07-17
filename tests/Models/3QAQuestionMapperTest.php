@@ -14,8 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\QA\tests\Models;
 
+use Modules\Profile\Models\Profile;
+use Modules\Profile\Models\NullProfile;
 use Modules\Admin\Models\NullAccount;
-use Modules\QA\Models\NullQACategory;
 use Modules\QA\Models\QAQuestion;
 use Modules\QA\Models\QAQuestionMapper;
 use Modules\QA\Models\QAQuestionStatus;
@@ -37,8 +38,7 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
         $question->name     = 'Question Name';
         $question->question = 'Question content';
         $question->setStatus(QAQuestionStatus::ACTIVE);
-        $question->setCategory(new NullQACategory(1));
-        $question->createdBy = new NullAccount(1);
+        $question->createdBy = new Profile(new NullAccount(1));
         $question->setLanguage('en');
 
         $id = QAQuestionMapper::create($question);
@@ -50,8 +50,7 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($question->question, $questionR->question);
         self::assertEquals($question->getStatus(), $questionR->getStatus());
         self::assertEquals($question->getLanguage(), $questionR->getLanguage());
-        self::assertEquals($question->getCategory()->getId(), $questionR->getCategory()->getId());
-        self::assertEquals($question->createdBy->getId(), $questionR->createdBy->getId());
+        self::assertEquals($question->createdBy->account->getId(), $questionR->createdBy->account->getId());
     }
 
     /**
@@ -68,8 +67,7 @@ class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
             $question->name     = $text->generateText(\mt_rand(1, 3));
             $question->question = $text->generateText(\mt_rand(100, 500));
             $question->setStatus(QAQuestionStatus::ACTIVE);
-            $question->setCategory(new NullQACategory(\mt_rand(1, 9)));
-            $question->createdBy = new NullAccount(1);
+            $question->createdBy = new Profile(new NullAccount(1));
             $question->setLanguage('en');
 
             $id = QAQuestionMapper::create($question);

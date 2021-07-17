@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\QA\tests\Models;
 
+use Modules\Profile\Models\Profile;
+use Modules\Profile\Models\NullProfile;
 use Modules\Admin\Models\NullAccount;
 use Modules\QA\Models\NullQAQuestion;
 use Modules\QA\Models\QAAnswer;
@@ -36,7 +38,7 @@ class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
 
         $answer->setAnswer('Answer content');
         $answer->setStatus(QAAnswerStatus::ACTIVE);
-        $answer->createdBy = new NullAccount(1);
+        $answer->createdBy = new Profile(new NullAccount(1));
         $answer->setQuestion(new NullQAQuestion(1));
         $answer->setAccepted(true);
 
@@ -48,8 +50,8 @@ class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($answer->getAnswer(), $answerR->getAnswer());
         self::assertEquals($answer->getQuestion()->getId(), $answerR->getQuestion()->getId());
         self::assertEquals($answer->getStatus(), $answerR->getStatus());
-        self::assertEquals($answer->isAccepted(), $answerR->isAccepted());
-        self::assertEquals($answer->createdBy->getId(), $answerR->createdBy->getId());
+        self::assertEquals($answer->isAccepted, $answerR->isAccepted);
+        self::assertEquals($answer->createdBy->account->getId(), $answerR->createdBy->account->getId());
     }
 
     /**
@@ -64,7 +66,7 @@ class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
             $answer = new QAAnswer();
 
             $answer->setAnswer($text->generateText(\mt_rand(100, 500)));
-            $answer->createdBy = new NullAccount(1);
+            $answer->createdBy = new Profile(new NullAccount(1));
             $answer->setStatus(QAAnswerStatus::ACTIVE);
             $answer->setQuestion(new NullQAQuestion(1));
 
