@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
+use Modules\Media\Models\Media;
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
 use Modules\Tag\Models\Tag;
-use Modules\Media\Models\Media;
 
 /**
  * QA question class.

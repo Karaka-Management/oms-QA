@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\QA\tests\Models;
 
 use Modules\Profile\Models\NullProfile;
-use Modules\Admin\Models\NullAccount;
 use Modules\QA\Models\NullQAQuestion;
 use Modules\QA\Models\QAAnswer;
 use Modules\QA\Models\QAAnswerStatus;

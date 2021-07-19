@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
+use Modules\Media\Models\Media;
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
-use Modules\Media\Models\Media;
 
 /**
  * Answer class.
