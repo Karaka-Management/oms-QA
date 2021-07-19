@@ -16,6 +16,7 @@ namespace Modules\QA\Models;
 
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
+use Modules\Media\Models\Media;
 
 /**
  * Answer class.

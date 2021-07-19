@@ -57,7 +57,7 @@ echo $this->getData('nav')->render();
                     </div>
 
                     <?php $files = $question->getMedia(); foreach ($files as $file) : ?>
-                        <span class="file"><?= $this->printHtml($file->name); ?></span>
+                         <span><a class="content" href="<?= UriFactory::build('{/prefix}media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
@@ -102,7 +102,7 @@ echo $this->getData('nav')->render();
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
                     <?php $files = $answer->getMedia(); foreach ($files as $file) : ?>
-                        <span class="file"><?= $this->printHtml($file->name); ?></span>
+                        <span><a class="content" href="<?= UriFactory::build('{/prefix}media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
                     <a class="account-info" href="<?= UriFactory::build('{/prefix}profile/single?{?}&id=' . $answer->createdBy->getId()); ?>">

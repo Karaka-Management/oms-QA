@@ -17,6 +17,7 @@ namespace Modules\QA\Models;
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
 use Modules\Tag\Models\Tag;
+use Modules\Media\Models\Media;
 
 /**
  * QA question class.
