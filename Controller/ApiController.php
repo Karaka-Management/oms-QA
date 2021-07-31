@@ -438,6 +438,7 @@ final class ApiController extends Controller
             $this->createModel($request->header->account, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
         } else {
+            /** @var QAQuestionVote $questionVote */
             $new        = clone $questionVote;
             $new->score = (int) $request->getData('type');
 
@@ -500,6 +501,7 @@ final class ApiController extends Controller
             $this->createModel($request->header->account, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
         } else {
+            /** @var QAAnswerVote $answerVote */
             $new        = clone $answerVote;
             $new->score = (int) $request->getData('type');
 

@@ -119,7 +119,7 @@ class QAQuestion implements \JsonSerializable
 
     /**
      * App
-     * @var int
+     * @var QAApp
      */
     public QAApp $app;
 

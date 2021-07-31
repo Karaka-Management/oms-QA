@@ -27,18 +27,18 @@ use phpOMS\DataStorage\Database\Query\Builder;
  */
 final class QAHelperMapper extends DataMapperAbstract
 {
-	/**
-	 * Get total score of account
-	 *
-	 * @param array $accounts Accounts
-	 *
-	 * @return array
-	 */
-	public static function getAccountScore(array $accounts) : array
-	{
+    /**
+     * Get total score of account
+     *
+     * @param array $accounts Accounts
+     *
+     * @return array
+     */
+    public static function getAccountScore(array $accounts) : array
+    {
         $scores = [];
 
-		$query               = new Builder(self::$db);
+        $query         = new Builder(self::$db);
         $questionScore = $query->select('qa_question_created_by')
             ->selectAs('SUM(qa_question_vote_score)', 'score')
             ->from(QAQuestionVoteMapper::getTable())
@@ -70,5 +70,5 @@ final class QAHelperMapper extends DataMapperAbstract
         }
 
         return $scores;
-	}
+    }
 }
