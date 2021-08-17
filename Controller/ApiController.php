@@ -33,6 +33,7 @@ use Modules\QA\Models\QAQuestionStatus;
 use Modules\QA\Models\QAQuestionVote;
 use Modules\QA\Models\QAQuestionVoteMapper;
 use Modules\Tag\Models\NullTag;
+use Modules\Media\Models\NullMedia;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
@@ -184,6 +185,12 @@ final class ApiController extends Controller
             }
         }
 
+        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+            foreach ($mediaFiles as $media) {
+                $question->addMedia(new NullMedia($media));
+            }
+        }
+
         return $question;
     }
 
@@ -272,6 +279,12 @@ final class ApiController extends Controller
 
             foreach ($uploaded as $media) {
                 $answer->addMedia($media);
+            }
+        }
+
+        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+            foreach ($mediaFiles as $media) {
+                $answer->addMedia(new NullMedia($media));
             }
         }
 
