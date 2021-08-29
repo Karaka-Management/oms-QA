@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\QA\Controller;
 
 use Modules\Admin\Models\NullAccount;
+use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\Profile;
 use Modules\QA\Models\NullQAAnswerVote;
 use Modules\QA\Models\NullQAApp;
@@ -33,7 +34,6 @@ use Modules\QA\Models\QAQuestionStatus;
 use Modules\QA\Models\QAQuestionVote;
 use Modules\QA\Models\QAQuestionVoteMapper;
 use Modules\Tag\Models\NullTag;
-use Modules\Media\Models\NullMedia;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
