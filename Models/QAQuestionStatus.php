@@ -17,7 +17,7 @@ namespace Modules\QA\Models;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Task status enum.
+ * Question status enum.
  *
  * @package Modules\QA\Models
  * @license OMS License 1.0
