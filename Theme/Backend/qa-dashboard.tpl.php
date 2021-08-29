@@ -71,5 +71,8 @@ echo $this->getData('nav')->render(); ?>
             </div>
         </section>
         <?php endforeach; ?>
+        <?php if (empty($questions)) : ?>
+            <div class="emptyPage"></div>
+        <?php endif; ?>
     </div>
 </div>
