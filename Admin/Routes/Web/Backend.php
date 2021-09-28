@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\QA\Controller\BackendController:setUpBackend',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::QA,
             ],
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADashboard',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::QA,
             ],
@@ -45,7 +45,7 @@ return [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADoc',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::QUESTION,
             ],
@@ -56,7 +56,7 @@ return [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAQuestionCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::QUESTION,
             ],

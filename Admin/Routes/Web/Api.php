@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAAppCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::APP,
             ],
@@ -32,7 +32,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAAppUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::APP,
             ],
@@ -43,7 +43,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAQuestionCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::QUESTION,
             ],
@@ -52,7 +52,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQuestionUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::QUESTION,
             ],
@@ -63,7 +63,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiChangeQAQuestionVote',
             'verb'       => RouteVerb::PUT | RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::VOTE,
             ],
@@ -74,7 +74,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAAnswerCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::ANSWER,
             ],
@@ -83,7 +83,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiAnswerUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::ANSWER,
             ],
@@ -94,7 +94,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiChangeQAAnswerVote',
             'verb'       => RouteVerb::PUT | RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::VOTE,
             ],
