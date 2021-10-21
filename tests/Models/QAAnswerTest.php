@@ -22,7 +22,7 @@ use Modules\QA\Models\QAAnswerStatus;
 /**
  * @internal
  */
-class QAAnswerTest extends \PHPUnit\Framework\TestCase
+final class QAAnswerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\QA\Models\QAAnswer

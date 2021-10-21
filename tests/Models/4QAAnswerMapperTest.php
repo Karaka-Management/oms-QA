@@ -25,7 +25,7 @@ use phpOMS\Utils\RnG\Text;
 /**
  * @internal
  */
-class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
+final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\QA\Models\QAAnswerMapper

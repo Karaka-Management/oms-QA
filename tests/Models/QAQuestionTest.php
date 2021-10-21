@@ -21,7 +21,7 @@ use Modules\QA\Models\QAQuestionStatus;
 /**
  * @internal
  */
-class QAQuestionTest extends \PHPUnit\Framework\TestCase
+final class QAQuestionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\QA\Models\QAQuestion
