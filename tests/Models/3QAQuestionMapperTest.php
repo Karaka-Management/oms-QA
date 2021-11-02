@@ -51,25 +51,4 @@ final class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($question->getLanguage(), $questionR->getLanguage());
         self::assertEquals($question->createdBy->account->getId(), $questionR->createdBy->account->getId());
     }
-
-    /**
-     * @group volume
-     * @group module
-     * @coversNothing
-     */
-    public function testVolume() : void
-    {
-        for ($i = 1; $i < 30; ++$i) {
-            $text     = new Text();
-            $question = new QAQuestion();
-
-            $question->name     = $text->generateText(\mt_rand(1, 3));
-            $question->question = $text->generateText(\mt_rand(100, 500));
-            $question->setStatus(QAQuestionStatus::ACTIVE);
-            $question->createdBy = new Profile(new NullAccount(1));
-            $question->setLanguage('en');
-
-            $id = QAQuestionMapper::create($question);
-        }
-    }
 }

@@ -52,24 +52,4 @@ final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($answer->isAccepted, $answerR->isAccepted);
         self::assertEquals($answer->createdBy->account->getId(), $answerR->createdBy->account->getId());
     }
-
-    /**
-     * @group volume
-     * @group module
-     * @coversNothing
-     */
-    public function testVolume() : void
-    {
-        for ($i = 1; $i < 30; ++$i) {
-            $text   = new Text();
-            $answer = new QAAnswer();
-
-            $answer->setAnswer($text->generateText(\mt_rand(100, 500)));
-            $answer->createdBy = new Profile(new NullAccount(1));
-            $answer->setStatus(QAAnswerStatus::ACTIVE);
-            $answer->setQuestion(new NullQAQuestion(1));
-
-            $id = QAAnswerMapper::create($answer);
-        }
-    }
 }
