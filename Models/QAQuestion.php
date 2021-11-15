@@ -18,6 +18,7 @@ use Modules\Media\Models\Media;
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
 use Modules\Tag\Models\Tag;
+use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * QA question class.
@@ -75,7 +76,7 @@ class QAQuestion implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private string $language = '';
+    private string $language = ISO639x1Enum::_EN;
 
     /**
      * Created by.
@@ -156,7 +157,7 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Finds all accounts in Question
+     * Finds all accounts in the question
      * e.g. asked by and all accoounts who answered
      *
      * @return array
@@ -218,24 +219,6 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Is the question answered?
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function isAnswered() : bool
-    {
-        foreach ($this->answers as $answer) {
-            if ($answer->isAccepted()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Get the status
      *
      * @return int
@@ -262,11 +245,49 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Get tags
+     * Adding new tag.
      *
-     * @return array
+     * @param Tag $tag Tag
+     *
+     * @return int
      *
      * @since 1.0.0
+     */
+    public function addTag(Tag $tag) : int
+    {
+        $this->tags[] = $tag;
+
+        \end($this->tags);
+        $key = (int) \key($this->tags);
+        \reset($this->tags);
+
+        return $key;
+    }
+
+    /**
+     * Remove Tag from list.
+     *
+     * @param int $id Tag
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function removeTag($id) : bool
+    {
+        if (isset($this->tags[$id])) {
+            unset($this->tags[$id]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get task elements.
+     *
+     * @return Tag[]
      *
      * @since 1.0.0
      */
@@ -276,27 +297,17 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Add tag to question
+     * Get task elements.
      *
-     * @param int|Tag $tag Tag
+     * @param int $id Element id
      *
-     * @since 1.0.0
-     */
-    public function addTag(int | Tag $tag) : void
-    {
-        $this->tags[] = $tag;
-    }
-
-    /**
-     * Set tags to question
-     *
-     * @param array<int, int|Tag> $tags Tags
+     * @return Tag
      *
      * @since 1.0.0
      */
-    public function setTags(array $tags) : void
+    public function getTag(int $id) : Tag
     {
-        $this->tags = $tags;
+        return $this->tags[$id] ?? new NullTag();
     }
 
     /**
@@ -326,6 +337,32 @@ class QAQuestion implements \JsonSerializable
         }
 
         return $score;
+    }
+
+    /**
+     * Get all votes
+     *
+     * @return QAVnswerVote[]
+     *
+     * @since 1.0.0
+     */
+    public function getVotes() : array
+    {
+        return $this->votes;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param QAQuestionVote $vote Vote
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addVote(QAQuestionVote $vote) : void
+    {
+        $this->votes[] = $vote;
     }
 
     /**
@@ -431,8 +468,30 @@ class QAQuestion implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize() : array
+    public function toArray() : array
     {
-        return [];
+        return [
+            'id'                  => $this->id,
+            'name'                => $this->name,
+            'status'              => $this->status,
+            'question'            => $this->question,
+            'questionRaw'         => $this->questionRaw,
+            'language'            => $this->language,
+            'createdBy'           => $this->createdBy,
+            'createdAt'           => $this->createdAt,
+            'app'                 => $this->app,
+            'tags'                => $this->tags,
+            'answers'             => $this->votes,
+            'votes'               => $this->votes,
+            'media'               => $this->media,
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

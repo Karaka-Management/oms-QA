@@ -20,7 +20,6 @@ use Modules\QA\Models\NullQAQuestion;
 use Modules\QA\Models\QAAnswer;
 use Modules\QA\Models\QAAnswerMapper;
 use Modules\QA\Models\QAAnswerStatus;
-use phpOMS\Utils\RnG\Text;
 
 /**
  * @internal
@@ -28,6 +27,7 @@ use phpOMS\Utils\RnG\Text;
 final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @depends Modules\QA\tests\Models\QAQuestionMapperTest::testCRUD
      * @covers Modules\QA\Models\QAAnswerMapper
      * @group module
      */
@@ -35,19 +35,19 @@ final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
     {
         $answer = new QAAnswer();
 
-        $answer->setAnswer('Answer content');
+        $answer->answer = 'Answer content';
         $answer->setStatus(QAAnswerStatus::ACTIVE);
-        $answer->createdBy = new Profile(new NullAccount(1));
-        $answer->setQuestion(new NullQAQuestion(1));
-        $answer->setAccepted(true);
+        $answer->createdBy  = new Profile(new NullAccount(1));
+        $answer->question   = new NullQAQuestion(1);
+        $answer->isAccepted = true;
 
         $id = QAAnswerMapper::create($answer);
         self::assertGreaterThan(0, $answer->getId());
         self::assertEquals($id, $answer->getId());
 
         $answerR = QAAnswerMapper::get($answer->getId());
-        self::assertEquals($answer->getAnswer(), $answerR->getAnswer());
-        self::assertEquals($answer->getQuestion()->getId(), $answerR->getQuestion()->getId());
+        self::assertEquals($answer->answer, $answerR->answer);
+        self::assertEquals($answer->question->getId(), $answerR->question->getId());
         self::assertEquals($answer->getStatus(), $answerR->getStatus());
         self::assertEquals($answer->isAccepted, $answerR->isAccepted);
         self::assertEquals($answer->createdBy->account->getId(), $answerR->createdBy->account->getId());

@@ -19,7 +19,6 @@ use Modules\Profile\Models\Profile;
 use Modules\QA\Models\QAQuestion;
 use Modules\QA\Models\QAQuestionMapper;
 use Modules\QA\Models\QAQuestionStatus;
-use phpOMS\Utils\RnG\Text;
 
 /**
  * @internal

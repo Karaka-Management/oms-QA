@@ -133,58 +133,6 @@ class QAAnswer implements \JsonSerializable
     }
 
     /**
-     * Get the answer
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getAnswer() : string
-    {
-        return $this->answer;
-    }
-
-    /**
-     * Set the answer
-     *
-     * @param string $answer Answer
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setAnswer(string $answer) : void
-    {
-        $this->answer = $answer;
-    }
-
-    /**
-     * Get the question
-     *
-     * @return QAQuestion
-     *
-     * @since 1.0.0
-     */
-    public function getQuestion() : QAQuestion
-    {
-        return $this->question;
-    }
-
-    /**
-     * Set the question
-     *
-     * @param QAQuestion $question Question
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setQuestion(QAQuestion $question) : void
-    {
-        $this->question = $question;
-    }
-
-    /**
      * Get the status
      *
      * @return int
@@ -208,20 +156,6 @@ class QAAnswer implements \JsonSerializable
     public function setStatus(int $status) : void
     {
         $this->status = $status;
-    }
-
-    /**
-     * Set the answer as accepted
-     *
-     * @param bool $accepted Accepted
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setAccepted(bool $accepted) : void
-    {
-        $this->isAccepted = $accepted;
     }
 
     /**
@@ -262,6 +196,32 @@ class QAAnswer implements \JsonSerializable
     }
 
     /**
+     * Get all votes
+     *
+     * @return QAVnswerVote[]
+     *
+     * @since 1.0.0
+     */
+    public function getVotes() : array
+    {
+        return $this->votes;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param QAAnswerVote $vote Vote
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addVote(QAAnswerVote $vote) : void
+    {
+        $this->votes[] = $vote;
+    }
+
+    /**
      * Get all media
      *
      * @return Media[]
@@ -290,8 +250,27 @@ class QAAnswer implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize() : array
+    public function toArray() : array
     {
-        return [];
+        return [
+            'id'                   => $this->id,
+            'status'               => $this->status,
+            'answer'               => $this->answer,
+            'answerRaw'            => $this->answerRaw,
+            'question'             => $this->question,
+            'isAccepted'           => $this->isAccepted,
+            'createdBy'            => $this->createdBy,
+            'createdAt'            => $this->createdAt,
+            'votes'                => $this->votes,
+            'media'                => $this->media,
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
