@@ -25,6 +25,15 @@
         min-width: 50px;
     }
 
+    .portlet {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .portlet-body {
+        height: 100%;
+    }
+
     .counter-container+.counter-container {
         margin-top: 10px;
     }

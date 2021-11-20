@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\QA\Controller;
 
+use Model\NullSetting;
+use Model\SettingMapper;
 use Modules\QA\Models\QAAppMapper;
 use Modules\QA\Models\QAHelperMapper;
 use Modules\QA\Models\QAQuestionMapper;
@@ -126,6 +128,63 @@ final class BackendController extends Controller
 
         $question = QAQuestionMapper::get((int) $request->getData('id'));
         $view->addData('question', $question);
+
+        return $view;
+    }
+
+    /**
+     * Method which generates the module settings view.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Response can be rendered
+     *
+     * @since 1.0.0
+     */
+    public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, $data = null): RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response));
+
+        $id = $request->getData('id') ?? '';
+
+        $settings = SettingMapper::getFor($id, 'module');
+        if (!($settings instanceof NullSetting)) {
+            $view->setData('settings', !\is_array($settings) ? [$settings] : $settings);
+        }
+
+        $apps = QAAppMapper::getAll();
+        $view->setData('apps', $apps);
+
+        if (\is_file(__DIR__ . '/../Admin/Settings/Theme/Backend/settings.tpl.php')) {
+            $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
+        } else {
+            $view->setTemplate('/Modules/Admin/Theme/Backend/modules-settings');
+        }
+
+        return $view;
+    }
+
+    /**
+     * Method which generates a app settings view.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Response can be rendered
+     *
+     * @since 1.0.0
+     */
+    public function viewAppSettings(RequestAbstract $request, ResponseAbstract $response, $data = null): RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+        $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings-app');
+        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response));
+
+        $view->addData('app', QAAppMapper::get((int) $request->getData('app')));
 
         return $view;
     }

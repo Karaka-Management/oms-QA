@@ -15,6 +15,13 @@
     min-width: 50px; }
   .qa-question-view .counter-container + .counter-container {
     margin-top: 10px; }
+  .qa-question-view .portlet {
+    display: flex;
+    flex-direction: column;
+  }
+  .qa-question-view .portlet-body {
+      height: 100%;
+  }
 
 .qa .qa-accept {
   font-size: 2rem;

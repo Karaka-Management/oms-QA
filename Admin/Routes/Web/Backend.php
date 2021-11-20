@@ -18,6 +18,28 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
+    '^.*/admin/module/settings\?id=QA$' => [
+        [
+            'dest'       => '\Modules\QA\Controller\BackendController:viewModuleSettings',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => \Modules\Admin\Models\PermissionState::MODULE,
+            ],
+        ],
+    ],
+    '^.*/admin/module/settings\?id=QA&app=.*?$' => [
+        [
+            'dest'       => '\Modules\QA\Controller\BackendController:viewAppSettings',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => \Modules\Admin\Models\PermissionState::MODULE,
+            ],
+        ],
+    ],
     '^.*/qa.*$' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:setUpBackend',

@@ -141,7 +141,7 @@ class QAQuestion implements \JsonSerializable
     {
         $this->createdAt = new \DateTimeImmutable('now');
         $this->createdBy = new NullProfile();
-        $this->app       = new QAApp();
+        $this->app       = new NullQAApp(1);
     }
 
     /**
