@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
@@ -25,7 +25,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class QAHelperMapper extends DataMapperAbstract
+final class QAHelperMapper extends DataMapperFactory
 {
     /**
      * Get total score of account
@@ -41,10 +41,10 @@ final class QAHelperMapper extends DataMapperAbstract
         $query         = new Builder(self::$db);
         $questionScore = $query->select('qa_question_created_by')
             ->selectAs('SUM(qa_question_vote_score)', 'score')
-            ->from(QAQuestionVoteMapper::getTable())
-            ->leftJoin(QAQuestionMapper::getTable())
-                ->on(QAQuestionVoteMapper::getTable() . '.qa_question_vote_question', '=', QAQuestionMapper::getTable() . '.qa_question_id')
-            ->where(QAQuestionMapper::getTable() . '.qa_question_created_by', 'in', $accounts)
+            ->from(QAQuestionVoteMapper::TABLE)
+            ->leftJoin(QAQuestionMapper::TABLE)
+                ->on(QAQuestionVoteMapper::TABLE . '.qa_question_vote_question', '=', QAQuestionMapper::TABLE . '.qa_question_id')
+            ->where(QAQuestionMapper::TABLE . '.qa_question_created_by', 'in', $accounts)
             ->groupBy('qa_question_created_by')
             ->execute()
             ->fetchAll();
@@ -56,10 +56,10 @@ final class QAHelperMapper extends DataMapperAbstract
         $query       = new Builder(self::$db);
         $answerScore = $query->select('qa_answer_created_by')
             ->selectAs('SUM(qa_answer_vote_score)', 'score')
-            ->from(QAAnswerVoteMapper::getTable())
-            ->leftJoin(QAAnswerMapper::getTable())
-                ->on(QAAnswerVoteMapper::getTable() . '.qa_answer_vote_answer', '=', QAAnswerMapper::getTable() . '.qa_answer_id')
-            ->where(QAAnswerMapper::getTable() . '.qa_answer_created_by', 'in', $accounts)
+            ->from(QAAnswerVoteMapper::TABLE)
+            ->leftJoin(QAAnswerMapper::TABLE)
+                ->on(QAAnswerVoteMapper::TABLE . '.qa_answer_vote_answer', '=', QAAnswerMapper::TABLE . '.qa_answer_id')
+            ->where(QAAnswerMapper::TABLE . '.qa_answer_created_by', 'in', $accounts)
             ->groupBy('qa_answer_created_by')
             ->execute()
             ->fetchAll();

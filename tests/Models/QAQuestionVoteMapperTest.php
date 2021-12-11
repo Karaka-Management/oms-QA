@@ -35,11 +35,11 @@ final class QAQuestionVoteMapperTest extends \PHPUnit\Framework\TestCase
         $vote->score     = 1;
         $vote->createdBy = new NullAccount(1);
 
-        $id = QAQuestionVoteMapper::create($vote);
+        $id = QAQuestionVoteMapper::create()->execute($vote);
         self::assertGreaterThan(0, $vote->getId());
         self::assertEquals($id, $vote->getId());
 
-        $voteR = QAQuestionVoteMapper::get($vote->getId());
+        $voteR = QAQuestionVoteMapper::get()->where('id', $vote->getId())->execute();
         self::assertEquals($vote->question, $voteR->question);
         self::assertEquals($vote->score, $voteR->score);
 

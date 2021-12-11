@@ -16,7 +16,7 @@ namespace Modules\QA\Models;
 
 use Modules\Media\Models\MediaMapper;
 use Modules\Profile\Models\ProfileMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -26,7 +26,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class QAAnswerMapper extends DataMapperAbstract
+final class QAAnswerMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -34,7 +34,7 @@ final class QAAnswerMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'qa_answer_id'             => ['name' => 'qa_answer_id',         'type' => 'int',      'internal' => 'id'],
         'qa_answer_answer_raw'     => ['name' => 'qa_answer_answer_raw',     'type' => 'string',   'internal' => 'answerRaw'],
         'qa_answer_answer'         => ['name' => 'qa_answer_answer',     'type' => 'string',   'internal' => 'answer'],
@@ -51,7 +51,7 @@ final class QAAnswerMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'createdBy' => [
             'mapper'     => ProfileMapper::class,
             'external'   => 'qa_answer_created_by',
@@ -69,7 +69,7 @@ final class QAAnswerMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
      * @since 1.0.0
      */
-    protected static array $hasMany = [
+    public const HAS_MANY = [
         'votes' => [
             'mapper'       => QAAnswerVoteMapper::class,
             'table'        => 'qa_answer_vote',
@@ -90,7 +90,7 @@ final class QAAnswerMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'qa_answer';
+    public const TABLE = 'qa_answer';
 
     /**
      * Created at.
@@ -98,7 +98,7 @@ final class QAAnswerMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $createdAt = 'qa_answer_created_at';
+    public const CREATED_AT = 'qa_answer_created_at';
 
     /**
      * Primary field name.
@@ -106,5 +106,5 @@ final class QAAnswerMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'qa_answer_id';
+    public const PRIMARYFIELD ='qa_answer_id';
 }

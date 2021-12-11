@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Modules\QA\Models;
 
 use Modules\Admin\Models\AccountMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -25,7 +25,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class QAAnswerVoteMapper extends DataMapperAbstract
+final class QAAnswerVoteMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -33,7 +33,7 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'qa_answer_vote_id'          => ['name' => 'qa_answer_vote_id',          'type' => 'int',      'internal' => 'id'],
         'qa_answer_vote_score'       => ['name' => 'qa_answer_vote_score',  'type' => 'int',      'internal' => 'score'],
         'qa_answer_vote_answer'      => ['name' => 'qa_answer_vote_answer',  'type' => 'int',      'internal' => 'answer', 'readonly' => true],
@@ -47,7 +47,7 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'createdBy' => [
             'mapper'     => AccountMapper::class,
             'external'   => 'qa_answer_vote_created_by',
@@ -60,7 +60,7 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'qa_answer_vote';
+    public const TABLE = 'qa_answer_vote';
 
     /**
      * Created at.
@@ -68,7 +68,7 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $createdAt = 'qa_answer_vote_created_at';
+    public const CREATED_AT = 'qa_answer_vote_created_at';
 
     /**
      * Primary field name.
@@ -76,7 +76,7 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'qa_answer_vote_id';
+    public const PRIMARYFIELD ='qa_answer_vote_id';
 
     /**
      * Find vote for answer from user
@@ -90,13 +90,8 @@ final class QAAnswerVoteMapper extends DataMapperAbstract
      */
     public static function findVote(int $answer, int $account) : bool | QAAnswerVote
     {
-        $depth = 3;
-        $query = self::getQuery();
-        $query->where(self::$table . '_d' . $depth . '.qa_answer_vote_created_by', '=', $account)
-            ->andWhere(self::$table . '_d' . $depth . '.qa_answer_vote_answer', '=', $answer);
+        $results = self::getAll()->where('comment', $answer)->where('createdBy', $account)->execute();
 
-        $results = self::getAllByQuery($query);
-
-        return \reset($results);
+        return empty($results) ? new NullQAAnswerVote() : \reset($results);
     }
 }

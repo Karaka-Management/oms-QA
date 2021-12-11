@@ -41,11 +41,11 @@ final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
         $answer->question   = new NullQAQuestion(1);
         $answer->isAccepted = true;
 
-        $id = QAAnswerMapper::create($answer);
+        $id = QAAnswerMapper::create()->execute($answer);
         self::assertGreaterThan(0, $answer->getId());
         self::assertEquals($id, $answer->getId());
 
-        $answerR = QAAnswerMapper::get($answer->getId());
+        $answerR = QAAnswerMapper::get()->with('createdBy')->with('account')->where('id', $answer->getId())->execute();
         self::assertEquals($answer->answer, $answerR->answer);
         self::assertEquals($answer->question->getId(), $answerR->question->getId());
         self::assertEquals($answer->getStatus(), $answerR->getStatus());

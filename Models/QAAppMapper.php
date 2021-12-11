@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class QAAppMapper extends DataMapperAbstract
+final class QAAppMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class QAAppMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'qa_app_id'   => ['name' => 'qa_app_id',   'type' => 'int',    'internal' => 'id'],
         'qa_app_name' => ['name' => 'qa_app_name', 'type' => 'string', 'internal' => 'name'],
     ];
@@ -43,7 +43,7 @@ final class QAAppMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'qa_app';
+    public const TABLE = 'qa_app';
 
     /**
      * Primary field name.
@@ -51,5 +51,5 @@ final class QAAppMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'qa_app_id';
+    public const PRIMARYFIELD ='qa_app_id';
 }

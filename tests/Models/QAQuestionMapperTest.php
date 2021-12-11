@@ -39,11 +39,11 @@ final class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
         $question->createdBy = new Profile(new NullAccount(1));
         $question->setLanguage('en');
 
-        $id = QAQuestionMapper::create($question);
+        $id = QAQuestionMapper::create()->execute($question);
         self::assertGreaterThan(0, $question->getId());
         self::assertEquals($id, $question->getId());
 
-        $questionR = QAQuestionMapper::get($question->getId());
+        $questionR = QAQuestionMapper::get()->with('createdBy')->with('createdBy/account')->where('id', $question->getId())->execute();
         self::assertEquals($question->name, $questionR->name);
         self::assertEquals($question->question, $questionR->question);
         self::assertEquals($question->getStatus(), $questionR->getStatus());

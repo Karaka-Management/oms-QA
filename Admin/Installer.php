@@ -49,6 +49,6 @@ final class Installer extends InstallerAbstract
         $app       = new QAApp();
         $app->name = 'Backend';
 
-        $id = QAAppMapper::create($app);
+        $id = QAAppMapper::create()->execute($app);
     }
 }

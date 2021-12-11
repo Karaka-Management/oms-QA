@@ -17,7 +17,7 @@ namespace Modules\QA\Models;
 use Modules\Media\Models\MediaMapper;
 use Modules\Profile\Models\ProfileMapper;
 use Modules\Tag\Models\TagMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -27,7 +27,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class QAQuestionMapper extends DataMapperAbstract
+final class QAQuestionMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -35,7 +35,7 @@ final class QAQuestionMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'qa_question_id'             => ['name' => 'qa_question_id',         'type' => 'int',      'internal' => 'id'],
         'qa_question_title'          => ['name' => 'qa_question_title',      'type' => 'string',   'internal' => 'name'],
         'qa_question_language'       => ['name' => 'qa_question_language',   'type' => 'string',   'internal' => 'language'],
@@ -53,7 +53,13 @@ final class QAQuestionMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
      * @since 1.0.0
      */
-    protected static array $hasMany = [
+    public const HAS_MANY = [
+        'tags' => [
+            'mapper'   => TagMapper::class,
+            'table'    => 'qa_tag',
+            'self'     => 'qa_tag_dst',
+            'external' => 'qa_tag_src',
+        ],
         'answers' => [
             'mapper'       => QAAnswerMapper::class,
             'table'        => 'qa_answer',
@@ -65,12 +71,6 @@ final class QAQuestionMapper extends DataMapperAbstract
             'table'        => 'qa_question_vote',
             'self'         => 'qa_question_vote_question',
             'external'     => null,
-        ],
-        'tags' => [
-            'mapper'   => TagMapper::class,
-            'table'    => 'qa_tag',
-            'self'     => 'qa_tag_dst',
-            'external' => 'qa_tag_src',
         ],
         'media'        => [
             'mapper'   => MediaMapper::class,
@@ -86,7 +86,7 @@ final class QAQuestionMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'createdBy' => [
             'mapper'   => ProfileMapper::class,
             'external' => 'qa_question_created_by',
@@ -104,7 +104,7 @@ final class QAQuestionMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'qa_question';
+    public const TABLE = 'qa_question';
 
     /**
      * Created at.
@@ -112,7 +112,7 @@ final class QAQuestionMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $createdAt = 'qa_question_created_at';
+    public const CREATED_AT = 'qa_question_created_at';
 
     /**
      * Primary field name.
@@ -120,5 +120,5 @@ final class QAQuestionMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'qa_question_id';
+    public const PRIMARYFIELD ='qa_question_id';
 }

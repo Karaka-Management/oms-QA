@@ -333,7 +333,7 @@ final class ApiController extends Controller
      */
     public function apiChangeAnsweredStatus(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $old = clone QAAnswerMapper::get((int) $request->getData('id'));
+        $old = clone QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateAnsweredStatusFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, QAAnswerMapper::class, 'answer', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Answer', 'Answer successfully updated.', $new);
@@ -350,7 +350,7 @@ final class ApiController extends Controller
      */
     public function updateAnsweredStatusFromRequest(RequestAbstract $request) : QAAnswer
     {
-        $answer             = QAAnswerMapper::get((int) $request->getData('id'));
+        $answer             = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $answer->isAccepted = $request->getData('accepted', 'bool') ?? false;
 
         return $answer;
