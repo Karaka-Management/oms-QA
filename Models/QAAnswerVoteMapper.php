@@ -34,11 +34,11 @@ final class QAAnswerVoteMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'qa_answer_vote_id'          => ['name' => 'qa_answer_vote_id',          'type' => 'int',      'internal' => 'id'],
-        'qa_answer_vote_score'       => ['name' => 'qa_answer_vote_score',  'type' => 'int',      'internal' => 'score'],
-        'qa_answer_vote_answer'      => ['name' => 'qa_answer_vote_answer',  'type' => 'int',      'internal' => 'answer', 'readonly' => true],
-        'qa_answer_vote_created_by'  => ['name' => 'qa_answer_vote_created_by',  'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
-        'qa_answer_vote_created_at'  => ['name' => 'qa_answer_vote_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'qa_answer_vote_id'         => ['name' => 'qa_answer_vote_id',         'type' => 'int',               'internal' => 'id'],
+        'qa_answer_vote_score'      => ['name' => 'qa_answer_vote_score',      'type' => 'int',               'internal' => 'score'],
+        'qa_answer_vote_answer'     => ['name' => 'qa_answer_vote_answer',     'type' => 'int',               'internal' => 'answer',    'readonly' => true],
+        'qa_answer_vote_created_by' => ['name' => 'qa_answer_vote_created_by', 'type' => 'int',               'internal' => 'createdBy', 'readonly' => true],
+        'qa_answer_vote_created_at' => ['name' => 'qa_answer_vote_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
     /**
@@ -49,8 +49,8 @@ final class QAAnswerVoteMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'createdBy' => [
-            'mapper'     => AccountMapper::class,
-            'external'   => 'qa_answer_vote_created_by',
+            'mapper'   => AccountMapper::class,
+            'external' => 'qa_answer_vote_created_by',
         ],
     ];
 
@@ -77,21 +77,4 @@ final class QAAnswerVoteMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const PRIMARYFIELD ='qa_answer_vote_id';
-
-    /**
-     * Find vote for answer from user
-     *
-     * @param int $answer  Answer id
-     * @param int $account Account id
-     *
-     * @return bool|QAAnswerVote
-     *
-     * @since 1.0.0
-     */
-    public static function findVote(int $answer, int $account) : bool | QAAnswerVote
-    {
-        $results = self::getAll()->where('comment', $answer)->where('createdBy', $account)->execute();
-
-        return empty($results) ? new NullQAAnswerVote() : \reset($results);
-    }
 }

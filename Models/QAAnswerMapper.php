@@ -35,14 +35,14 @@ final class QAAnswerMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'qa_answer_id'             => ['name' => 'qa_answer_id',         'type' => 'int',      'internal' => 'id'],
-        'qa_answer_answer_raw'     => ['name' => 'qa_answer_answer_raw',     'type' => 'string',   'internal' => 'answerRaw'],
-        'qa_answer_answer'         => ['name' => 'qa_answer_answer',     'type' => 'string',   'internal' => 'answer'],
-        'qa_answer_question'       => ['name' => 'qa_answer_question',   'type' => 'int',      'internal' => 'question'],
-        'qa_answer_status'         => ['name' => 'qa_answer_status',     'type' => 'int',      'internal' => 'status'],
-        'qa_answer_accepted'       => ['name' => 'qa_answer_accepted',   'type' => 'bool',     'internal' => 'isAccepted'],
-        'qa_answer_created_by'     => ['name' => 'qa_answer_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
-        'qa_answer_created_at'     => ['name' => 'qa_answer_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'qa_answer_id'         => ['name' => 'qa_answer_id',         'type' => 'int',               'internal' => 'id'],
+        'qa_answer_answer_raw' => ['name' => 'qa_answer_answer_raw', 'type' => 'string',            'internal' => 'answerRaw'],
+        'qa_answer_answer'     => ['name' => 'qa_answer_answer',     'type' => 'string',            'internal' => 'answer'],
+        'qa_answer_question'   => ['name' => 'qa_answer_question',   'type' => 'int',               'internal' => 'question'],
+        'qa_answer_status'     => ['name' => 'qa_answer_status',     'type' => 'int',               'internal' => 'status'],
+        'qa_answer_accepted'   => ['name' => 'qa_answer_accepted',   'type' => 'bool',              'internal' => 'isAccepted'],
+        'qa_answer_created_by' => ['name' => 'qa_answer_created_by', 'type' => 'int',               'internal' => 'createdBy', 'readonly' => true],
+        'qa_answer_created_at' => ['name' => 'qa_answer_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
     /**
@@ -53,13 +53,13 @@ final class QAAnswerMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'createdBy' => [
-            'mapper'     => ProfileMapper::class,
-            'external'   => 'qa_answer_created_by',
-            'by'         => 'account',
+            'mapper'   => ProfileMapper::class,
+            'external' => 'qa_answer_created_by',
+            'by'       => 'account',
         ],
         'question' => [
-            'mapper'     => QAQuestionMapper::class,
-            'external'   => 'qa_answer_question',
+            'mapper'   => QAQuestionMapper::class,
+            'external' => 'qa_answer_question',
         ],
     ];
 
@@ -71,10 +71,10 @@ final class QAAnswerMapper extends DataMapperFactory
      */
     public const HAS_MANY = [
         'votes' => [
-            'mapper'       => QAAnswerVoteMapper::class,
-            'table'        => 'qa_answer_vote',
-            'self'         => 'qa_answer_vote_answer',
-            'external'     => null,
+            'mapper'   => QAAnswerVoteMapper::class,
+            'table'    => 'qa_answer_vote',
+            'self'     => 'qa_answer_vote_answer',
+            'external' => null,
         ],
         'media'        => [
             'mapper'   => MediaMapper::class,

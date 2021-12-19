@@ -143,8 +143,6 @@ final class ApiController extends Controller
      */
     public function createQAQuestionFromRequest(RequestAbstract $request, ResponseAbstract $response, $data = null) : QAQuestion
     {
-        $mardkownParser = new Markdown();
-
         $question              = new QAQuestion();
         $question->name        = (string) $request->getData('title');
         $question->questionRaw = (string) $request->getData('plain');
@@ -442,7 +440,10 @@ final class ApiController extends Controller
             return;
         }
 
-        $questionVote = QAQuestionVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
+        $questionVote = QAQuestionVoteMapper::get()
+            ->where('question', (int) $request->getData('id'))
+            ->where('createdBy', $request->header->account)
+            ->execute();
 
         if ($questionVote === false || $questionVote instanceof NullQAQuestionVote || $questionVote === null) {
             $new            = new QAQuestionVote();
@@ -505,7 +506,10 @@ final class ApiController extends Controller
             return;
         }
 
-        $answerVote = QAAnswerVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
+        $answerVote = QAAnswerVoteMapper::get()
+            ->where('answer', (int) $request->getData('id'))
+            ->where('createdBy', $request->header->account)
+            ->execute();
 
         if ($answerVote === false || $answerVote instanceof NullQAAnswerVote || $answerVote === null) {
             $new            = new QAAnswerVote();

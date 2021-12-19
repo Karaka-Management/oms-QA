@@ -198,7 +198,7 @@ class QAAnswer implements \JsonSerializable
     /**
      * Get all votes
      *
-     * @return QAVnswerVote[]
+     * @return QAAnswerVote[]
      *
      * @since 1.0.0
      */

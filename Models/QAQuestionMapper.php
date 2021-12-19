@@ -36,15 +36,15 @@ final class QAQuestionMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'qa_question_id'             => ['name' => 'qa_question_id',         'type' => 'int',      'internal' => 'id'],
-        'qa_question_title'          => ['name' => 'qa_question_title',      'type' => 'string',   'internal' => 'name'],
-        'qa_question_language'       => ['name' => 'qa_question_language',   'type' => 'string',   'internal' => 'language'],
-        'qa_question_question'       => ['name' => 'qa_question_question',   'type' => 'string',   'internal' => 'question'],
-        'qa_question_question_raw'   => ['name' => 'qa_question_question_raw',   'type' => 'string',   'internal' => 'questionRaw'],
-        'qa_question_status'         => ['name' => 'qa_question_status',     'type' => 'int',      'internal' => 'status'],
-        'qa_question_created_by'     => ['name' => 'qa_question_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
-        'qa_question_created_at'     => ['name' => 'qa_question_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
-        'qa_question_app'            => ['name' => 'qa_question_app', 'type' => 'int', 'internal' => 'app'],
+        'qa_question_id'           => ['name' => 'qa_question_id',           'type' => 'int',               'internal' => 'id'],
+        'qa_question_title'        => ['name' => 'qa_question_title',        'type' => 'string',            'internal' => 'name'],
+        'qa_question_language'     => ['name' => 'qa_question_language',     'type' => 'string',            'internal' => 'language'],
+        'qa_question_question'     => ['name' => 'qa_question_question',     'type' => 'string',            'internal' => 'question'],
+        'qa_question_question_raw' => ['name' => 'qa_question_question_raw', 'type' => 'string',            'internal' => 'questionRaw'],
+        'qa_question_status'       => ['name' => 'qa_question_status',       'type' => 'int',               'internal' => 'status'],
+        'qa_question_created_by'   => ['name' => 'qa_question_created_by',   'type' => 'int',               'internal' => 'createdBy', 'readonly' => true],
+        'qa_question_created_at'   => ['name' => 'qa_question_created_at',   'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'qa_question_app'          => ['name' => 'qa_question_app',          'type' => 'int',               'internal' => 'app'],
     ];
 
     /**
@@ -61,16 +61,16 @@ final class QAQuestionMapper extends DataMapperFactory
             'external' => 'qa_tag_src',
         ],
         'answers' => [
-            'mapper'       => QAAnswerMapper::class,
-            'table'        => 'qa_answer',
-            'self'         => 'qa_answer_question',
-            'external'     => null,
+            'mapper'   => QAAnswerMapper::class,
+            'table'    => 'qa_answer',
+            'self'     => 'qa_answer_question',
+            'external' => null,
         ],
         'votes' => [
-            'mapper'       => QAQuestionVoteMapper::class,
-            'table'        => 'qa_question_vote',
-            'self'         => 'qa_question_vote_question',
-            'external'     => null,
+            'mapper'   => QAQuestionVoteMapper::class,
+            'table'    => 'qa_question_vote',
+            'self'     => 'qa_question_vote_question',
+            'external' => null,
         ],
         'media'        => [
             'mapper'   => MediaMapper::class,

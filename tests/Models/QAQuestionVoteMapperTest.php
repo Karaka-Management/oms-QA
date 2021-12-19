@@ -43,6 +43,12 @@ final class QAQuestionVoteMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($vote->question, $voteR->question);
         self::assertEquals($vote->score, $voteR->score);
 
-        self::assertEquals(1, QAQuestionVoteMapper::findVote(1, 1)->getId());
+        self::assertEquals(1,
+            QAQuestionVoteMapper::get()
+                ->where('question', 1)
+                ->where('createdBy', 1)
+                ->limit(1)
+                ->execute()->getId()
+        );
     }
 }

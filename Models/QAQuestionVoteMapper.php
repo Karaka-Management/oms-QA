@@ -34,11 +34,11 @@ final class QAQuestionVoteMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'qa_question_vote_id'          => ['name' => 'qa_question_vote_id',          'type' => 'int',      'internal' => 'id'],
-        'qa_question_vote_score'       => ['name' => 'qa_question_vote_score',  'type' => 'int',      'internal' => 'score'],
-        'qa_question_vote_question'    => ['name' => 'qa_question_vote_question',  'type' => 'int',      'internal' => 'question', 'readonly' => true],
-        'qa_question_vote_created_by'  => ['name' => 'qa_question_vote_created_by',  'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
-        'qa_question_vote_created_at'  => ['name' => 'qa_question_vote_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'qa_question_vote_id'         => ['name' => 'qa_question_vote_id',          'type' => 'int',               'internal' => 'id'],
+        'qa_question_vote_score'      => ['name' => 'qa_question_vote_score',       'type' => 'int',               'internal' => 'score'],
+        'qa_question_vote_question'   => ['name' => 'qa_question_vote_question',    'type' => 'int',               'internal' => 'question',  'readonly' => true],
+        'qa_question_vote_created_by' => ['name' => 'qa_question_vote_created_by',  'type' => 'int',               'internal' => 'createdBy', 'readonly' => true],
+        'qa_question_vote_created_at' => ['name' => 'qa_question_vote_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
     /**
@@ -49,8 +49,8 @@ final class QAQuestionVoteMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'createdBy' => [
-            'mapper'     => AccountMapper::class,
-            'external'   => 'qa_question_vote_created_by',
+            'mapper'   => AccountMapper::class,
+            'external' => 'qa_question_vote_created_by',
         ],
     ];
 
@@ -77,21 +77,4 @@ final class QAQuestionVoteMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const PRIMARYFIELD ='qa_question_vote_id';
-
-    /**
-     * Find vote for question from user
-     *
-     * @param int $question Question id
-     * @param int $account  Account id
-     *
-     * @return bool|QAQuestionVote
-     *
-     * @since 1.0.0
-     */
-    public static function findVote(int $question, int $account) : bool | QAQuestionVote
-    {
-        $results = self::getAll()->where('comment', $question)->where('createdBy', $account)->execute();
-
-        return empty($results) ? new NullQAQuestionVote() : \reset($results);
-    }
 }

@@ -77,11 +77,13 @@ final class BackendController extends Controller
             ->with('createdBy/account')
             ->with('votes')
             ->with('answers')
+            ->with('answers/votes')
             ->with('tags')
             ->with('tags/title')
             ->where('tags/title/language', $response->getLanguage())
             ->where('language', $response->getLanguage())
             ->limit(50)->execute();
+
         $view->setData('questions', $list);
 
         $apps = QAAppMapper::getAll()->execute();
@@ -112,6 +114,7 @@ final class BackendController extends Controller
             ->with('answers')
             ->with('answers/createdBy')
             ->with('answers/createdBy/account')
+            ->with('answers/votes')
             ->with('createdBy')
             ->with('createdBy/account')
             ->with('votes')
@@ -121,6 +124,7 @@ final class BackendController extends Controller
             ->where('id', (int) $request->getData('id'))
             ->where('tags/title/language', $response->getLanguage())
             ->execute();
+
         $view->addData('question', $question);
 
         $scores = QAHelperMapper::getAccountScore($question->getAccounts());

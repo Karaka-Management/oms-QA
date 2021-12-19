@@ -98,7 +98,7 @@ class QAQuestion implements \JsonSerializable
     /**
      * Tags.
      *
-     * @var array<int, int|Tag>
+     * @var array<int, Tag>
      * @since 1.0.0
      */
     private array $tags = [];
@@ -343,7 +343,7 @@ class QAQuestion implements \JsonSerializable
     /**
      * Get all votes
      *
-     * @return QAVnswerVote[]
+     * @return QAQuestionVote[]
      *
      * @since 1.0.0
      */
