@@ -13,8 +13,9 @@
 declare(strict_types=1);
 
 return ['QA' => [
-    'Badges' => 'διακριτικά',
+    'All'    => '#VALUE!',
+    'Badges' => 'Κονδύλια',
     'List'   => 'Λίστα',
     'Name'   => 'Ονομα',
-    'QA'     => 'QA',
+    'QA'     => 'Qa',
 ]];

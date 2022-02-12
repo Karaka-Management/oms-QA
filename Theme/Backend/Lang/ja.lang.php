@@ -13,8 +13,9 @@
 declare(strict_types=1);
 
 return ['QA' => [
+    'All'    => '#VALUE!',
     'Badges' => 'バッジ',
     'List'   => 'リスト',
     'Name'   => '名前',
-    'QA'     => 'QA',
+    'QA'     => 'QA.',
 ]];

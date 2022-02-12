@@ -13,7 +13,8 @@
 declare(strict_types=1);
 
 return ['QA' => [
-    'Badges' => 'Kitűzők',
+    'All'    => '#VALUE!',
+    'Badges' => 'Jelvények',
     'List'   => 'Lista',
     'Name'   => 'Név',
     'QA'     => 'QA',

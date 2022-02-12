@@ -13,8 +13,9 @@
 declare(strict_types=1);
 
 return ['QA' => [
-    'Badges' => 'значки',
-    'List'   => 'список',
-    'Name'   => 'ім\'я',
-    'QA'     => 'контроль якості',
+    'All'    => '#VALUE!',
+    'Badges' => 'Значки',
+    'List'   => 'Список',
+    'Name'   => 'Назва',
+    'QA'     => 'Qa',
 ]];

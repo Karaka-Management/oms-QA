@@ -12,10 +12,7 @@
  */
 declare(strict_types=1);
 
-return ['QA' => [
-    'All'    => '#VALUE!',
+return ['Navigation' => [
     'Badges' => 'Merkit',
-    'List'   => 'Lista',
-    'Name'   => 'Nimi',
-    'QA'     => 'Qa',
+    'QA'     => 'Q & A',
 ]];
