@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 use Modules\QA\Controller\ApiController;
-use Modules\QA\Models\PermissionState;
+use Modules\QA\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -25,7 +25,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::APP,
+                'state'  => PermissionCategory::APP,
             ],
         ],
         [
@@ -34,7 +34,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::APP,
+                'state'  => PermissionCategory::APP,
             ],
         ],
     ],
@@ -45,7 +45,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::QUESTION,
+                'state'  => PermissionCategory::QUESTION,
             ],
         ],
         [
@@ -54,7 +54,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::QUESTION,
+                'state'  => PermissionCategory::QUESTION,
             ],
         ],
     ],
@@ -65,7 +65,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::VOTE,
+                'state'  => PermissionCategory::VOTE,
             ],
         ],
     ],
@@ -76,7 +76,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::ANSWER,
+                'state'  => PermissionCategory::ANSWER,
             ],
         ],
         [
@@ -85,7 +85,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::ANSWER,
+                'state'  => PermissionCategory::ANSWER,
             ],
         ],
     ],
@@ -96,7 +96,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::VOTE,
+                'state'  => PermissionCategory::VOTE,
             ],
         ],
     ],

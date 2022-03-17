@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 use Modules\QA\Controller\BackendController;
-use Modules\QA\Models\PermissionState;
+use Modules\QA\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -25,7 +25,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => \Modules\Admin\Models\PermissionState::MODULE,
+                'state'  => \Modules\Admin\Models\PermissionCategory::MODULE,
             ],
         ],
     ],
@@ -36,7 +36,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => \Modules\Admin\Models\PermissionState::MODULE,
+                'state'  => \Modules\Admin\Models\PermissionCategory::MODULE,
             ],
         ],
     ],
@@ -47,7 +47,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::QA,
+                'state'  => PermissionCategory::QA,
             ],
         ],
     ],
@@ -58,7 +58,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::QA,
+                'state'  => PermissionCategory::QA,
             ],
         ],
     ],
@@ -69,7 +69,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::QUESTION,
+                'state'  => PermissionCategory::QUESTION,
             ],
         ],
     ],
@@ -80,7 +80,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::QUESTION,
+                'state'  => PermissionCategory::QUESTION,
             ],
         ],
     ],
