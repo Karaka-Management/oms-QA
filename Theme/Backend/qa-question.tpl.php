@@ -33,10 +33,28 @@ echo $this->getData('nav')->render();
             <div class="score">
                 <div class="counter-area">
                     <div class="counter-container">
-                        <i class="fa fa-chevron-up qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'); ?>"></i>
+                        <a id="qa-question-upvote" data-action='[
+                            {
+                                "key": 1, "listener": "click", "action": [
+                                    {"key": 1, "type": "event.prevent"},
+                                    {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/base}/{/lang}/{/api}qa/question/vote?id=' . $question->getId());?>&type=1", "method": "PUT", "request_type": "json"}
+                                ]
+                            }
+                        ]' href="#">
+                            <i class="fa fa-chevron-up qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'); ?>"></i>
+                        </a>
                         <span class="counter"><?= $question->getVoteScore(); ?></span>
                         <span class="text">Score</span>
-                        <i class="fa fa-chevron-down qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'); ?>"></i>
+                        <a id="qa-question-downvote" data-action='[
+                            {
+                                "key": 1, "listener": "click", "action": [
+                                    {"key": 1, "type": "event.prevent"},
+                                    {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/base}/{/lang}/{/api}qa/question/vote?id=' . $question->getId());?>&type=-1", "method": "PUT", "request_type": "json"}
+                                ]
+                            }
+                        ]' href="#">
+                            <i class="fa fa-chevron-down qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'); ?>"></i>
+                        </a>
                     </div>
                     <div class="counter-container">
                         <span class="counter score<?= $this->printHtml($question->hasAccepted() ? ' done' : ' open'); ?>"><?= $question->getAnswerCount(); ?></span>
@@ -83,13 +101,40 @@ echo $this->getData('nav')->render();
             <div class="score">
                 <div class="counter-area">
                     <div class="counter-container">
-                        <i class="fa fa-chevron-up qa-vote<?= $this->printHtml($answer->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'); ?>"></i>
+                        <a id="qa-answer-upvote-<?= $answer->getId() ?>" data-action='[
+                                {
+                                    "key": 1, "listener": "click", "action": [
+                                        {"key": 1, "type": "event.prevent"},
+                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/base}/{/lang}/{/api}qa/answer/vote?id=' . $answer->getId());?>&type=1", "method": "PUT", "request_type": "json"}
+                                    ]
+                                }
+                            ]' href="#">
+                            <i class="fa fa-chevron-up qa-vote<?= $this->printHtml($answer->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'); ?>"></i>
+                        </a>
                         <span class="counter"><?= $answer->getVoteScore(); ?></span>
                         <span class="text">Score</span>
-                        <i class="fa fa-chevron-down qa-vote<?= $this->printHtml($answer->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'); ?>"></i>
+                        <a id="qa-answer-downvote-<?= $answer->getId() ?>" data-action='[
+                                {
+                                    "key": 1, "listener": "click", "action": [
+                                        {"key": 1, "type": "event.prevent"},
+                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/base}/{/lang}/{/api}qa/answer/vote?id=' . $answer->getId());?>&type=-1", "method": "PUT", "request_type": "json"}
+                                    ]
+                                }
+                        ]' href="#">
+                            <i class="fa fa-chevron-down qa-vote<?= $this->printHtml($answer->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'); ?>"></i>
+                        </a>
                     </div>
                     <div class="counter-container">
-                        <i class="fa fa-check qa-accept"></i>
+                        <a id="qa-answer-accept-<?= $answer->getId() ?>" data-action='[
+                                {
+                                    "key": 1, "listener": "click", "action": [
+                                        {"key": 1, "type": "event.prevent"},
+                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/base}/{/lang}/{/api}qa/answer/accept?id=' . $answer->getId());?>&type=1", "method": "PUT", "request_type": "json"}
+                                    ]
+                                }
+                        ]' href="#">
+                            <i class="fa fa-check qa-accept"></i>
+                        </a>
                         <span class="text"><?= $this->printHtml($answer->isAccepted ? 'Accepted' : 'Accept'); ?></span>
                     </div>
                 </div>

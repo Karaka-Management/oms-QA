@@ -39,34 +39,30 @@ final class QAHelperMapper extends DataMapperFactory
         $scores = [];
 
         $query         = new Builder(self::$db);
-        $questionScore = $query->select('qa_question_created_by')
+        $questionScore = $query->select('qa_question_vote_created_for')
             ->selectAs('SUM(qa_question_vote_score)', 'score')
             ->from(QAQuestionVoteMapper::TABLE)
-            ->leftJoin(QAQuestionMapper::TABLE)
-                ->on(QAQuestionVoteMapper::TABLE . '.qa_question_vote_question', '=', QAQuestionMapper::TABLE . '.qa_question_id')
-            ->where(QAQuestionMapper::TABLE . '.qa_question_created_by', 'in', $accounts)
-            ->groupBy('qa_question_created_by')
+            ->where(QAQuestionVoteMapper::TABLE . '.qa_question_vote_created_for', 'in', $accounts)
+            ->groupBy('qa_question_vote_created_for')
             ->execute()
             ->fetchAll();
 
         foreach ($questionScore as $votes) {
-            $scores[(int) $votes['qa_question_created_by']] = (int) $votes['score'];
+            $scores[(int) $votes['qa_question_vote_created_for']] = (int) $votes['score'];
         }
 
         $query       = new Builder(self::$db);
-        $answerScore = $query->select('qa_answer_created_by')
+        $answerScore = $query->select('qa_answer_vote_created_for')
             ->selectAs('SUM(qa_answer_vote_score)', 'score')
             ->from(QAAnswerVoteMapper::TABLE)
-            ->leftJoin(QAAnswerMapper::TABLE)
-                ->on(QAAnswerVoteMapper::TABLE . '.qa_answer_vote_answer', '=', QAAnswerMapper::TABLE . '.qa_answer_id')
-            ->where(QAAnswerMapper::TABLE . '.qa_answer_created_by', 'in', $accounts)
-            ->groupBy('qa_answer_created_by')
+            ->where(QAAnswerMapper::TABLE . '.qa_answer_vote_created_for', 'in', $accounts)
+            ->groupBy('qa_answer_vote_created_for')
             ->execute()
             ->fetchAll();
 
         foreach ($answerScore as $votes) {
-            $scores[(int) $votes['qa_answer_created_by']] ??= 0;
-            $scores[(int) $votes['qa_answer_created_by']]  += (int) $votes['score'];
+            $scores[(int) $votes['qa_answer_vote_created_for']] ??= 0;
+            $scores[(int) $votes['qa_answer_vote_created_for']]  += (int) $votes['score'];
         }
 
         return $scores;

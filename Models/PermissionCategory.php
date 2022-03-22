@@ -35,4 +35,6 @@ abstract class PermissionCategory extends Enum
     public const VOTE = 4;
 
     public const APP = 5;
+
+    public const ACCEPT = 5;
 }

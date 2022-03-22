@@ -122,6 +122,13 @@
                 "foreignTable": "account",
                 "foreignKey": "account_id"
             },
+            "qa_question_vote_created_for": {
+                "name": "qa_question_vote_created_for",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            },
             "qa_question_vote_score": {
                 "name": "qa_question_vote_score",
                 "type": "TINYINT",
@@ -258,6 +265,13 @@
             },
             "qa_answer_vote_created_by": {
                 "name": "qa_answer_vote_created_by",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            },
+            "qa_answer_vote_created_for": {
+                "name": "qa_answer_vote_created_for",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "account",

@@ -44,6 +44,14 @@ class QAQuestionVote
     public Account $createdBy;
 
     /**
+     * Account
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    public int $createdFor = 0;
+
+    /**
      * Created at
      *
      * @var \DateTimeImmutable

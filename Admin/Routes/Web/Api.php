@@ -100,4 +100,15 @@ return [
             ],
         ],
     ],
+    '^.*/qa/answer/accept(\?.*|$)' => [
+        [
+            'dest'       => '\Modules\QA\Controller\ApiController:apiChangeAnsweredStatus',
+            'verb'       => RouteVerb::PUT | RouteVerb::SET,
+            'permission' => [
+                'module' => ApiController::NAME,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::ACCEPT,
+            ],
+        ],
+    ],
 ];

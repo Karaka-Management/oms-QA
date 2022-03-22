@@ -17,6 +17,7 @@ namespace Modules\QA\Controller;
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\Profile;
+use Modules\QA\Models\NullQAAnswer;
 use Modules\QA\Models\NullQAAnswerVote;
 use Modules\QA\Models\NullQAApp;
 use Modules\QA\Models\NullQAQuestion;
@@ -331,9 +332,24 @@ final class ApiController extends Controller
      */
     public function apiChangeAnsweredStatus(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
+        // @todo: check if is allowed to change
+
         $old = clone QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $oldAccepted = QAAnswerMapper::get()
+            ->where('question', $old->question->getId())
+            ->where('isAccepted', true)
+            ->execute();
+
+        if ($old->getId() !== $oldAccepted->getId()) {
+            $oldUnaccepted = clone $oldAccepted;
+            $oldUnaccepted->isAccepted = !$oldUnaccepted->isAccepted;
+
+            $this->updateModel($request->header->account, $oldAccepted, $oldUnaccepted, QAAnswerMapper::class, 'answer', $request->getOrigin());
+        }
+
         $new = $this->updateAnsweredStatusFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, QAAnswerMapper::class, 'answer', $request->getOrigin());
+
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Answer', 'Answer successfully updated.', $new);
     }
 
@@ -349,7 +365,7 @@ final class ApiController extends Controller
     public function updateAnsweredStatusFromRequest(RequestAbstract $request) : QAAnswer
     {
         $answer             = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $answer->isAccepted = $request->getData('accepted', 'bool') ?? false;
+        $answer->isAccepted = !$answer->isAccepted;
 
         return $answer;
     }
@@ -440,23 +456,30 @@ final class ApiController extends Controller
             return;
         }
 
+        // @todo: check if is allowed to change
+
         $questionVote = QAQuestionVoteMapper::get()
             ->where('question', (int) $request->getData('id'))
             ->where('createdBy', $request->header->account)
             ->execute();
 
         if ($questionVote === false || $questionVote instanceof NullQAQuestionVote || $questionVote === null) {
+            $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+
             $new            = new QAQuestionVote();
             $new->score     = (int) $request->getData('type');
             $new->question  = (int) $request->getData('id');
             $new->createdBy = new NullAccount($request->header->account);
+            $new->createdFor = $question->createdBy->getId();
 
             $this->createModel($request->header->account, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
         } else {
             /** @var QAQuestionVote $questionVote */
             $new        = clone $questionVote;
-            $new->score = (int) $request->getData('type');
+            $new->score = ((int) $request->getData('type')) === $new->score
+                ? 0
+                : (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $questionVote, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
@@ -506,23 +529,30 @@ final class ApiController extends Controller
             return;
         }
 
+        // @todo: check if is allowed to change
+
         $answerVote = QAAnswerVoteMapper::get()
             ->where('answer', (int) $request->getData('id'))
             ->where('createdBy', $request->header->account)
             ->execute();
 
         if ($answerVote === false || $answerVote instanceof NullQAAnswerVote || $answerVote === null) {
+            $answer = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+
             $new            = new QAAnswerVote();
             $new->score     = (int) $request->getData('type');
             $new->answer    = (int) $request->getData('id');
             $new->createdBy = new NullAccount($request->header->account);
+            $new->createdFor = $answer->createdBy->getId();
 
             $this->createModel($request->header->account, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
         } else {
             /** @var QAAnswerVote $answerVote */
             $new        = clone $answerVote;
-            $new->score = (int) $request->getData('type');
+            $new->score = ((int) $request->getData('type')) === $new->score
+                ? 0
+                : (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $answerVote, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
