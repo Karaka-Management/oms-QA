@@ -55,7 +55,7 @@ final class QAHelperMapper extends DataMapperFactory
         $answerScore = $query->select('qa_answer_vote_created_for')
             ->selectAs('SUM(qa_answer_vote_score)', 'score')
             ->from(QAAnswerVoteMapper::TABLE)
-            ->where(QAAnswerMapper::TABLE . '.qa_answer_vote_created_for', 'in', $accounts)
+            ->where(QAAnswerVoteMapper::TABLE . '.qa_answer_vote_created_for', 'in', $accounts)
             ->groupBy('qa_answer_vote_created_for')
             ->execute()
             ->fetchAll();
