@@ -334,14 +334,14 @@ final class ApiController extends Controller
     {
         // @todo: check if is allowed to change
 
-        $old = clone QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old         = clone QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $oldAccepted = QAAnswerMapper::get()
             ->where('question', $old->question->getId())
             ->where('isAccepted', true)
             ->execute();
 
         if ($old->getId() !== $oldAccepted->getId()) {
-            $oldUnaccepted = clone $oldAccepted;
+            $oldUnaccepted             = clone $oldAccepted;
             $oldUnaccepted->isAccepted = !$oldUnaccepted->isAccepted;
 
             $this->updateModel($request->header->account, $oldAccepted, $oldUnaccepted, QAAnswerMapper::class, 'answer', $request->getOrigin());
@@ -466,10 +466,10 @@ final class ApiController extends Controller
         if ($questionVote === false || $questionVote instanceof NullQAQuestionVote || $questionVote === null) {
             $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
-            $new            = new QAQuestionVote();
-            $new->score     = (int) $request->getData('type');
-            $new->question  = (int) $request->getData('id');
-            $new->createdBy = new NullAccount($request->header->account);
+            $new             = new QAQuestionVote();
+            $new->score      = (int) $request->getData('type');
+            $new->question   = (int) $request->getData('id');
+            $new->createdBy  = new NullAccount($request->header->account);
             $new->createdFor = $question->createdBy->getId();
 
             $this->createModel($request->header->account, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
@@ -539,10 +539,10 @@ final class ApiController extends Controller
         if ($answerVote === false || $answerVote instanceof NullQAAnswerVote || $answerVote === null) {
             $answer = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
-            $new            = new QAAnswerVote();
-            $new->score     = (int) $request->getData('type');
-            $new->answer    = (int) $request->getData('id');
-            $new->createdBy = new NullAccount($request->header->account);
+            $new             = new QAAnswerVote();
+            $new->score      = (int) $request->getData('type');
+            $new->answer     = (int) $request->getData('id');
+            $new->createdBy  = new NullAccount($request->header->account);
             $new->createdFor = $answer->createdBy->getId();
 
             $this->createModel($request->header->account, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
