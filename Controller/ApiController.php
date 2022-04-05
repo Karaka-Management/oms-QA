@@ -170,7 +170,7 @@ final class ApiController extends Controller
             }
         }
 
-        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+        if (!empty($uploadedFiles = $request->getFiles())) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 [],
                 [],
@@ -185,7 +185,7 @@ final class ApiController extends Controller
             }
         }
 
-        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+        if (!empty($mediaFiles = $request->getDataJson('media'))) {
             foreach ($mediaFiles as $media) {
                 $question->addMedia(new NullMedia($media));
             }
@@ -268,7 +268,7 @@ final class ApiController extends Controller
         $answer->setStatus((int) $request->getData('status'));
         $answer->createdBy = new Profile(new NullAccount($request->header->account));
 
-        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+        if (!empty($uploadedFiles = $request->getFiles())) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 [],
                 [],
@@ -283,7 +283,7 @@ final class ApiController extends Controller
             }
         }
 
-        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+        if (!empty($mediaFiles = $request->getDataJson('media'))) {
             foreach ($mediaFiles as $media) {
                 $answer->addMedia(new NullMedia($media));
             }
