@@ -17,9 +17,9 @@ namespace Modules\QA\Models;
 use Modules\Media\Models\Media;
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
+use Modules\Tag\Models\NullTag;
 use Modules\Tag\Models\Tag;
 use phpOMS\Localization\ISO639x1Enum;
-use Modules\Tag\Models\NullTag;
 
 /**
  * QA question class.

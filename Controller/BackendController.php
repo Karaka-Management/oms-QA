@@ -168,7 +168,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, $data = null): RenderableInterface
+    public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response));
@@ -203,7 +203,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewAppSettings(RequestAbstract $request, ResponseAbstract $response, $data = null): RenderableInterface
+    public function viewAppSettings(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings-app');

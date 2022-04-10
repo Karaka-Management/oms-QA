@@ -17,7 +17,6 @@ namespace Modules\QA\Controller;
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\Profile;
-use Modules\QA\Models\NullQAAnswer;
 use Modules\QA\Models\NullQAAnswerVote;
 use Modules\QA\Models\NullQAApp;
 use Modules\QA\Models\NullQAQuestion;

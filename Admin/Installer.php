@@ -18,7 +18,6 @@ use Modules\QA\Models\QAApp;
 use Modules\QA\Models\QAAppMapper;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Config\SettingsInterface;
-use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
 

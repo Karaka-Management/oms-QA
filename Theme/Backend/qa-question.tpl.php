@@ -101,7 +101,7 @@ echo $this->getData('nav')->render();
             <div class="score">
                 <div class="counter-area">
                     <div class="counter-container">
-                        <a id="qa-answer-upvote-<?= $answer->getId() ?>" data-action='[
+                        <a id="qa-answer-upvote-<?= $answer->getId(); ?>" data-action='[
                                 {
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
@@ -113,7 +113,7 @@ echo $this->getData('nav')->render();
                         </a>
                         <span class="counter"><?= $answer->getVoteScore(); ?></span>
                         <span class="text">Score</span>
-                        <a id="qa-answer-downvote-<?= $answer->getId() ?>" data-action='[
+                        <a id="qa-answer-downvote-<?= $answer->getId(); ?>" data-action='[
                                 {
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
@@ -125,7 +125,7 @@ echo $this->getData('nav')->render();
                         </a>
                     </div>
                     <div class="counter-container">
-                        <a id="qa-answer-accept-<?= $answer->getId() ?>" data-action='[
+                        <a id="qa-answer-accept-<?= $answer->getId(); ?>" data-action='[
                                 {
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
