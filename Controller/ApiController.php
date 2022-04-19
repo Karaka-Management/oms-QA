@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   Modules\QA
  * @copyright Dennis Eichhorn
@@ -333,7 +333,10 @@ final class ApiController extends Controller
     {
         // @todo: check if is allowed to change
 
-        $old         = clone QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        /** @var \Modules\QA\Models\QAAnswer $old */
+        $old = clone QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+
+        /** @var \Modules\QA\Models\QAAnswer $oldAccepted */
         $oldAccepted = QAAnswerMapper::get()
             ->where('question', $old->question->getId())
             ->where('isAccepted', true)
@@ -363,6 +366,7 @@ final class ApiController extends Controller
      */
     public function updateAnsweredStatusFromRequest(RequestAbstract $request) : QAAnswer
     {
+        /** @var \Modules\QA\Models\QAAnswer $answer */
         $answer             = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $answer->isAccepted = !$answer->isAccepted;
 
@@ -457,12 +461,14 @@ final class ApiController extends Controller
 
         // @todo: check if is allowed to change
 
+        /** @var \Modules\QA\Models\QAQuestionVote $questionVote */
         $questionVote = QAQuestionVoteMapper::get()
             ->where('question', (int) $request->getData('id'))
             ->where('createdBy', $request->header->account)
             ->execute();
 
         if ($questionVote === false || $questionVote instanceof NullQAQuestionVote || $questionVote === null) {
+            /** @var \Modules\QA\Models\QAQuestion $question */
             $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
             $new             = new QAQuestionVote();
@@ -530,12 +536,14 @@ final class ApiController extends Controller
 
         // @todo: check if is allowed to change
 
+        /** @var \Modules\QA\Models\QAAnswerVote $answerVote */
         $answerVote = QAAnswerVoteMapper::get()
             ->where('answer', (int) $request->getData('id'))
             ->where('createdBy', $request->header->account)
             ->execute();
 
         if ($answerVote === false || $answerVote instanceof NullQAAnswerVote || $answerVote === null) {
+            /** @var \Modules\QA\Models\QAAnswer $answer */
             $answer = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
             $new             = new QAAnswerVote();

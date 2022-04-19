@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   Modules\QA\Models
  * @copyright Dennis Eichhorn
@@ -45,7 +45,11 @@ final class QAHelperMapper extends DataMapperFactory
             ->where(QAQuestionVoteMapper::TABLE . '.qa_question_vote_created_for', 'in', $accounts)
             ->groupBy('qa_question_vote_created_for')
             ->execute()
-            ->fetchAll();
+            ?->fetchAll();
+
+        if ($questionScore === null) {
+            $questionScore = [];;
+        }
 
         foreach ($questionScore as $votes) {
             $scores[(int) $votes['qa_question_vote_created_for']] = (int) $votes['score'];
@@ -58,7 +62,11 @@ final class QAHelperMapper extends DataMapperFactory
             ->where(QAAnswerVoteMapper::TABLE . '.qa_answer_vote_created_for', 'in', $accounts)
             ->groupBy('qa_answer_vote_created_for')
             ->execute()
-            ->fetchAll();
+            ?->fetchAll();
+
+        if ($answerScore === null) {
+            $answerScore = [];;
+        }
 
         foreach ($answerScore as $votes) {
             $scores[(int) $votes['qa_answer_vote_created_for']] ??= 0;
