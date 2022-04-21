@@ -58,7 +58,7 @@ final class AppController extends ModuleAbstract
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewList(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Web/{APPNAME}/tpl/list');
@@ -78,7 +78,7 @@ final class AppController extends ModuleAbstract
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewQuestion(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewQuestion(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Web/{APPNAME}/tpl/question');
@@ -98,7 +98,7 @@ final class AppController extends ModuleAbstract
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewProfile(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewProfile(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Web/{APPNAME}/tpl/profile');
@@ -118,7 +118,7 @@ final class AppController extends ModuleAbstract
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewImprint(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewImprint(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Web/{APPNAME}/tpl/imprint');
@@ -138,7 +138,7 @@ final class AppController extends ModuleAbstract
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewTerms(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewTerms(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Web/{APPNAME}/tpl/terms');
@@ -158,7 +158,7 @@ final class AppController extends ModuleAbstract
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewDataPrivacy(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewDataPrivacy(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Web/{APPNAME}/tpl/privacy');

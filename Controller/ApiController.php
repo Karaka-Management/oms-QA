@@ -65,7 +65,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiQuestionUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiQuestionUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
     }
 
@@ -82,7 +82,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiQAAppUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiQAAppUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
     }
 
@@ -99,7 +99,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiAnswerUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiAnswerUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
     }
 
@@ -116,7 +116,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAQuestionCreate($request))) {
             $response->set('qa_question_create', new FormValidation($val));
@@ -232,7 +232,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiQAAnswerCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiQAAnswerCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAAnswerCreate($request))) {
             $response->set('qa_answer_create', new FormValidation($val));
@@ -329,7 +329,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiChangeAnsweredStatus(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiChangeAnsweredStatus(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         // @todo: check if is allowed to change
 
@@ -386,7 +386,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiQAAppCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiQAAppCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAAppCreate($request))) {
             $response->set('qa_app_create', new FormValidation($val));
@@ -450,7 +450,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiChangeQAQuestionVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiChangeQAQuestionVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQuestionVote($request))) {
             $response->set('qa_question_vote', new FormValidation($val));
@@ -525,7 +525,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiChangeQAAnswerVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiChangeQAAnswerVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateAnswerVote($request))) {
             $response->set('qa_answer_vote', new FormValidation($val));

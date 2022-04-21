@@ -48,7 +48,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function setUpBackend(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function setUpBackend(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $head = $response->get('Content')->getData('head');
         $head->addAsset(AssetType::CSS, '/Modules/QA/Theme/Backend/styles.css');
@@ -66,12 +66,13 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewQADashboard(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewQADashboard(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-dashboard');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response));
 
+        /** @var \Modules\QA\Models\QAQuestion[] $list */
         $list = QAQuestionMapper::getAll()
             ->with('createdBy')
             ->with('createdBy/account')
@@ -86,6 +87,7 @@ final class BackendController extends Controller
 
         $view->setData('questions', $list);
 
+        /** @var \Modules\QA\Models\QAApp[] $apps */
         $apps = QAAppMapper::getAll()->execute();
         $view->setData('apps', $apps);
 
@@ -104,12 +106,13 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewQADoc(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewQADoc(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response));
 
+        /** @var \Modules\QA\Models\QAQuestion $question */
         $question = QAQuestionMapper::get()
             ->with('answers')
             ->with('answers/createdBy')
@@ -145,12 +148,13 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question-create');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response));
 
+        /** @var \Modules\QA\Models\QAQuestion $question */
         $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $view->addData('question', $question);
 
@@ -168,18 +172,20 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response));
 
         $id = $request->getData('id') ?? '';
 
+        /** @var \Model\Setting[] $settings */
         $settings = SettingMapper::getAll()->where('module', $id)->execute();
         if (!($settings instanceof NullSetting)) {
             $view->setData('settings', !\is_array($settings) ? [$settings] : $settings);
         }
 
+        /** @var \Modules\QA\Models\QAApp[] $apps */
         $apps = QAAppMapper::getAll()->execute();
         $view->setData('apps', $apps);
 
@@ -203,7 +209,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewAppSettings(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewAppSettings(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings-app');
