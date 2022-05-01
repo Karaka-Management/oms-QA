@@ -189,11 +189,7 @@ final class BackendController extends Controller
         $apps = QAAppMapper::getAll()->execute();
         $view->setData('apps', $apps);
 
-        if (\is_file(__DIR__ . '/../Admin/Settings/Theme/Backend/settings.tpl.php')) {
-            $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
-        } else {
-            $view->setTemplate('/Modules/Admin/Theme/Backend/modules-settings');
-        }
+        $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
 
         return $view;
     }
