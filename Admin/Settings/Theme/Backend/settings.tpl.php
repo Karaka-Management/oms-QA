@@ -32,11 +32,11 @@ echo $this->getData('nav')->render(); ?>
                 <tr>
                     <td><?= $this->getHtml('ID', '0', '0'); ?>
                         <label for="appList-sort-1">
-                            <input app="radio" name="appList-sort" id="appList-sort-1">
+                            <input type="radio" name="appList-sort" id="appList-sort-1">
                             <i class="sort-asc fa fa-chevron-up"></i>
                         </label>
                         <label for="appList-sort-2">
-                            <input app="radio" name="appList-sort" id="appList-sort-2">
+                            <input type="radio" name="appList-sort" id="appList-sort-2">
                             <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>
@@ -44,11 +44,11 @@ echo $this->getData('nav')->render(); ?>
                         </label>
                     <td><?= $this->getHtml('Name'); ?>
                         <label for="appList-sort-3">
-                            <input app="radio" name="appList-sort" id="appList-sort-3">
+                            <input type="radio" name="appList-sort" id="appList-sort-3">
                             <i class="sort-asc fa fa-chevron-up"></i>
                         </label>
                         <label for="appList-sort-4">
-                            <input app="radio" name="appList-sort" id="appList-sort-4">
+                            <input type="radio" name="appList-sort" id="appList-sort-4">
                             <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>

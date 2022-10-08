@@ -25,7 +25,7 @@ echo $this->getData('nav')->render(); ?>
 
 <div class="row">
     <div class="col-xs-12 box">
-        <select>
+        <select name="app">
             <option value="0"><?= $this->getHtml('All'); ?>
             <?php foreach ($apps as $app) : ?>
                 <option value="<?= $app->getId(); ?>"><?= $app->name; ?>
