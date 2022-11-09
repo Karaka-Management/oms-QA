@@ -57,7 +57,7 @@ echo $this->getData('nav')->render(); ?>
                 <tbody>
                 <?php $count = 0;
                 foreach ($apps as $key => $app) : ++$count;
-                    $url = UriFactory::build('{/prefix}admin/module/settings?id=QA&app=' . $app->id); ?>
+                    $url = UriFactory::build('admin/module/settings?id=QA&app=' . $app->id); ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $app->getId(); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($app->name); ?></a>
