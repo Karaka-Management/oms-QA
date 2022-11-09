@@ -35,4 +35,12 @@ final class NullQAAnswerVote extends QAAnswerVote
     {
         $this->id = $id;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }
