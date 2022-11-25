@@ -34,6 +34,7 @@ final class QAAnswerVoteMapperTest extends \PHPUnit\Framework\TestCase
         $vote->answer    = 1;
         $vote->score     = 1;
         $vote->createdBy = new NullAccount(1);
+        $vote->createdFor = 2;
 
         $id = QAAnswerVoteMapper::create()->execute($vote);
         self::assertGreaterThan(0, $vote->getId());
