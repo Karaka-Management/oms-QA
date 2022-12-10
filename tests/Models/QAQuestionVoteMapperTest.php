@@ -30,10 +30,10 @@ final class QAQuestionVoteMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testCRUD() : void
     {
-        $vote            = new QAQuestionVote();
-        $vote->question  = 1;
-        $vote->score     = 1;
-        $vote->createdBy = new NullAccount(1);
+        $vote             = new QAQuestionVote();
+        $vote->question   = 1;
+        $vote->score      = 1;
+        $vote->createdBy  = new NullAccount(1);
         $vote->createdFor = 2;
 
         $id = QAQuestionVoteMapper::create()->execute($vote);
