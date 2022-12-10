@@ -75,17 +75,17 @@ echo $this->getData('nav')->render();
                     </div>
 
                     <?php $files = $question->getMedia(); foreach ($files as $file) : ?>
-                         <span><a class="content" href="<?= UriFactory::build('media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                         <span><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
-                    <a class="account-info" href="<?= UriFactory::build('profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
+                    <a class="account-info" href="<?= UriFactory::build('{/lang}/{/app}/profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></div>
                             <div class="name-score">Score: <?= $scores[$question->createdBy->account->getId()] ?? 0; ?></div>
                         </span>
 
                         <?php if ($question->createdBy->image !== null && !($question->createdBy->image instanceof NullMedia)) : ?>
-                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('' . $question->createdBy->image->getPath()); ?>">
+                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/lang}/{/app}/' . $question->createdBy->image->getPath()); ?>">
                         <?php endif; ?>
                     </a>
                 </div>
@@ -147,16 +147,16 @@ echo $this->getData('nav')->render();
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
                     <?php $files = $answer->getMedia(); foreach ($files as $file) : ?>
-                        <span><a class="content" href="<?= UriFactory::build('media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                        <span><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
-                    <a class="account-info" href="<?= UriFactory::build('profile/single?{?}&id=' . $answer->createdBy->getId()); ?>">
+                    <a class="account-info" href="<?= UriFactory::build('{/lang}/{/app}/profile/single?{?}&id=' . $answer->createdBy->getId()); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></div>
                             <div class="name-score">Score: <?= $scores[$answer->createdBy->account->getId()] ?? 0; ?></div>
                         </span>
                         <?php if ($answer->createdBy->image !== null && !($answer->createdBy->image instanceof NullMedia)) : ?>
-                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('' . $answer->createdBy->image->getPath()); ?>">
+                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/lang}/{/app}/' . $answer->createdBy->image->getPath()); ?>">
                         <?php endif; ?>
                     </a>
                 </div>
