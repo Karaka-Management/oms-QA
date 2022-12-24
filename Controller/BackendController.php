@@ -181,9 +181,7 @@ final class BackendController extends Controller
 
         /** @var \Model\Setting[] $settings */
         $settings = SettingMapper::getAll()->where('module', $id)->execute();
-        if (!($settings instanceof NullSetting)) {
-            $view->setData('settings', !\is_array($settings) ? [$settings] : $settings);
-        }
+        $view->setData('settings', $settings);
 
         /** @var \Modules\QA\Models\QAApp[] $apps */
         $apps = QAAppMapper::getAll()->execute();
