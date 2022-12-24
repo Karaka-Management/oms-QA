@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\QA\Controller;
 
-use Model\NullSetting;
 use Model\SettingMapper;
 use Modules\QA\Models\QAAppMapper;
 use Modules\QA\Models\QAHelperMapper;
