@@ -161,8 +161,13 @@ final class ApiController extends Controller
                     $request->setData('language', $tag['language'], true);
 
                     $internalResponse = new HttpResponse();
-                    $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse, $data);
-                    $question->addTag($internalResponse->get($request->uri->__toString())['response']);
+                    $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse, null);
+
+                    if (!\is_array($data = $internalResponse->get($request->uri->__toString()))) {
+                        continue;
+                    }
+
+                    $question->addTag($data['response']);
                 } else {
                     $question->addTag(new NullTag((int) $tag['id']));
                 }
@@ -334,7 +339,8 @@ final class ApiController extends Controller
         // @todo: check if is allowed to change
 
         /** @var \Modules\QA\Models\QAAnswer $old */
-        $old = clone QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = clone $old;
 
         /** @var \Modules\QA\Models\QAAnswer $oldAccepted */
         $oldAccepted = QAAnswerMapper::get()
@@ -413,7 +419,7 @@ final class ApiController extends Controller
     public function createQAAppFromRequest(RequestAbstract $request) : QAApp
     {
         $app       = new QAApp();
-        $app->name = $request->getData('name') ?? '';
+        $app->name = (string) ($request->getData('name') ?? '');
 
         return $app;
     }

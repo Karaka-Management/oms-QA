@@ -70,7 +70,7 @@ echo $this->getData('nav')->render();
                 <div class="portlet-foot qa-portlet-foot">
                     <div class="tag-list">
                         <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
-                            <span class="tag"><?= $tag->icon !== null ? '<i class="' . $this->printHtml($tag->icon ?? '') . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
+                            <span class="tag"><?= !empty($tag->icon) ? '<i class="' . $this->printHtml($tag->icon) . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                         <?php endforeach; ?>
                     </div>
 
