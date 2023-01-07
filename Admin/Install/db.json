@@ -13,6 +13,14 @@
                 "name": "qa_app_name",
                 "type": "VARCHAR(255)",
                 "default": null
+            },
+            "qa_app_unit": {
+                "name": "qa_app_unit",
+                "type": "INT",
+                "default": null,
+                "null": true,
+                "foreignTable": "organization_unit",
+                "foreignKey": "organization_unit_id"
             }
         }
     },

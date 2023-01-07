@@ -420,6 +420,7 @@ final class ApiController extends Controller
     {
         $app       = new QAApp();
         $app->name = (string) ($request->getData('name') ?? '');
+        $app->unit = $request->getData('unit', 'int');
 
         return $app;
     }

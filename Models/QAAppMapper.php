@@ -35,6 +35,7 @@ final class QAAppMapper extends DataMapperFactory
     public const COLUMNS = [
         'qa_app_id'   => ['name' => 'qa_app_id',   'type' => 'int',    'internal' => 'id'],
         'qa_app_name' => ['name' => 'qa_app_name', 'type' => 'string', 'internal' => 'name'],
+        'qa_app_unit' => ['name' => 'qa_app_unit', 'type' => 'int', 'internal' => 'unit'],
     ];
 
     /**
