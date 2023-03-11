@@ -77,5 +77,5 @@ final class QAAnswerVoteMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='qa_answer_vote_id';
+    public const PRIMARYFIELD = 'qa_answer_vote_id';
 }
