@@ -6,7 +6,7 @@
  *
  * @package   Modules\QA
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -46,7 +46,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * QA api controller class.
  *
  * @package Modules\QA
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -146,8 +146,8 @@ final class ApiController extends Controller
         $question              = new QAQuestion();
         $question->name        = (string) $request->getData('title');
         $question->questionRaw = (string) $request->getData('plain');
-        $question->question    = Markdown::parse((string) ($request->getData('plain') ?? ''));
-        $question->app         = new NullQAApp((int) ($request->getData('app') ?? 1));
+        $question->question    = Markdown::parse($request->getDataString('plain') ?? '');
+        $question->app         = new NullQAApp($request->getDataInt('app') ?? 1);
         $question->setLanguage((string) $request->getData('language'));
         $question->setStatus((int) $request->getData('status'));
         $question->createdBy = new Profile(new NullAccount($request->header->account));
@@ -214,7 +214,7 @@ final class ApiController extends Controller
             || ($val['plain'] = empty($request->getData('plain')))
             || ($val['language'] = empty($request->getData('language')))
             || ($val['status'] = (
-                $request->getData('status') !== null
+                $request->hasData('status')
                 && !QAQuestionStatus::isValidValue((int) $request->getData('status'))
             ))
         ) {
@@ -266,7 +266,7 @@ final class ApiController extends Controller
 
         $answer             = new QAAnswer();
         $answer->answerRaw  = (string) $request->getData('plain');
-        $answer->answer     = Markdown::parse((string) ($request->getData('plain') ?? ''));
+        $answer->answer     = Markdown::parse($request->getDataString('plain') ?? '');
         $answer->question   = new NullQAQuestion((int) $request->getData('question'));
         $answer->isAccepted = false;
         $answer->setStatus((int) $request->getData('status'));
@@ -311,7 +311,7 @@ final class ApiController extends Controller
         if (($val['plain'] = empty($request->getData('plain')))
             || ($val['question'] = empty($request->getData('question')))
             || ($val['status'] = (
-                $request->getData('status') !== null
+                $request->hasData('status')
                 && !QAAnswerStatus::isValidValue((int) $request->getData('status'))
             ))
         ) {
@@ -419,8 +419,8 @@ final class ApiController extends Controller
     public function createQAAppFromRequest(RequestAbstract $request) : QAApp
     {
         $app       = new QAApp();
-        $app->name = (string) ($request->getData('name') ?? '');
-        $app->unit = $request->getData('unit', 'int');
+        $app->name = $request->getDataString('name') ?? '';
+        $app->unit = $request->getDataInt('unit');
 
         return $app;
     }
@@ -510,8 +510,8 @@ final class ApiController extends Controller
     private function validateQuestionVote(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['id'] = ($request->getData('id') === null))
-            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type') > 1))
+        if (($val['id'] = (!$request->hasData('id')))
+            || ($val['type'] = ($request->getDataInt('type') < -1 || $request->getData('type') > 1))
         ) {
             return $val;
         }
@@ -585,8 +585,8 @@ final class ApiController extends Controller
     private function validateAnswerVote(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['id'] = ($request->getData('id') === null))
-            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type') > 1))
+        if (($val['id'] = (!$request->hasData('id')))
+            || ($val['type'] = ($request->getDataInt('type') < -1 || $request->getData('type') > 1))
         ) {
             return $val;
         }

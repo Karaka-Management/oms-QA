@@ -6,7 +6,7 @@
  *
  * @package   Modules\QA
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -51,7 +51,7 @@ echo $this->getData('nav')->render(); ?>
                         </div>
                     </div>
                     <div class="title">
-                        <a href="<?= UriFactory::build('{/lang}/{/app}/qa/question?{?}&id=' . $question->getId()); ?>"><?= $this->printHtml($question->name); ?></a>
+                        <a href="<?= UriFactory::build('{/base}/qa/question?{?}&id=' . $question->getId()); ?>"><?= $this->printHtml($question->name); ?></a>
                     </div>
                 </div>
             </div>
@@ -62,10 +62,10 @@ echo $this->getData('nav')->render(); ?>
                     <?php endforeach; ?>
                 </div>
 
-                <a class="account-info" href="<?= UriFactory::build('{/lang}/{/app}/profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
+                <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
                     <span class="name content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></span>
                     <?php if ($question->createdBy->image !== null && !($question->createdBy->image instanceof NullMedia)) : ?>
-                        <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/lang}/{/app}/' . $question->createdBy->image->getPath()); ?>">
+                        <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/base}/' . $question->createdBy->image->getPath()); ?>">
                     <?php endif; ?>
                 </a>
             </div>

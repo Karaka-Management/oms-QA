@@ -6,7 +6,7 @@
  *
  * @package   Modules\Auditor
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -57,7 +57,7 @@ echo $this->getData('nav')->render(); ?>
                 <tbody>
                 <?php $count = 0;
                 foreach ($apps as $key => $app) : ++$count;
-                    $url = UriFactory::build('{/lang}/{/app}/admin/module/settings?id=QA&app=' . $app->id); ?>
+                    $url = UriFactory::build('{/base}/admin/module/settings?id=QA&app=' . $app->id); ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $app->getId(); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($app->name); ?></a>

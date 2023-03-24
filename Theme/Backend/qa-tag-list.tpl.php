@@ -6,7 +6,7 @@
  *
  * @package   Modules\QA
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -32,7 +32,7 @@ echo $this->getData('nav')->render();
                 <tr><td colspan="2">
                         <tbody>
                         <?php $c = 0; foreach ($tags as $key => $value) : ++$c;
-                        $url     = \phpOMS\Uri\UriFactory::build('{/lang}/{/app}/admin/account/settings?{?}&id=' . $value->getId()); ?>
+                        $url     = \phpOMS\Uri\UriFactory::build('{/base}/admin/account/settings?{?}&id=' . $value->getId()); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
                     <td><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>
