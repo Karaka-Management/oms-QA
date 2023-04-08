@@ -210,9 +210,9 @@ final class ApiController extends Controller
     private function validateQAQuestionCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['plain'] = empty($request->getData('plain')))
-            || ($val['language'] = empty($request->getData('language')))
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['plain'] = !$request->hasData('plain'))
+            || ($val['language'] = !$request->hasData('language'))
             || ($val['status'] = (
                 $request->hasData('status')
                 && !QAQuestionStatus::isValidValue((int) $request->getData('status'))
@@ -308,8 +308,8 @@ final class ApiController extends Controller
     private function validateQAAnswerCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['plain'] = empty($request->getData('plain')))
-            || ($val['question'] = empty($request->getData('question')))
+        if (($val['plain'] = !$request->hasData('plain'))
+            || ($val['question'] = !$request->hasData('question'))
             || ($val['status'] = (
                 $request->hasData('status')
                 && !QAAnswerStatus::isValidValue((int) $request->getData('status'))
@@ -437,7 +437,7 @@ final class ApiController extends Controller
     private function validateQAAppCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['name'] = empty($request->getData('name')))) {
+        if (($val['name'] = !$request->hasData('name'))) {
             return $val;
         }
 
