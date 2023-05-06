@@ -37,6 +37,6 @@ final class NullQAAnswerTest extends \PHPUnit\Framework\TestCase
     public function testId() : void
     {
         $null = new NullQAAnswer(2);
-        self::assertEquals(2, $null->getId());
+        self::assertEquals(2, $null->id);
     }
 }

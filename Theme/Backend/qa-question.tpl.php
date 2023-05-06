@@ -37,7 +37,7 @@ echo $this->getData('nav')->render();
                             {
                                 "key": 1, "listener": "click", "action": [
                                     {"key": 1, "type": "event.prevent"},
-                                    {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/question/vote?id=' . $question->getId());?>&type=1", "method": "PUT", "request_type": "json"}
+                                    {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/question/vote?id=' . $question->id);?>&type=1", "method": "PUT", "request_type": "json"}
                                 ]
                             }
                         ]' href="#">
@@ -49,7 +49,7 @@ echo $this->getData('nav')->render();
                             {
                                 "key": 1, "listener": "click", "action": [
                                     {"key": 1, "type": "event.prevent"},
-                                    {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/question/vote?id=' . $question->getId());?>&type=-1", "method": "PUT", "request_type": "json"}
+                                    {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/question/vote?id=' . $question->id);?>&type=-1", "method": "PUT", "request_type": "json"}
                                 ]
                             }
                         ]' href="#">
@@ -75,16 +75,16 @@ echo $this->getData('nav')->render();
                     </div>
 
                     <?php $files = $question->getMedia(); foreach ($files as $file) : ?>
-                         <span><a class="content" href="<?= UriFactory::build('{/app}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                         <span><a class="content" href="<?= UriFactory::build('{/app}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
-                    <a class="account-info" href="<?= UriFactory::build('{/app}/profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
+                    <a class="account-info" href="<?= UriFactory::build('{/app}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></div>
-                            <div class="name-score">Score: <?= $scores[$question->createdBy->account->getId()] ?? 0; ?></div>
+                            <div class="name-score">Score: <?= $scores[$question->createdBy->account->id] ?? 0; ?></div>
                         </span>
 
-                        <?php if ($question->createdBy->image !== null && !($question->createdBy->image instanceof NullMedia)) : ?>
+                        <?php if ($question->createdBy->image->id > 0) : ?>
                             <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/app}/' . $question->createdBy->image->getPath()); ?>">
                         <?php endif; ?>
                     </a>
@@ -101,11 +101,11 @@ echo $this->getData('nav')->render();
             <div class="score">
                 <div class="counter-area">
                     <div class="counter-container">
-                        <a id="qa-answer-upvote-<?= $answer->getId(); ?>" data-action='[
+                        <a id="qa-answer-upvote-<?= $answer->id; ?>" data-action='[
                                 {
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
-                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/vote?id=' . $answer->getId());?>&type=1", "method": "PUT", "request_type": "json"}
+                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/vote?id=' . $answer->id);?>&type=1", "method": "PUT", "request_type": "json"}
                                     ]
                                 }
                             ]' href="#">
@@ -113,11 +113,11 @@ echo $this->getData('nav')->render();
                         </a>
                         <span class="counter"><?= $answer->getVoteScore(); ?></span>
                         <span class="text">Score</span>
-                        <a id="qa-answer-downvote-<?= $answer->getId(); ?>" data-action='[
+                        <a id="qa-answer-downvote-<?= $answer->id; ?>" data-action='[
                                 {
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
-                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/vote?id=' . $answer->getId());?>&type=-1", "method": "PUT", "request_type": "json"}
+                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/vote?id=' . $answer->id);?>&type=-1", "method": "PUT", "request_type": "json"}
                                     ]
                                 }
                         ]' href="#">
@@ -125,11 +125,11 @@ echo $this->getData('nav')->render();
                         </a>
                     </div>
                     <div class="counter-container">
-                        <a id="qa-answer-accept-<?= $answer->getId(); ?>" data-action='[
+                        <a id="qa-answer-accept-<?= $answer->id; ?>" data-action='[
                                 {
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
-                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/accept?id=' . $answer->getId());?>&type=1", "method": "PUT", "request_type": "json"}
+                                        {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/accept?id=' . $answer->id);?>&type=1", "method": "PUT", "request_type": "json"}
                                     ]
                                 }
                         ]' href="#">
@@ -147,15 +147,15 @@ echo $this->getData('nav')->render();
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
                     <?php $files = $answer->getMedia(); foreach ($files as $file) : ?>
-                        <span><a class="content" href="<?= UriFactory::build('{/app}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                        <span><a class="content" href="<?= UriFactory::build('{/app}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
-                    <a class="account-info" href="<?= UriFactory::build('{/app}/profile/single?{?}&id=' . $answer->createdBy->getId()); ?>">
+                    <a class="account-info" href="<?= UriFactory::build('{/app}/profile/single?{?}&id=' . $answer->createdBy->id); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></div>
-                            <div class="name-score">Score: <?= $scores[$answer->createdBy->account->getId()] ?? 0; ?></div>
+                            <div class="name-score">Score: <?= $scores[$answer->createdBy->account->id] ?? 0; ?></div>
                         </span>
-                        <?php if ($answer->createdBy->image !== null && !($answer->createdBy->image instanceof NullMedia)) : ?>
+                        <?php if ($answer->createdBy->image->id > 0) : ?>
                             <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/app}/' . $answer->createdBy->image->getPath()); ?>">
                         <?php endif; ?>
                     </a>

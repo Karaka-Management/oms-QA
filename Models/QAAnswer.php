@@ -34,7 +34,7 @@ class QAAnswer implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Status.
@@ -42,7 +42,7 @@ class QAAnswer implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private int $status = QAAnswerStatus::ACTIVE;
+    public int $status = QAAnswerStatus::ACTIVE;
 
     /**
      * Answer.
@@ -187,7 +187,7 @@ class QAAnswer implements \JsonSerializable
     public function getAccountVoteScore(int $account) : int
     {
         foreach ($this->votes as $vote) {
-            if ($vote->createdBy->getId() === $account) {
+            if ($vote->createdBy->id === $account) {
                 return $vote->score;
             }
         }

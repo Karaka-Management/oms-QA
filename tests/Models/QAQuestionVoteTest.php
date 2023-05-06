@@ -37,7 +37,7 @@ final class QAQuestionVoteTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->vote->getId());
+        self::assertEquals(0, $this->vote->id);
         self::assertEquals(0, $this->vote->question);
         self::assertEquals(0, $this->vote->score);
     }

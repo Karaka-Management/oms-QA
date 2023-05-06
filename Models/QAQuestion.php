@@ -37,7 +37,7 @@ class QAQuestion implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Title.
@@ -53,7 +53,7 @@ class QAQuestion implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private int $status = QAQuestionStatus::ACTIVE;
+    public int $status = QAQuestionStatus::ACTIVE;
 
     /**
      * Question.
@@ -77,7 +77,7 @@ class QAQuestion implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private string $language = ISO639x1Enum::_EN;
+    public string $language = ISO639x1Enum::_EN;
 
     /**
      * Created by.
@@ -166,10 +166,10 @@ class QAQuestion implements \JsonSerializable
     public function getAccounts() : array
     {
         $accounts   = [];
-        $accounts[] = $this->createdBy->account->getId();
+        $accounts[] = $this->createdBy->account->id;
 
         foreach ($this->answers as $answer) {
-            $accounts[] = $answer->createdBy->account->getId();
+            $accounts[] = $answer->createdBy->account->id;
         }
 
         return \array_unique($accounts);
@@ -378,7 +378,7 @@ class QAQuestion implements \JsonSerializable
     public function getAccountVoteScore(int $account) : int
     {
         foreach ($this->votes as $vote) {
-            if ($vote->createdBy->getId() === $account) {
+            if ($vote->createdBy->id === $account) {
                 return $vote->score;
             }
         }

@@ -45,13 +45,13 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->question->getId());
+        self::assertEquals(0, $this->question->id);
         self::assertEquals('', $this->question->name);
         self::assertEquals('', $this->question->question);
         self::assertEquals('', $this->question->questionRaw);
         self::assertEquals(QAQuestionStatus::ACTIVE, $this->question->getStatus());
         self::assertEquals(ISO639x1Enum::_EN, $this->question->getLanguage());
-        self::assertEquals(0, $this->question->createdBy->getId());
+        self::assertEquals(0, $this->question->createdBy->id);
         self::assertInstanceOf('\DateTimeImmutable', $this->question->createdAt);
         self::assertFalse($this->question->hasAccepted());
         self::assertEquals([0 => 0], $this->question->getAccounts()); // includes createdBy

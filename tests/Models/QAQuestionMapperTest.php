@@ -40,14 +40,14 @@ final class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
         $question->setLanguage('en');
 
         $id = QAQuestionMapper::create()->execute($question);
-        self::assertGreaterThan(0, $question->getId());
-        self::assertEquals($id, $question->getId());
+        self::assertGreaterThan(0, $question->id);
+        self::assertEquals($id, $question->id);
 
-        $questionR = QAQuestionMapper::get()->with('createdBy')->with('createdBy/account')->where('id', $question->getId())->execute();
+        $questionR = QAQuestionMapper::get()->with('createdBy')->with('createdBy/account')->where('id', $question->id)->execute();
         self::assertEquals($question->name, $questionR->name);
         self::assertEquals($question->question, $questionR->question);
         self::assertEquals($question->getStatus(), $questionR->getStatus());
         self::assertEquals($question->getLanguage(), $questionR->getLanguage());
-        self::assertEquals($question->createdBy->account->getId(), $questionR->createdBy->account->getId());
+        self::assertEquals($question->createdBy->account->id, $questionR->createdBy->account->id);
     }
 }

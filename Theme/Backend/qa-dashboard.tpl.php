@@ -28,7 +28,7 @@ echo $this->getData('nav')->render(); ?>
         <select name="app">
             <option value="0"><?= $this->getHtml('All'); ?>
             <?php foreach ($apps as $app) : ?>
-                <option value="<?= $app->getId(); ?>"><?= $app->name; ?>
+                <option value="<?= $app->id; ?>"><?= $app->name; ?>
             <?php endforeach; ?>
         </select>
     </div>
@@ -51,7 +51,7 @@ echo $this->getData('nav')->render(); ?>
                         </div>
                     </div>
                     <div class="title">
-                        <a href="<?= UriFactory::build('{/base}/qa/question?{?}&id=' . $question->getId()); ?>"><?= $this->printHtml($question->name); ?></a>
+                        <a href="<?= UriFactory::build('{/base}/qa/question?{?}&id=' . $question->id); ?>"><?= $this->printHtml($question->name); ?></a>
                     </div>
                 </div>
             </div>
@@ -62,9 +62,9 @@ echo $this->getData('nav')->render(); ?>
                     <?php endforeach; ?>
                 </div>
 
-                <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->getId()); ?>">
+                <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
                     <span class="name content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></span>
-                    <?php if ($question->createdBy->image !== null && !($question->createdBy->image instanceof NullMedia)) : ?>
+                    <?php if ($question->createdBy->image->id > 0) : ?>
                         <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/base}/' . $question->createdBy->image->getPath()); ?>">
                     <?php endif; ?>
                 </a>

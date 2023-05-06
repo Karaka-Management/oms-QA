@@ -344,11 +344,11 @@ final class ApiController extends Controller
 
         /** @var \Modules\QA\Models\QAAnswer $oldAccepted */
         $oldAccepted = QAAnswerMapper::get()
-            ->where('question', $old->question->getId())
+            ->where('question', $old->question->id)
             ->where('isAccepted', true)
             ->execute();
 
-        if ($old->getId() !== $oldAccepted->getId()) {
+        if ($old->id !== $oldAccepted->id) {
             $oldUnaccepted             = clone $oldAccepted;
             $oldUnaccepted->isAccepted = !$oldUnaccepted->isAccepted;
 
@@ -474,7 +474,7 @@ final class ApiController extends Controller
             ->where('createdBy', $request->header->account)
             ->execute();
 
-        if ($questionVote === false || $questionVote instanceof NullQAQuestionVote || $questionVote === null) {
+        if ($questionVote->id === 0) {
             /** @var \Modules\QA\Models\QAQuestion $question */
             $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
@@ -482,7 +482,7 @@ final class ApiController extends Controller
             $new->score      = (int) $request->getData('type');
             $new->question   = (int) $request->getData('id');
             $new->createdBy  = new NullAccount($request->header->account);
-            $new->createdFor = $question->createdBy->getId();
+            $new->createdFor = $question->createdBy->id;
 
             $this->createModel($request->header->account, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
@@ -549,7 +549,7 @@ final class ApiController extends Controller
             ->where('createdBy', $request->header->account)
             ->execute();
 
-        if ($answerVote === false || $answerVote instanceof NullQAAnswerVote || $answerVote === null) {
+        if ($answerVote->id === 0) {
             /** @var \Modules\QA\Models\QAAnswer $answer */
             $answer = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
@@ -557,7 +557,7 @@ final class ApiController extends Controller
             $new->score      = (int) $request->getData('type');
             $new->answer     = (int) $request->getData('id');
             $new->createdBy  = new NullAccount($request->header->account);
-            $new->createdFor = $answer->createdBy->getId();
+            $new->createdFor = $answer->createdBy->id;
 
             $this->createModel($request->header->account, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);

@@ -37,10 +37,10 @@ final class QAQuestionVoteMapperTest extends \PHPUnit\Framework\TestCase
         $vote->createdFor = 2;
 
         $id = QAQuestionVoteMapper::create()->execute($vote);
-        self::assertGreaterThan(0, $vote->getId());
-        self::assertEquals($id, $vote->getId());
+        self::assertGreaterThan(0, $vote->id);
+        self::assertEquals($id, $vote->id);
 
-        $voteR = QAQuestionVoteMapper::get()->where('id', $vote->getId())->execute();
+        $voteR = QAQuestionVoteMapper::get()->where('id', $vote->id)->execute();
         self::assertEquals($vote->question, $voteR->question);
         self::assertEquals($vote->score, $voteR->score);
 
@@ -49,7 +49,7 @@ final class QAQuestionVoteMapperTest extends \PHPUnit\Framework\TestCase
                 ->where('question', 1)
                 ->where('createdBy', 1)
                 ->limit(1)
-                ->execute()->getId()
+                ->execute()->id
         );
     }
 }

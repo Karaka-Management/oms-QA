@@ -41,12 +41,12 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->answer->getId());
+        self::assertEquals(0, $this->answer->id);
         self::assertEquals('', $this->answer->answer);
-        self::assertEquals(0, $this->answer->question->getId());
+        self::assertEquals(0, $this->answer->question->id);
         self::assertFalse($this->answer->isAccepted);
         self::assertEquals(QAAnswerStatus::ACTIVE, $this->answer->getStatus());
-        self::assertEquals(0, $this->answer->createdBy->getId());
+        self::assertEquals(0, $this->answer->createdBy->id);
         self::assertEquals(0, $this->answer->getVoteScore());
         self::assertEquals(0, $this->answer->getAccountVoteScore(0));
         self::assertEquals([], $this->answer->getMedia());
