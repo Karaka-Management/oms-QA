@@ -12,10 +12,10 @@
  */
 declare(strict_types=1);
 
-$tags = $this->getData('tags');
+$tags = $this->data['tags'];
 
 /** @var \phpOMS\Views\View $this */
-echo $this->getData('nav')->render();
+echo $this->data['nav']->render();
 ?>
 
 <div class="row">

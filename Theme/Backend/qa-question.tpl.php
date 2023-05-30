@@ -15,15 +15,15 @@ declare(strict_types=1);
 use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\QA\Models\QAQuestion $question */
-$question = $this->getData('question');
+$question = $this->data['question'];
 
 /** @var \Modules\QA\Models\QAAnswer[] $answers */
 $answers = $question->getAnswersByScore();
 
 /** @var array $scores */
-$scores = $this->getData('scores');
+$scores = $this->data['scores'];
 
-echo $this->getData('nav')->render();
+echo $this->data['nav']->render();
 ?>
 
 <div class="row qa">
