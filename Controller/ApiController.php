@@ -117,7 +117,7 @@ final class ApiController extends Controller
     public function apiQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAQuestionCreate($request))) {
-            $response->set('qa_question_create', new FormValidation($val));
+            $response->data['qa_question_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -172,7 +172,7 @@ final class ApiController extends Controller
             }
         }
 
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 [],
                 [],
@@ -238,7 +238,7 @@ final class ApiController extends Controller
     public function apiQAAnswerCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAAnswerCreate($request))) {
-            $response->set('qa_answer_create', new FormValidation($val));
+            $response->data['qa_answer_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -270,7 +270,7 @@ final class ApiController extends Controller
         $answer->setStatus((int) $request->getData('status'));
         $answer->createdBy = new Profile(new NullAccount($request->header->account));
 
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 [],
                 [],
@@ -393,7 +393,7 @@ final class ApiController extends Controller
     public function apiQAAppCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAAppCreate($request))) {
-            $response->set('qa_app_create', new FormValidation($val));
+            $response->data['qa_app_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -458,7 +458,7 @@ final class ApiController extends Controller
     public function apiChangeQAQuestionVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQuestionVote($request))) {
-            $response->set('qa_question_vote', new FormValidation($val));
+            $response->data['qa_question_vote'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -533,7 +533,7 @@ final class ApiController extends Controller
     public function apiChangeQAAnswerVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateAnswerVote($request))) {
-            $response->set('qa_answer_vote', new FormValidation($val));
+            $response->data['qa_answer_vote'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
