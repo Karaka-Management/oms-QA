@@ -80,8 +80,8 @@ final class BackendController extends Controller
             ->with('answers/votes')
             ->with('tags')
             ->with('tags/title')
-            ->where('tags/title/language', $response->getLanguage())
-            ->where('language', $response->getLanguage())
+            ->where('tags/title/language', $response->header->l11n->language)
+            ->where('language', $response->header->l11n->language)
             ->limit(50)->execute();
 
         $view->setData('questions', $list);
@@ -124,7 +124,7 @@ final class BackendController extends Controller
             ->with('tags/title')
             ->with('media')
             ->where('id', (int) $request->getData('id'))
-            ->where('tags/title/language', $response->getLanguage())
+            ->where('tags/title/language', $response->header->l11n->language)
             ->execute();
 
         $view->addData('question', $question);
