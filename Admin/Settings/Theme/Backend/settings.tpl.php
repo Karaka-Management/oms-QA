@@ -18,9 +18,9 @@ use phpOMS\Uri\UriFactory;
  * @var \phpOMS\Views\View         $this
  * @var \Modules\QA\Models\QAApp[] $apps
  */
-$apps = $this->getData('apps') ?? [];
+$apps = $this->data['apps'] ?? [];
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">

@@ -49,7 +49,7 @@ final class BackendController extends Controller
      */
     public function setUpBackend(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $head = $response->get('Content')->getData('head');
+        $head = $response->get('Content')->head;
         $head->addAsset(AssetType::CSS, '/Modules/QA/Theme/Backend/styles.css?v=1.0.0');
     }
 
@@ -69,7 +69,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-dashboard');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         /** @var \Modules\QA\Models\QAQuestion[] $list */
         $list = QAQuestionMapper::getAll()
@@ -84,11 +84,11 @@ final class BackendController extends Controller
             ->where('language', $response->header->l11n->language)
             ->limit(50)->execute();
 
-        $view->setData('questions', $list);
+        $view->data['questions'] = $list;
 
         /** @var \Modules\QA\Models\QAApp[] $apps */
         $apps = QAAppMapper::getAll()->execute();
-        $view->setData('apps', $apps);
+        $view->data['apps'] = $apps;
 
         return $view;
     }
@@ -109,7 +109,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         /** @var \Modules\QA\Models\QAQuestion $question */
         $question = QAQuestionMapper::get()
@@ -127,10 +127,10 @@ final class BackendController extends Controller
             ->where('tags/title/language', $response->header->l11n->language)
             ->execute();
 
-        $view->addData('question', $question);
+        $view->data['question'] = $question;
 
         $scores = QAHelperMapper::getAccountScore($question->getAccounts());
-        $view->addData('scores', $scores);
+        $view->data['scores'] = $scores;
 
         return $view;
     }
@@ -151,11 +151,11 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question-create');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         /** @var \Modules\QA\Models\QAQuestion $question */
         $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $view->addData('question', $question);
+        $view->data['question'] = $question;
 
         return $view;
     }
@@ -174,17 +174,17 @@ final class BackendController extends Controller
     public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response);
 
         $id = $request->getDataString('id') ?? '';
 
         /** @var \Model\Setting[] $settings */
         $settings = SettingMapper::getAll()->where('module', $id)->execute();
-        $view->setData('settings', $settings);
+        $view->data['settings'] = $settings;
 
         /** @var \Modules\QA\Models\QAApp[] $apps */
         $apps = QAAppMapper::getAll()->execute();
-        $view->setData('apps', $apps);
+        $view->data['apps'] = $apps;
 
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
 
@@ -206,9 +206,9 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings-app');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response);
 
-        $view->addData('app', QAAppMapper::get()->where('id', (int) $request->getData('app'))->execute());
+        $view->data['app'] = QAAppMapper::get()->where('id', (int) $request->getData('app'))->execute();
 
         return $view;
     }
