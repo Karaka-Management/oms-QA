@@ -118,7 +118,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQAQuestionCreate($request))) {
             $response->data['qa_question_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status             = RequestStatusCode::R_400;
 
             return;
         }
@@ -239,7 +239,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQAAnswerCreate($request))) {
             $response->data['qa_answer_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -394,7 +394,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQAAppCreate($request))) {
             $response->data['qa_app_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status        = RequestStatusCode::R_400;
 
             return;
         }
@@ -459,7 +459,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateQuestionVote($request))) {
             $response->data['qa_question_vote'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status           = RequestStatusCode::R_400;
 
             return;
         }
@@ -534,7 +534,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateAnswerVote($request))) {
             $response->data['qa_answer_vote'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status         = RequestStatusCode::R_400;
 
             return;
         }

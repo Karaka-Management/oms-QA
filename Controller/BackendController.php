@@ -87,7 +87,7 @@ final class BackendController extends Controller
         $view->data['questions'] = $list;
 
         /** @var \Modules\QA\Models\QAApp[] $apps */
-        $apps = QAAppMapper::getAll()->execute();
+        $apps               = QAAppMapper::getAll()->execute();
         $view->data['apps'] = $apps;
 
         return $view;
@@ -129,7 +129,7 @@ final class BackendController extends Controller
 
         $view->data['question'] = $question;
 
-        $scores = QAHelperMapper::getAccountScore($question->getAccounts());
+        $scores               = QAHelperMapper::getAccountScore($question->getAccounts());
         $view->data['scores'] = $scores;
 
         return $view;
@@ -154,7 +154,7 @@ final class BackendController extends Controller
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         /** @var \Modules\QA\Models\QAQuestion $question */
-        $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $question               = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $view->data['question'] = $question;
 
         return $view;
@@ -173,17 +173,17 @@ final class BackendController extends Controller
      */
     public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
-        $view = new View($this->app->l11nManager, $request, $response);
+        $view              = new View($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response);
 
         $id = $request->getDataString('id') ?? '';
 
         /** @var \Model\Setting[] $settings */
-        $settings = SettingMapper::getAll()->where('module', $id)->execute();
+        $settings               = SettingMapper::getAll()->where('module', $id)->execute();
         $view->data['settings'] = $settings;
 
         /** @var \Modules\QA\Models\QAApp[] $apps */
-        $apps = QAAppMapper::getAll()->execute();
+        $apps               = QAAppMapper::getAll()->execute();
         $view->data['apps'] = $apps;
 
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
