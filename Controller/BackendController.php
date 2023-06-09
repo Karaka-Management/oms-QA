@@ -75,6 +75,7 @@ final class BackendController extends Controller
         $list = QAQuestionMapper::getAll()
             ->with('createdBy')
             ->with('createdBy/account')
+            ->with('createdBy/image')
             ->with('votes')
             ->with('answers')
             ->with('answers/votes')

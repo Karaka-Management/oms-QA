@@ -50,7 +50,7 @@ echo $this->data['nav']->render(); ?>
                         </div>
                     </div>
                     <div class="title">
-                        <a href="<?= UriFactory::build('{/base}/qa/question?{?}&id=' . $question->id); ?>"><?= $this->printHtml($question->name); ?></a>
+                        <a href="<?= UriFactory::build('{/app}/qa/question?{?}&id=' . $question->id); ?>"><?= $this->printHtml($question->name); ?></a>
                     </div>
                 </div>
             </div>
@@ -61,10 +61,10 @@ echo $this->data['nav']->render(); ?>
                     <?php endforeach; ?>
                 </div>
 
-                <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
+                <a class="account-info" href="<?= UriFactory::build('{/app}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
                     <span class="name content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></span>
                     <?php if ($question->createdBy->image->id > 0) : ?>
-                        <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/base}/' . $question->createdBy->image->getPath()); ?>">
+                        <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build($question->createdBy->image->getPath()); ?>">
                     <?php endif; ?>
                 </a>
             </div>
