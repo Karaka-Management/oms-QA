@@ -68,7 +68,11 @@ echo $this->data['nav']->render();
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
                     <div class="tag-list">
-                        <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
+                        <?php
+                            $tags = $question->getTags();
+                            foreach ($tags as $tag) :
+                                if ($tag->id === 0) { continue; }
+                        ?>
                             <span class="tag"><?= !empty($tag->icon) ? '<i class="' . $this->printHtml($tag->icon) . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                         <?php endforeach; ?>
                     </div>
@@ -84,7 +88,7 @@ echo $this->data['nav']->render();
                         </span>
 
                         <?php if ($question->createdBy->image->id > 0) : ?>
-                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/app}/' . $question->createdBy->image->getPath()); ?>">
+                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build($question->createdBy->image->getPath()); ?>">
                         <?php endif; ?>
                     </a>
                 </div>
@@ -155,7 +159,7 @@ echo $this->data['nav']->render();
                             <div class="name-score">Score: <?= $scores[$answer->createdBy->account->id] ?? 0; ?></div>
                         </span>
                         <?php if ($answer->createdBy->image->id > 0) : ?>
-                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build('{/app}/' . $answer->createdBy->image->getPath()); ?>">
+                            <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build($answer->createdBy->image->getPath()); ?>">
                         <?php endif; ?>
                     </a>
                 </div>

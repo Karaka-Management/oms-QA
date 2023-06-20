@@ -56,7 +56,9 @@ echo $this->data['nav']->render(); ?>
             </div>
             <div class="portlet-foot qa-portlet-foot">
                 <div class="tag-list">
-                    <?php $tags = $question->getTags(); foreach ($tags as $tag) : ?>
+                    <?php $tags = $question->getTags(); foreach ($tags as $tag) :
+                        if ($tag->id === 0) { continue; }
+                    ?>
                         <span class="tag"><?= !empty($tag->icon) ? '<i class="' . $this->printHtml($tag->icon) . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                     <?php endforeach; ?>
                 </div>
