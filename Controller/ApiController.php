@@ -34,10 +34,8 @@ use Modules\QA\Models\QAQuestionVoteMapper;
 use Modules\Tag\Models\NullTag;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 
 /**
@@ -117,15 +115,15 @@ final class ApiController extends Controller
     public function apiQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAQuestionCreate($request))) {
-            $response->data['qa_question_create'] = new FormValidation($val);
-            $response->header->status             = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $question = $this->createQAQuestionFromRequest($request, $response, $data);
         $this->createModel($request->header->account, $question, QAQuestionMapper::class, 'question', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Question', 'Question successfully created.', $question);
+        $this->createStandardCreateResponse($request, $response, $question);
     }
 
     /**
@@ -238,15 +236,15 @@ final class ApiController extends Controller
     public function apiQAAnswerCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAAnswerCreate($request))) {
-            $response->data['qa_answer_create'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $answer = $this->createQAAnswerFromRequest($request);
         $this->createModel($request->header->account, $answer, QAAnswerMapper::class, 'answer', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Answer', 'Answer successfully created.', $answer);
+        $this->createStandardCreateResponse($request, $response, $answer);
     }
 
     /**
@@ -355,8 +353,7 @@ final class ApiController extends Controller
 
         $new = $this->updateAnsweredStatusFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, QAAnswerMapper::class, 'answer', $request->getOrigin());
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Answer', 'Answer successfully updated.', $new);
+        $this->createStandardUpdateResponse($request, $response, $new);
     }
 
     /**
@@ -393,16 +390,15 @@ final class ApiController extends Controller
     public function apiQAAppCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQAAppCreate($request))) {
-            $response->data['qa_app_create'] = new FormValidation($val);
-            $response->header->status        = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $app = $this->createQAAppFromRequest($request);
         $this->createModel($request->header->account, $app, QAAppMapper::class, 'app', $request->getOrigin());
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'App', 'App successfully created.', $app);
+        $this->createStandardCreateResponse($request, $response, $app);
     }
 
     /**
@@ -458,8 +454,8 @@ final class ApiController extends Controller
     public function apiChangeQAQuestionVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateQuestionVote($request))) {
-            $response->data['qa_question_vote'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
 
             return;
         }
@@ -483,7 +479,7 @@ final class ApiController extends Controller
             $new->createdFor = $question->createdBy->id;
 
             $this->createModel($request->header->account, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
-            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
+            $this->createStandardUpdateResponse($request, $response, $new);
         } else {
             /** @var QAQuestionVote $questionVote */
             $new        = clone $questionVote;
@@ -492,7 +488,7 @@ final class ApiController extends Controller
                 : (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $questionVote, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
-            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
+            $this->createStandardUpdateResponse($request, $response, $new);
         }
     }
 
@@ -533,8 +529,8 @@ final class ApiController extends Controller
     public function apiChangeQAAnswerVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateAnswerVote($request))) {
-            $response->data['qa_answer_vote'] = new FormValidation($val);
-            $response->header->status         = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
 
             return;
         }
@@ -558,7 +554,7 @@ final class ApiController extends Controller
             $new->createdFor = $answer->createdBy->id;
 
             $this->createModel($request->header->account, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
-            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
+            $this->createStandardUpdateResponse($request, $response, $new);
         } else {
             /** @var QAAnswerVote $answerVote */
             $new        = clone $answerVote;
@@ -567,7 +563,7 @@ final class ApiController extends Controller
                 : (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $answerVote, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
-            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
+            $this->createStandardUpdateResponse($request, $response, $new);
         }
     }
 
