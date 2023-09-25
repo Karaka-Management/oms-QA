@@ -30,6 +30,8 @@ final class QAAnswerVoteMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testCRUD() : void
     {
+        \Modules\Admin\tests\Helper::createAccounts(1);
+
         $vote             = new QAAnswerVote();
         $vote->answer     = 1;
         $vote->score      = 1;
