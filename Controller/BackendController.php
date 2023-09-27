@@ -40,14 +40,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function setUpBackend(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function setUpBackend(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $head = $response->data['Content']->head;
         $head->addAsset(AssetType::CSS, '/Modules/QA/Theme/Backend/styles.css?v=1.0.0');
@@ -58,14 +58,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewQADashboard(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewQADashboard(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-dashboard');
@@ -99,14 +99,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewQADoc(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewQADoc(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question');
@@ -143,14 +143,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewQAQuestionCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question-create');
@@ -168,13 +168,13 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Response can be rendered
      *
      * @since 1.0.0
      */
-    public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewModuleSettings(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view              = new View($this->app->l11nManager, $request, $response);
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response);
@@ -199,13 +199,13 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Response can be rendered
      *
      * @since 1.0.0
      */
-    public function viewAppSettings(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewAppSettings(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings-app');
