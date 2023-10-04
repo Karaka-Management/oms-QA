@@ -101,7 +101,7 @@ class QAQuestion implements \JsonSerializable
      * @var array<int, Tag>
      * @since 1.0.0
      */
-    private array $tags = [];
+    public array $tags = [];
 
     /**
      * Answers.
@@ -109,7 +109,7 @@ class QAQuestion implements \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    private array $answers = [];
+    public array $answers = [];
 
     /**
      * Votes.
@@ -117,7 +117,7 @@ class QAQuestion implements \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    private array $votes = [];
+    public array $votes = [];
 
     /**
      * App
@@ -131,7 +131,7 @@ class QAQuestion implements \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    protected array $media = [];
+    public array $media = [];
 
     /**
      * Constructor.

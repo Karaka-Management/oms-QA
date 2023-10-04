@@ -98,7 +98,7 @@ class QAAnswer implements \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    private array $votes = [];
+    public array $votes = [];
 
     /**
      * Media files
@@ -106,7 +106,7 @@ class QAAnswer implements \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    protected array $media = [];
+    public array $media = [];
 
     /**
      * Constructor.
