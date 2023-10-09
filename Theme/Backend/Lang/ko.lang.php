@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 return ['QA' => [
-    'All'    => '#VALUE!',
+    'All'    => '',
     'Badges' => '배지',
     'List'   => '목록',
     'Name'   => '이름',

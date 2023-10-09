@@ -109,7 +109,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('name', 'TestQAApp');
 
         $this->module->apiQAAppCreate($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -161,7 +161,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('media', \json_encode([1]));
 
         $this->module->apiQAQuestionCreate($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -211,7 +211,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('media', \json_encode([1]));
 
         $this->module->apiQAAnswerCreate($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -228,7 +228,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('accepted', '1');
 
         $this->module->apiChangeAnsweredStatus($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -261,7 +261,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('type', '-1');
 
         $this->module->apiChangeQAQuestionVote($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
 
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
@@ -271,7 +271,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('type', '1');
 
         $this->module->apiChangeQAQuestionVote($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
@@ -304,7 +304,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('type', '-1');
 
         $this->module->apiChangeQAAnswerVote($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
 
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
@@ -314,7 +314,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('type', '1');
 
         $this->module->apiChangeQAAnswerVote($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
