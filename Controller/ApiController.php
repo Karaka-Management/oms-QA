@@ -19,6 +19,7 @@ use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\Profile;
 use Modules\QA\Models\NullQAApp;
 use Modules\QA\Models\NullQAQuestion;
+use Modules\QA\Models\PermissionCategory;
 use Modules\QA\Models\QAAnswer;
 use Modules\QA\Models\QAAnswerMapper;
 use Modules\QA\Models\QAAnswerStatus;
@@ -32,6 +33,7 @@ use Modules\QA\Models\QAQuestionStatus;
 use Modules\QA\Models\QAQuestionVote;
 use Modules\QA\Models\QAQuestionVoteMapper;
 use Modules\Tag\Models\NullTag;
+use phpOMS\Account\PermissionType;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
@@ -332,19 +334,36 @@ final class ApiController extends Controller
      */
     public function apiChangeAnsweredStatus(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        // @todo: check if is allowed to change
+        if (!empty($val = $this->validateQAAnswerStatusUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
 
-        /** @var \Modules\QA\Models\QAAnswer $old */
-        $old = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $old = clone $old;
+            return;
+        }
+
+        /** @var \Modules\QA\Models\QAAnswer $newAccepted */
+        $newAccepted    = QAAnswerMapper::get()->with('profile')->where('id', (int) $request->getData('id'))->execute();
+        $oldNewAccepted = clone $newAccepted;
+
+        /** @var \Modules\QA\Models\QAQuestion $question */
+        $question = QAQuestionMapper::get()->where('id', $oldNewAccepted->question->id)->execute();
+        if ($question->createdBy->account->id !== $request->header->account
+            && !$this->app->accountManager->get($request->header->account)
+                ->hasPermission(PermissionType::CREATE, $this->app->unitId, null, self::NAME, PermissionCategory::ACCEPT)
+        ) {
+            $response->header->status = RequestStatusCode::R_403;
+            $this->createInvalidUpdateResponse($request, $response, null);
+
+            return;
+        }
 
         /** @var \Modules\QA\Models\QAAnswer $oldAccepted */
         $oldAccepted = QAAnswerMapper::get()
-            ->where('question', $old->question->id)
+            ->where('question', $oldNewAccepted->question->id)
             ->where('isAccepted', true)
             ->execute();
 
-        if ($old->id !== $oldAccepted->id) {
+        if ($oldNewAccepted->id !== $oldAccepted->id) {
             $oldUnaccepted             = clone $oldAccepted;
             $oldUnaccepted->isAccepted = !$oldUnaccepted->isAccepted;
 
@@ -352,8 +371,27 @@ final class ApiController extends Controller
         }
 
         $new = $this->updateAnsweredStatusFromRequest($request);
-        $this->updateModel($request->header->account, $old, $new, QAAnswerMapper::class, 'answer', $request->getOrigin());
+        $this->updateModel($request->header->account, $oldNewAccepted, $newAccepted, QAAnswerMapper::class, 'answer', $request->getOrigin());
         $this->createStandardUpdateResponse($request, $response, $new);
+    }
+
+    /**
+     * Validate answer vote change request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateQAAnswerStatusUpdate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = !$request->hasData('id'))) {
+            return $val;
+        }
+
+        return [];
     }
 
     /**
@@ -460,8 +498,6 @@ final class ApiController extends Controller
             return;
         }
 
-        // @todo: check if is allowed to change
-
         /** @var \Modules\QA\Models\QAQuestionVote $questionVote */
         $questionVote = QAQuestionVoteMapper::get()
             ->where('question', (int) $request->getData('id'))
@@ -534,8 +570,6 @@ final class ApiController extends Controller
 
             return;
         }
-
-        // @todo: check if is allowed to change
 
         /** @var \Modules\QA\Models\QAAnswerVote $answerVote */
         $answerVote = QAAnswerVoteMapper::get()
