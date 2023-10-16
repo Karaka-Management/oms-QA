@@ -39,4 +39,14 @@ final class NullQAAnswerVoteTest extends \PHPUnit\Framework\TestCase
         $null = new NullQAAnswerVote(2);
         self::assertEquals(2, $null->id);
     }
+
+    /**
+     * @covers Modules\QA\Models\NullQAAnswerVote
+     * @group module
+     */
+    public function testJsonSerialize() : void
+    {
+        $null = new NullQAAnswerVote(2);
+        self::assertEquals(['id' => 2], $null);
+    }
 }
