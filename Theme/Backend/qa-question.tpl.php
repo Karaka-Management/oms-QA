@@ -40,7 +40,7 @@ echo $this->data['nav']->render();
                                 ]
                             }
                         ]' href="#">
-                            <i class="fa fa-chevron-up qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'); ?>"></i>
+                            <i class="g-icon qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'); ?>">expand_less</i>
                         </a>
                         <span class="counter"><?= $question->getVoteScore(); ?></span>
                         <span class="text">Score</span>
@@ -52,7 +52,7 @@ echo $this->data['nav']->render();
                                 ]
                             }
                         ]' href="#">
-                            <i class="fa fa-chevron-down qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'); ?>"></i>
+                            <i class="g-icon qa-vote<?= $this->printHtml($question->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'); ?>">expand_more</i>
                         </a>
                     </div>
                     <div class="counter-container">
@@ -112,7 +112,7 @@ echo $this->data['nav']->render();
                                     ]
                                 }
                             ]' href="#">
-                            <i class="fa fa-chevron-up qa-vote<?= $answer->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'; ?>"></i>
+                            <i class="g-icon qa-vote<?= $answer->getAccountVoteScore($this->request->header->account) > 0 ? ' voted' : ' open'; ?>">expand_less</i>
                         </a>
                         <span class="counter"><?= $answer->getVoteScore(); ?></span>
                         <span class="text">Score</span>
@@ -124,7 +124,7 @@ echo $this->data['nav']->render();
                                     ]
                                 }
                         ]' href="#">
-                            <i class="fa fa-chevron-down qa-vote<?= $answer->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'; ?>"></i>
+                            <i class="g-icon qa-vote<?= $answer->getAccountVoteScore($this->request->header->account) < 0 ? ' voted' : ' open'; ?>">expand_more</i>
                         </a>
                     </div>
                     <div class="counter-container">
@@ -136,7 +136,7 @@ echo $this->data['nav']->render();
                                     ]
                                 }
                         ]' href="#">
-                            <i class="fa fa-check qa-accept"></i>
+                            <i class="g-icon qa-accept">check</i>
                         </a>
                         <span class="text"><?= $this->printHtml($answer->isAccepted ? 'Accepted' : 'Accept'); ?></span>
                     </div>

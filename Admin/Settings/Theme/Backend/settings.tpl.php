@@ -25,7 +25,7 @@ echo $this->data['nav']->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <div class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Apps'); ?><i class="lni lni-download download btn end-xs"></i></div>
+            <div class="portlet-head"><?= $this->getHtml('Apps'); ?><i class="g-icon download btn end-xs">download</i></div>
             <div class="slider">
             <table id="appList" class="default sticky">
                 <thead>
@@ -33,26 +33,26 @@ echo $this->data['nav']->render(); ?>
                     <td><?= $this->getHtml('ID', '0', '0'); ?>
                         <label for="appList-sort-1">
                             <input type="radio" name="appList-sort" id="appList-sort-1">
-                            <i class="sort-asc fa fa-chevron-up"></i>
+                            <i class="sort-asc g-icon">expand_less</i>
                         </label>
                         <label for="appList-sort-2">
                             <input type="radio" name="appList-sort" id="appList-sort-2">
-                            <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc g-icon">expand_more</i>
                         </label>
                         <label>
-                            <i class="filter fa fa-filter"></i>
+                            <i class="filter g-icon">filter_alt</i>
                         </label>
                     <td><?= $this->getHtml('Name'); ?>
                         <label for="appList-sort-3">
                             <input type="radio" name="appList-sort" id="appList-sort-3">
-                            <i class="sort-asc fa fa-chevron-up"></i>
+                            <i class="sort-asc g-icon">expand_less</i>
                         </label>
                         <label for="appList-sort-4">
                             <input type="radio" name="appList-sort" id="appList-sort-4">
-                            <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc g-icon">expand_more</i>
                         </label>
                         <label>
-                            <i class="filter fa fa-filter"></i>
+                            <i class="filter g-icon">filter_alt</i>
                         </label>
                 <tbody>
                 <?php $count = 0;
