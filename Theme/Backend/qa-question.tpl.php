@@ -73,15 +73,15 @@ echo $this->data['nav']->render();
                             foreach ($tags as $tag) :
                                 if ($tag->id === 0) { continue; }
                         ?>
-                            <span class="tag"><?= empty($tag->icon) ? '' : '<i class="g-icon">' . $this->printHtml($tag->icon) . '</i>'; ?><?= $this->printHtml($tag->getL11n()); ?></span>
+                            <span class="tag"><?= empty($tag->icon) ? '' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                         <?php endforeach; ?>
                     </div>
 
                     <?php $files = $question->getMedia(); foreach ($files as $file) : ?>
-                         <span><a class="content" href="<?= UriFactory::build('{/app}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
+                         <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
-                    <a class="account-info" href="<?= UriFactory::build('{/app}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
+                    <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></div>
                             <div class="name-score">Score: <?= $scores[$question->createdBy->account->id] ?? 0; ?></div>
@@ -150,10 +150,10 @@ echo $this->data['nav']->render();
                 </div>
                 <div class="portlet-foot qa-portlet-foot">
                     <?php $files = $answer->getMedia(); foreach ($files as $file) : ?>
-                        <span><a class="content" href="<?= UriFactory::build('{/app}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
+                        <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
-                    <a class="account-info" href="<?= UriFactory::build('{/app}/profile/single?{?}&id=' . $answer->createdBy->id); ?>">
+                    <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $answer->createdBy->id); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></div>
                             <div class="name-score">Score: <?= $scores[$answer->createdBy->account->id] ?? 0; ?></div>

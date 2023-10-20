@@ -25,6 +25,7 @@
 
 .qa .qa-accept {
   font-size: 2rem;
+  font-weight: 200;
   color: #ccc;
   cursor: pointer; }
 .qa .accepted .qa-accept {
@@ -33,6 +34,7 @@
   border-top: 3px solid #81e27d; }
 .qa .qa-vote {
   font-size: 2rem;
+  font-weight: 200;
   color: #ccc;
   cursor: pointer; }
   .qa .qa-vote.voted {
