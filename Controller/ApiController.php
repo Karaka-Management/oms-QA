@@ -260,8 +260,6 @@ final class ApiController extends Controller
      */
     public function createQAAnswerFromRequest(RequestAbstract $request) : QAAnswer
     {
-        $mardkownParser = new Markdown();
-
         $answer             = new QAAnswer();
         $answer->answerRaw  = (string) $request->getData('plain');
         $answer->answer     = Markdown::parse($request->getDataString('plain') ?? '');
