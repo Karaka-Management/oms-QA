@@ -346,7 +346,7 @@ final class ApiController extends Controller
         /** @var \Modules\QA\Models\QAQuestion $question */
         $question = QAQuestionMapper::get()->where('id', $oldNewAccepted->question->id)->execute();
         if ($question->createdBy->account->id !== $request->header->account
-            && !$this->app->accountManager->get($request->header->account)
+            || !$this->app->accountManager->get($request->header->account)
                 ->hasPermission(PermissionType::CREATE, $this->app->unitId, null, self::NAME, PermissionCategory::ACCEPT)
         ) {
             $response->header->status = RequestStatusCode::R_403;
@@ -504,10 +504,21 @@ final class ApiController extends Controller
 
         if ($questionVote->id === 0) {
             /** @var \Modules\QA\Models\QAQuestion $question */
-            $question = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+            $question = QAQuestionMapper::get()
+                ->with('createdBy')
+                ->where('id', (int) $request->getData('id'))
+                ->execute();
+
+            // You cannot upvote your own question
+            if ($question->createdBy->account->id === $request->header->account) {
+                $response->header->status = RequestStatusCode::R_403;
+                $this->createInvalidUpdateResponse($request, $response, []);
+
+                return;
+            }
 
             $new             = new QAQuestionVote();
-            $new->score      = (int) $request->getData('type');
+            $new->score      = \min(\max((int) $request->getData('type'), -1), 1);
             $new->question   = (int) $request->getData('id');
             $new->createdBy  = new NullAccount($request->header->account);
             $new->createdFor = $question->createdBy->id;
@@ -519,7 +530,7 @@ final class ApiController extends Controller
             $new        = clone $questionVote;
             $new->score = ((int) $request->getData('type')) === $new->score
                 ? 0
-                : (int) $request->getData('type');
+                : \min(\max((int) $request->getData('type'), -1), 1);
 
             $this->updateModel($request->header->account, $questionVote, $new, QAQuestionVoteMapper::class, 'qa_question_vote', $request->getOrigin());
             $this->createStandardUpdateResponse($request, $response, $new);
@@ -577,10 +588,21 @@ final class ApiController extends Controller
 
         if ($answerVote->id === 0) {
             /** @var \Modules\QA\Models\QAAnswer $answer */
-            $answer = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
+            $answer = QAAnswerMapper::get()
+                ->with('createdBy')
+                ->where('id', (int) $request->getData('id'))
+                ->execute();
+
+            // You cannot upvote your own answer
+            if ($answer->createdBy->account->id === $request->header->account) {
+                $response->header->status = RequestStatusCode::R_403;
+                $this->createInvalidUpdateResponse($request, $response, []);
+
+                return;
+            }
 
             $new             = new QAAnswerVote();
-            $new->score      = (int) $request->getData('type');
+            $new->score      = \min(\max((int) $request->getData('type'), -1), 1);
             $new->answer     = (int) $request->getData('id');
             $new->createdBy  = new NullAccount($request->header->account);
             $new->createdFor = $answer->createdBy->id;
@@ -592,7 +614,7 @@ final class ApiController extends Controller
             $new        = clone $answerVote;
             $new->score = ((int) $request->getData('type')) === $new->score
                 ? 0
-                : (int) $request->getData('type');
+                : \min(\max((int) $request->getData('type'), -1), 1);
 
             $this->updateModel($request->header->account, $answerVote, $new, QAAnswerVoteMapper::class, 'qa_answer_vote', $request->getOrigin());
             $this->createStandardUpdateResponse($request, $response, $new);
