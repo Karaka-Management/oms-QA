@@ -30,8 +30,8 @@
         flex-direction: column;
     }
 
-    .portlet-body {
-        height: 100%;
+    textarea {
+        height: 100px;
     }
 
     .counter-container+.counter-container {
@@ -41,8 +41,8 @@
 
 .qa {
     .qa-accept {
-        font-size: 2rem;
-        font-weight: 200;
+        font-size: 3rem;
+        font-weight: 800;
         color: #ccc;
         cursor: pointer;
     }
@@ -58,10 +58,10 @@
     }
 
     .qa-vote {
-        font-size: 2rem;
-        font-weight: 200;
+        font-size: 3rem;
         color: #ccc;
         cursor: pointer;
+        font-weight: 800;
 
         &.voted {
             color: #81e27d;
@@ -95,7 +95,7 @@
 
     .score {
         &.closed {
-            background: #f00;
+            background: #ee5649;
         }
 
         &.open {

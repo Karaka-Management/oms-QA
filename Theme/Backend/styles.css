@@ -19,13 +19,14 @@
     display: flex;
     flex-direction: column;
   }
-  .qa-question-view .portlet-body {
-      height: 100%;
-  }
+
+.qa textarea {
+    height: 100px;
+}
 
 .qa .qa-accept {
-  font-size: 2rem;
-  font-weight: 200;
+  font-size: 3rem;
+  font-weight: 800;
   color: #ccc;
   cursor: pointer; }
 .qa .accepted .qa-accept {
@@ -33,8 +34,8 @@
 .qa .accepted .portlet {
   border-top: 3px solid #81e27d; }
 .qa .qa-vote {
-  font-size: 2rem;
-  font-weight: 200;
+  font-size: 3rem;
+  font-weight: 800;
   color: #ccc;
   cursor: pointer; }
   .qa .qa-vote.voted {
@@ -57,7 +58,7 @@
   .qa .counter-area .text {
     font-size: .8rem; }
 .qa .score.closed {
-  background: #f00; }
+  background: #ee5649; }
 .qa .score.open {
   background: #f8ffa8; }
 .qa .score.done {

@@ -15,8 +15,11 @@ declare(strict_types=1);
 namespace Modules\QA\Controller;
 
 use Model\SettingMapper;
+use Modules\Admin\Models\AccountMapper;
+use Modules\Profile\Models\ProfileMapper;
 use Modules\QA\Models\QAAppMapper;
 use Modules\QA\Models\QAHelperMapper;
+use Modules\QA\Models\QAQuestion;
 use Modules\QA\Models\QAQuestionMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
@@ -156,8 +159,22 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question-create');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
-        /** @var \Modules\QA\Models\QAQuestion $question */
-        $question               = QAQuestionMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $question = new QAQuestion();
+
+        $question->createdBy = ProfileMapper::get()
+            ->with('account')
+            ->with('image')
+            ->where('account', $request->header->account)
+            ->execute();
+
+        if ($question->createdBy->account->id === 0) {
+            $question->createdBy->account = AccountMapper::get()
+                ->where('id', $request->header->account)
+                ->execute();
+        }
+
+        $scores                 = QAHelperMapper::getAccountScore($question->getAccounts());
+        $view->data['scores']   = $scores;
         $view->data['question'] = $question;
 
         return $view;

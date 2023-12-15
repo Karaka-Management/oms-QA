@@ -14,8 +14,14 @@ declare(strict_types=1);
 
 return ['QA' => [
     'All'    => 'Alle',
+    'Answer'    => 'Antwort',
+    'Question'    => 'Frage',
+    'Vote'    => 'Bewerten',
+    'Score'    => 'Bewertung',
+    'Accept'    => 'Akzeptieren',
     'Badges' => 'Abzeichen',
     'List'   => 'Liste',
+    'Title'   => 'Titel',
     'Name'   => 'Name',
     'QA'     => 'Q&A',
 ]];

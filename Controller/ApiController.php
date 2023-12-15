@@ -361,16 +361,18 @@ final class ApiController extends Controller
             ->where('isAccepted', true)
             ->execute();
 
-        if ($oldNewAccepted->id !== $oldAccepted->id) {
+        if ($oldAccepted->id !== 0 &&
+            $oldNewAccepted->id !== $oldAccepted->id
+        ) {
             $oldUnaccepted             = clone $oldAccepted;
             $oldUnaccepted->isAccepted = !$oldUnaccepted->isAccepted;
 
             $this->updateModel($request->header->account, $oldAccepted, $oldUnaccepted, QAAnswerMapper::class, 'answer', $request->getOrigin());
         }
 
-        $new = $this->updateAnsweredStatusFromRequest($request);
+        $newAccepted = $this->updateAnsweredStatusFromRequest($request, $newAccepted);
         $this->updateModel($request->header->account, $oldNewAccepted, $newAccepted, QAAnswerMapper::class, 'answer', $request->getOrigin());
-        $this->createStandardUpdateResponse($request, $response, $new);
+        $this->createStandardUpdateResponse($request, $response, $newAccepted);
     }
 
     /**
@@ -401,10 +403,8 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function updateAnsweredStatusFromRequest(RequestAbstract $request) : QAAnswer
+    public function updateAnsweredStatusFromRequest(RequestAbstract $request, QAAnswer $answer) : QAAnswer
     {
-        /** @var \Modules\QA\Models\QAAnswer $answer */
-        $answer             = QAAnswerMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $answer->isAccepted = !$answer->isAccepted;
 
         return $answer;
