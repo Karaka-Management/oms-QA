@@ -63,7 +63,7 @@ echo $this->data['nav']->render();
                         <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
                             <span class="name">
                                 <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></div>
-                                <div class="name-score"><?= $this->getHtml('Score') ?>: <?= $scores[$question->createdBy->account->id] ?? 0; ?></div>
+                                <div class="name-score"><?= $this->getHtml('Score'); ?>: <?= $scores[$question->createdBy->account->id] ?? 0; ?></div>
                             </span>
 
                             <?php if ($question->createdBy->image->id > 0) : ?>

@@ -15,6 +15,7 @@ declare(strict_types=1);
 return ['QA' => [
     'All'    => 'All',
     'Answer'    => 'Answer',
+    'Answers'    => 'Answers',
     'Question'    => 'Question',
     'Vote'    => 'Vote',
     'Score'    => 'Score',

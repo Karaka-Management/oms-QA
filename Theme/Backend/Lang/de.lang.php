@@ -15,6 +15,7 @@ declare(strict_types=1);
 return ['QA' => [
     'All'    => 'Alle',
     'Answer'    => 'Antwort',
+    'Answers'    => 'Antworten',
     'Question'    => 'Frage',
     'Vote'    => 'Bewerten',
     'Score'    => 'Bewertung',

@@ -63,7 +63,7 @@ echo $this->data['nav']->render();
                     </div>
                     <div class="counter-container">
                         <span class="counter score<?= $this->printHtml($question->hasAccepted() ? ' done' : ' open'); ?>"><?= $question->getAnswerCount(); ?></span>
-                        <span class="text">Answers</span>
+                        <span class="text"><?= $this->getHtml('Answers'); ?></span>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@ echo $this->data['nav']->render();
                     <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></div>
-                            <div class="name-score"><?= $this->getHtml('Score') ?>: <?= $scores[$question->createdBy->account->id] ?? 0; ?></div>
+                            <div class="name-score"><?= $this->getHtml('Score'); ?>: <?= $scores[$question->createdBy->account->id] ?? 0; ?></div>
                         </span>
 
                         <?php if ($question->createdBy->image->id > 0) : ?>
@@ -149,7 +149,7 @@ echo $this->data['nav']->render();
                         </a>
                         <?php endif; ?>
                         <span class="counter"><?= $answer->getVoteScore(); ?></span>
-                        <span class="text">Score</span>
+                        <span class="text"><?= $this->getHtml('Score'); ?></span>
                         <?php if ($this->request->header->account !== $answer->createdBy->account->id) : ?>
                         <a id="qa-answer-downvote-<?= $answer->id; ?>" data-action='[
                                 {
@@ -198,7 +198,7 @@ echo $this->data['nav']->render();
                     <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $answer->createdBy->id); ?>">
                         <span class="name">
                             <div class="content"><?= $this->printHtml($answer->createdBy->account->name2); ?> <?= $this->printHtml($answer->createdBy->account->name1); ?></div>
-                            <div class="name-score">Score: <?= $scores[$answer->createdBy->account->id] ?? 0; ?></div>
+                            <div class="name-score"><?= $this->getHtml('Score'); ?>: <?= $scores[$answer->createdBy->account->id] ?? 0; ?></div>
                         </span>
                         <?php if ($answer->createdBy->image->id > 0) : ?>
                             <img width="40px" alt="<?= $this->getHtml('AccountImage', '0', '0'); ?>" loading="lazy" src="<?= UriFactory::build($answer->createdBy->image->getPath()); ?>">
