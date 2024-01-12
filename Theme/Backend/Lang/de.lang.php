@@ -17,12 +17,8 @@ return ['QA' => [
     'Answer'    => 'Antwort',
     'Answers'    => 'Antworten',
     'Question'    => 'Frage',
-    'Vote'    => 'Bewerten',
     'Score'    => 'Bewertung',
-    'Accept'    => 'Akzeptieren',
     'Badges' => 'Abzeichen',
-    'List'   => 'Liste',
     'Title'   => 'Titel',
     'Name'   => 'Name',
-    'QA'     => 'Q&A',
 ]];

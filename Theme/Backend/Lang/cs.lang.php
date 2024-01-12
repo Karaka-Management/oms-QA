@@ -15,7 +15,5 @@ declare(strict_types=1);
 return ['QA' => [
     'All'    => '',
     'Badges' => 'Odznaky',
-    'List'   => 'Seznam',
     'Name'   => 'název',
-    'QA'     => 'Qa.',
 ]];

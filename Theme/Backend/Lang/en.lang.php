@@ -17,12 +17,8 @@ return ['QA' => [
     'Answer'    => 'Answer',
     'Answers'    => 'Answers',
     'Question'    => 'Question',
-    'Vote'    => 'Vote',
     'Score'    => 'Score',
-    'Accept'    => 'Accept',
     'Badges' => 'Badges',
-    'List'   => 'List',
     'Title'   => 'Title',
     'Name'   => 'Name',
-    'QA'     => 'QA',
 ]];
