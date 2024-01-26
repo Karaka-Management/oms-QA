@@ -10,31 +10,31 @@ return [
             'verb' => RouteVerb::GET,
         ],
     ],
-    '^(\/[a-zA-Z]*\/*|\/)/profile(\?.*|$)$' => [
+    '^(\/[a-zA-Z]*\/*|\/)/view(\?.*$|$)' => [
         [
             'dest' => '\Web\{APPNAME}\Controller\AppController:viewProfile',
             'verb' => RouteVerb::GET,
         ],
     ],
-    '^(\/[a-zA-Z]*\/*|\/)/imprint(\?.*|$)$' => [
+    '^(\/[a-zA-Z]*\/*|\/)/imprint(\?.*$|$)' => [
         [
             'dest' => '\Web\{APPNAME}\Controller\AppController:viewImprint',
             'verb' => RouteVerb::GET,
         ],
     ],
-    '^(\/[a-zA-Z]*\/*|\/)/terms(\?.*|$)$' => [
+    '^(\/[a-zA-Z]*\/*|\/)/terms(\?.*$|$)' => [
         [
             'dest' => '\Web\{APPNAME}\Controller\AppController:viewTerms',
             'verb' => RouteVerb::GET,
         ],
     ],
-    '^(\/[a-zA-Z]*\/*|\/)/privacy(\?.*|$)$' => [
+    '^(\/[a-zA-Z]*\/*|\/)/privacy(\?.*$|$)' => [
         [
             'dest' => '\Web\{APPNAME}\Controller\AppController:viewDataPrivacy',
             'verb' => RouteVerb::GET,
         ],
     ],
-    '^(\/[a-zA-Z]*\/*|\/)/question(\?.*|$)$' => [
+    '^(\/[a-zA-Z]*\/*|\/)/question(\?.*$|$)' => [
         [
             'dest' => '\Web\{APPNAME}\Controller\AppController:viewQuestion',
             'verb' => RouteVerb::GET,

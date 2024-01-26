@@ -101,7 +101,7 @@ final class AppController extends ModuleAbstract
     public function viewProfile(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
-        $view->setTemplate('/Web/{APPNAME}/tpl/profile');
+        $view->setTemplate('/Web/{APPNAME}/tpl/view');
 
         return $view;
     }

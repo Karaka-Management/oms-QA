@@ -85,16 +85,4 @@ class QAQuestionVote
         $this->createdBy = new NullAccount();
         $this->createdAt = new \DateTimeImmutable();
     }
-
-    /**
-     * Get model id.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
 }

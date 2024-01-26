@@ -13,12 +13,12 @@
 declare(strict_types=1);
 
 return ['QA' => [
-    'All'    => 'Alle',
-    'Answer'    => 'Antwort',
-    'Answers'    => 'Antworten',
-    'Question'    => 'Frage',
+    'All'      => 'Alle',
+    'Answer'   => 'Antwort',
+    'Answers'  => 'Antworten',
+    'Question' => 'Frage',
     'Score'    => 'Bewertung',
-    'Badges' => 'Abzeichen',
-    'Title'   => 'Titel',
-    'Name'   => 'Name',
+    'Badges'   => 'Abzeichen',
+    'Title'    => 'Titel',
+    'Name'     => 'Name',
 ]];

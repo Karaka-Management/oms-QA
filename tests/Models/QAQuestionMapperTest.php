@@ -33,11 +33,11 @@ final class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
     {
         $question = new QAQuestion();
 
-        $question->name     = 'Question Name';
-        $question->question = 'Question content';
-        $question->setStatus(QAQuestionStatus::ACTIVE);
+        $question->name      = 'Question Name';
+        $question->question  = 'Question content';
+        $question->status    = QAQuestionStatus::ACTIVE;
         $question->createdBy = new Profile(new NullAccount(1));
-        $question->setLanguage('en');
+        $question->language  = 'en';
 
         $id = QAQuestionMapper::create()->execute($question);
         self::assertGreaterThan(0, $question->id);
@@ -46,8 +46,8 @@ final class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
         $questionR = QAQuestionMapper::get()->with('createdBy')->with('createdBy/account')->where('id', $question->id)->execute();
         self::assertEquals($question->name, $questionR->name);
         self::assertEquals($question->question, $questionR->question);
-        self::assertEquals($question->getStatus(), $questionR->getStatus());
-        self::assertEquals($question->getLanguage(), $questionR->getLanguage());
+        self::assertEquals($question->status, $questionR->status);
+        self::assertEquals($question->language, $questionR->language);
         self::assertEquals($question->createdBy->account->id, $questionR->createdBy->account->id);
     }
 }

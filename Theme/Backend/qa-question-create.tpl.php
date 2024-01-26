@@ -46,21 +46,20 @@ echo $this->data['nav']->render();
                     <div class="portlet-foot qa-portlet-foot">
                         <div class="tag-list">
                             <?php
-                                $tags = $question->getTags();
-                                foreach ($tags as $tag) :
+                                foreach ($question->tags as $tag) :
                                     if ($tag->id === 0) { continue; }
                             ?>
                                 <span class="tag"><?= empty($tag->icon) ? '' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                             <?php endforeach; ?>
                         </div>
 
-                        <?php $files = $question->getMedia(); foreach ($files as $file) : ?>
-                            <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
+                        <?php $files = $question->files; foreach ($files as $file) : ?>
+                            <span><a class="content" href="<?= UriFactory::build('{/base}/media/view?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                         <?php endforeach; ?>
 
                         <input type="submit" name="createButton" id="iCreateButton" value="<?= $this->getHtml('Create', '0', '0'); ?>">
 
-                        <a class="account-info" href="<?= UriFactory::build('{/base}/profile/single?{?}&id=' . $question->createdBy->id); ?>">
+                        <a class="account-info" href="<?= UriFactory::build('{/base}/profile/view?{?}&id=' . $question->createdBy->id); ?>">
                             <span class="name">
                                 <div class="content"><?= $this->printHtml($question->createdBy->account->name2); ?> <?= $this->printHtml($question->createdBy->account->name1); ?></div>
                                 <div class="name-score"><?= $this->getHtml('Score'); ?>: <?= $scores[$question->createdBy->account->id] ?? 0; ?></div>

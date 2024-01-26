@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Media\Models\Media;
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
 
@@ -101,14 +100,6 @@ class QAAnswer implements \JsonSerializable
     public array $votes = [];
 
     /**
-     * Media files
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    public array $media = [];
-
-    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -118,44 +109,6 @@ class QAAnswer implements \JsonSerializable
         $this->createdAt = new \DateTimeImmutable('now');
         $this->createdBy = new NullProfile();
         $this->question  = new NullQAQuestion();
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int Model id
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the status
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getStatus() : int
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set the status
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setStatus(int $status) : void
-    {
-        $this->status = $status;
     }
 
     /**
@@ -222,47 +175,21 @@ class QAAnswer implements \JsonSerializable
     }
 
     /**
-     * Get all media
-     *
-     * @return Media[]
-     *
-     * @since 1.0.0
-     */
-    public function getMedia() : array
-    {
-        return $this->media;
-    }
-
-    /**
-     * Add media
-     *
-     * @param Media $media Media to add
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addMedia(Media $media) : void
-    {
-        $this->media[] = $media;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toArray() : array
     {
         return [
-            'id'                   => $this->id,
-            'status'               => $this->status,
-            'answer'               => $this->answer,
-            'answerRaw'            => $this->answerRaw,
-            'question'             => $this->question,
-            'isAccepted'           => $this->isAccepted,
-            'createdBy'            => $this->createdBy,
-            'createdAt'            => $this->createdAt,
-            'votes'                => $this->votes,
-            'media'                => $this->media,
+            'id'         => $this->id,
+            'status'     => $this->status,
+            'answer'     => $this->answer,
+            'answerRaw'  => $this->answerRaw,
+            'question'   => $this->question,
+            'isAccepted' => $this->isAccepted,
+            'createdBy'  => $this->createdBy,
+            'createdAt'  => $this->createdAt,
+            'votes'      => $this->votes,
+            'media'      => $this->files,
         ];
     }
 
@@ -273,4 +200,6 @@ class QAAnswer implements \JsonSerializable
     {
         return $this->toArray();
     }
+
+    use \Modules\Media\Models\MediaListTrait;
 }

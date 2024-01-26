@@ -35,8 +35,8 @@ final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
     {
         $answer = new QAAnswer();
 
-        $answer->answer = 'Answer content';
-        $answer->setStatus(QAAnswerStatus::ACTIVE);
+        $answer->answer     = 'Answer content';
+        $answer->status     = QAAnswerStatus::ACTIVE;
         $answer->createdBy  = new Profile(new NullAccount(1));
         $answer->question   = new NullQAQuestion(1);
         $answer->isAccepted = true;
@@ -48,7 +48,7 @@ final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
         $answerR = QAAnswerMapper::get()->with('createdBy')->with('account')->where('id', $answer->id)->execute();
         self::assertEquals($answer->answer, $answerR->answer);
         self::assertEquals($answer->question->id, $answerR->question->id);
-        self::assertEquals($answer->getStatus(), $answerR->getStatus());
+        self::assertEquals($answer->status, $answerR->status);
         self::assertEquals($answer->isAccepted, $answerR->isAccepted);
         self::assertEquals($answer->createdBy->account->id, $answerR->createdBy->account->id);
     }

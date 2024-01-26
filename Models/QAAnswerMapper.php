@@ -79,7 +79,7 @@ final class QAAnswerMapper extends DataMapperFactory
             'self'     => 'qa_answer_vote_answer',
             'external' => null,
         ],
-        'media'        => [
+        'files' => [
             'mapper'   => MediaMapper::class,
             'table'    => 'qa_answer_media',
             'external' => 'qa_answer_media_dst',

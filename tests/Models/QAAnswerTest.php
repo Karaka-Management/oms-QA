@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\QA\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
-use Modules\Media\Models\Media;
 use Modules\QA\Models\QAAnswer;
 use Modules\QA\Models\QAAnswerStatus;
 use Modules\QA\Models\QAAnswerVote;
@@ -45,33 +44,13 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->answer->answer);
         self::assertEquals(0, $this->answer->question->id);
         self::assertFalse($this->answer->isAccepted);
-        self::assertEquals(QAAnswerStatus::ACTIVE, $this->answer->getStatus());
+        self::assertEquals(QAAnswerStatus::ACTIVE, $this->answer->status);
         self::assertEquals(0, $this->answer->createdBy->id);
         self::assertEquals(0, $this->answer->getVoteScore());
         self::assertEquals(0, $this->answer->getAccountVoteScore(0));
-        self::assertEquals([], $this->answer->getMedia());
+        self::assertEquals([], $this->answer->files);
         self::assertEquals([], $this->answer->getVotes());
         self::assertInstanceOf('\DateTimeImmutable', $this->answer->createdAt);
-    }
-
-    /**
-     * @covers Modules\QA\Models\QAAnswer
-     * @group module
-     */
-    public function testStatusInputOutput() : void
-    {
-        $this->answer->setStatus(QAAnswerStatus::ACTIVE);
-        self::assertEquals(QAAnswerStatus::ACTIVE, $this->answer->getStatus());
-    }
-
-    /**
-     * @covers Modules\QA\Models\QAAnswer
-     * @group module
-     */
-    public function testMediaInputOutput() : void
-    {
-        $this->answer->addMedia(new Media());
-        self::assertCount(1, $this->answer->getMedia());
     }
 
     /**
@@ -96,9 +75,9 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->answer->setStatus(QAAnswerStatus::ACTIVE);
-        $this->answer->answer           = 'Answer';
-        $this->answer->answerRaw        = 'AnswerRaw';
+        $this->answer->status    = QAAnswerStatus::ACTIVE;
+        $this->answer->answer    = 'Answer';
+        $this->answer->answerRaw = 'AnswerRaw';
 
         $serialized = $this->answer->jsonSerialize();
         unset($serialized['question']);
@@ -107,13 +86,13 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'id'            => 0,
-                'status'        => QAAnswerStatus::ACTIVE,
-                'answer'        => 'Answer',
-                'answerRaw'     => 'AnswerRaw',
-                'isAccepted'    => false,
-                'votes'         => [],
-                'media'         => [],
+                'id'         => 0,
+                'status'     => QAAnswerStatus::ACTIVE,
+                'answer'     => 'Answer',
+                'answerRaw'  => 'AnswerRaw',
+                'isAccepted' => false,
+                'votes'      => [],
+                'media'      => [],
             ],
             $serialized
         );

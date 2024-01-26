@@ -128,7 +128,7 @@ final class BackendController extends Controller
             ->with('votes')
             ->with('tags')
             ->with('tags/title')
-            ->with('media')
+            ->with('files')
             ->where('id', (int) $request->getData('id'))
             ->where('tags/title/language', $response->header->l11n->language)
             ->execute();

@@ -73,7 +73,7 @@ final class QAHelperMapper extends DataMapperFactory
 
         foreach ($answerScore as $votes) {
             $scores[(int) $votes['qa_answer_vote_created_for']] ??= 0;
-            $scores[(int) $votes['qa_answer_vote_created_for']]  += (int) $votes['score'];
+            $scores[(int) $votes['qa_answer_vote_created_for']] += (int) $votes['score'];
         }
 
         return $scores;

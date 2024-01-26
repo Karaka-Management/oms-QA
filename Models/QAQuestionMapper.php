@@ -75,7 +75,7 @@ final class QAQuestionMapper extends DataMapperFactory
             'self'     => 'qa_question_vote_question',
             'external' => null,
         ],
-        'media'        => [
+        'files' => [
             'mapper'   => MediaMapper::class,
             'table'    => 'qa_question_media',
             'external' => 'qa_question_media_dst',

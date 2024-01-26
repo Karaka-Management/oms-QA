@@ -32,9 +32,8 @@ use Modules\QA\Models\QAQuestionMapper;
 use Modules\QA\Models\QAQuestionStatus;
 use Modules\QA\Models\QAQuestionVote;
 use Modules\QA\Models\QAQuestionVoteMapper;
-use Modules\Tag\Models\NullTag;
 use phpOMS\Account\PermissionType;
-use phpOMS\Message\Http\HttpResponse;
+use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -146,30 +145,12 @@ final class ApiController extends Controller
         $question->questionRaw = (string) $request->getData('plain');
         $question->question    = Markdown::parse($request->getDataString('plain') ?? '');
         $question->app         = new NullQAApp($request->getDataInt('app') ?? 1);
-        $question->setLanguage((string) $request->getData('language'));
-        $question->setStatus((int) $request->getData('status'));
-        $question->createdBy = new Profile(new NullAccount($request->header->account));
+        $question->language    = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN;
+        $question->status      = QAQuestionStatus::tryFromValue($request->getDataInt('status')) ?? QAQuestionStatus::ACTIVE;
+        $question->createdBy   = new Profile(new NullAccount($request->header->account));
 
-        if (!empty($tags = $request->getDataJson('tags'))) {
-            foreach ($tags as $tag) {
-                if (!isset($tag['id'])) {
-                    $request->setData('title', $tag['title'], true);
-                    $request->setData('color', $tag['color'], true);
-                    $request->setData('icon', $tag['icon'] ?? null, true);
-                    $request->setData('language', $tag['language'], true);
-
-                    $internalResponse = new HttpResponse();
-                    $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse);
-
-                    if (!\is_array($data = $internalResponse->getDataArray($request->uri->__toString()))) {
-                        continue;
-                    }
-
-                    $question->addTag($data['response']);
-                } else {
-                    $question->addTag(new NullTag((int) $tag['id']));
-                }
-            }
+        if ($request->hasData('tags')) {
+            $question->tags = $this->app->moduleManager->get('Tag', 'Api')->createTagsFromRequest($request);
         }
 
         if (!empty($uploadedFiles = $request->files)) {
@@ -183,13 +164,13 @@ final class ApiController extends Controller
             );
 
             foreach ($uploaded as $media) {
-                $question->addMedia($media);
+                $question->files[] = $media;
             }
         }
 
         if (!empty($mediaFiles = $request->getDataJson('media'))) {
             foreach ($mediaFiles as $media) {
-                $question->addMedia(new NullMedia($media));
+                $question->files[] = new NullMedia($media);
             }
         }
 
@@ -265,8 +246,8 @@ final class ApiController extends Controller
         $answer->answer     = Markdown::parse($request->getDataString('plain') ?? '');
         $answer->question   = new NullQAQuestion((int) $request->getData('question'));
         $answer->isAccepted = false;
-        $answer->setStatus((int) $request->getData('status'));
-        $answer->createdBy = new Profile(new NullAccount($request->header->account));
+        $answer->status     = QAAnswerStatus::tryFromValue($request->getDataInt('status')) ?? QAAnswerStatus::ACTIVE;
+        $answer->createdBy  = new Profile(new NullAccount($request->header->account));
 
         if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
@@ -279,13 +260,13 @@ final class ApiController extends Controller
             );
 
             foreach ($uploaded as $media) {
-                $answer->addMedia($media);
+                $answer->files[] = $media;
             }
         }
 
         if (!empty($mediaFiles = $request->getDataJson('media'))) {
             foreach ($mediaFiles as $media) {
-                $answer->addMedia(new NullMedia($media));
+                $answer->files[] = new NullMedia($media);
             }
         }
 

@@ -29,7 +29,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa.*$' => [
+    '^.*/qa/.*' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:setUpBackend',
             'verb'       => RouteVerb::GET,
@@ -40,7 +40,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/dashboard.*$' => [
+    '^.*/qa/dashboard(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADashboard',
             'verb'       => RouteVerb::GET,
@@ -51,7 +51,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/question(\?.*|$)$' => [
+    '^.*/qa/question(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADoc',
             'verb'       => RouteVerb::GET,
@@ -62,7 +62,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/question/create.*$' => [
+    '^.*/qa/question/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAQuestionCreate',
             'verb'       => RouteVerb::GET,

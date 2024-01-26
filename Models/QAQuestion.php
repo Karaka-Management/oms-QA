@@ -14,10 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\QA\Models;
 
-use Modules\Media\Models\Media;
 use Modules\Profile\Models\NullProfile;
 use Modules\Profile\Models\Profile;
-use Modules\Tag\Models\NullTag;
 use Modules\Tag\Models\Tag;
 use phpOMS\Localization\ISO639x1Enum;
 
@@ -126,14 +124,6 @@ class QAQuestion implements \JsonSerializable
     public QAApp $app;
 
     /**
-     * Media files
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    public array $media = [];
-
-    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -146,20 +136,8 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Get id.
-     *
-     * @return int Model id
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
-
-    /**
      * Finds all accounts in the question
-     * e.g. asked by and all accoounts who answered
+     * e.g. asked by and all accounts who answered
      *
      * @return array
      */
@@ -191,124 +169,6 @@ class QAQuestion implements \JsonSerializable
         }
 
         return false;
-    }
-
-    /**
-     * Get the language
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getLanguage() : string
-    {
-        return $this->language;
-    }
-
-    /**
-     * Set the language
-     *
-     * @param string $language Language
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setLanguage(string $language) : void
-    {
-        $this->language = $language;
-    }
-
-    /**
-     * Get the status
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getStatus() : int
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set the status
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setStatus(int $status) : void
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * Adding new tag.
-     *
-     * @param Tag $tag Tag
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function addTag(Tag $tag) : int
-    {
-        $this->tags[] = $tag;
-
-        \end($this->tags);
-        $key = (int) \key($this->tags);
-        \reset($this->tags);
-
-        return $key;
-    }
-
-    /**
-     * Remove Tag from list.
-     *
-     * @param int $id Tag
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function removeTag($id) : bool
-    {
-        if (isset($this->tags[$id])) {
-            unset($this->tags[$id]);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Get task elements.
-     *
-     * @return Tag[]
-     *
-     * @since 1.0.0
-     */
-    public function getTags() : array
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Get task elements.
-     *
-     * @param int $id Element id
-     *
-     * @return Tag
-     *
-     * @since 1.0.0
-     */
-    public function getTag(int $id) : Tag
-    {
-        return $this->tags[$id] ?? new NullTag();
     }
 
     /**
@@ -441,50 +301,24 @@ class QAQuestion implements \JsonSerializable
     }
 
     /**
-     * Get all media
-     *
-     * @return Media[]
-     *
-     * @since 1.0.0
-     */
-    public function getMedia() : array
-    {
-        return $this->media;
-    }
-
-    /**
-     * Add media
-     *
-     * @param Media $media Media to add
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addMedia(Media $media) : void
-    {
-        $this->media[] = $media;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toArray() : array
     {
         return [
-            'id'                  => $this->id,
-            'name'                => $this->name,
-            'status'              => $this->status,
-            'question'            => $this->question,
-            'questionRaw'         => $this->questionRaw,
-            'language'            => $this->language,
-            'createdBy'           => $this->createdBy,
-            'createdAt'           => $this->createdAt,
-            'app'                 => $this->app,
-            'tags'                => $this->tags,
-            'answers'             => $this->votes,
-            'votes'               => $this->votes,
-            'media'               => $this->media,
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'status'      => $this->status,
+            'question'    => $this->question,
+            'questionRaw' => $this->questionRaw,
+            'language'    => $this->language,
+            'createdBy'   => $this->createdBy,
+            'createdAt'   => $this->createdAt,
+            'app'         => $this->app,
+            'tags'        => $this->tags,
+            'answers'     => $this->votes,
+            'votes'       => $this->votes,
+            'media'       => $this->files,
         ];
     }
 
@@ -495,4 +329,6 @@ class QAQuestion implements \JsonSerializable
     {
         return $this->toArray();
     }
+
+    use \Modules\Media\Models\MediaListTrait;
 }

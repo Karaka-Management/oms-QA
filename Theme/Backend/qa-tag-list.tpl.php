@@ -12,8 +12,6 @@
  */
 declare(strict_types=1);
 
-$tags = $this->data['tags'];
-
 /** @var \phpOMS\Views\View $this */
 echo $this->data['nav']->render();
 ?>
@@ -31,7 +29,7 @@ echo $this->data['nav']->render();
                         <tfoot>
                 <tr><td colspan="2">
                         <tbody>
-                        <?php $c = 0; foreach ($tags as $key => $value) : ++$c;
+                        <?php $c = 0; foreach ($this->data['tags'] as $key => $value) : ++$c;
                         $url     = \phpOMS\Uri\UriFactory::build('{/base}/admin/account/settings?{?}&id=' . $value->id); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td><a href="<?= $url; ?>"><?= $value->id; ?></a>
