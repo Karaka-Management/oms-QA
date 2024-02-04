@@ -154,7 +154,7 @@ final class ApiController extends Controller
         }
 
         if (!empty($uploadedFiles = $request->files)) {
-            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+            $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
                 [],
                 [],
                 $uploadedFiles,
@@ -168,10 +168,9 @@ final class ApiController extends Controller
             }
         }
 
-        if (!empty($mediaFiles = $request->getDataJson('media'))) {
-            foreach ($mediaFiles as $media) {
-                $question->files[] = new NullMedia($media);
-            }
+        $mediaFiles = $request->getDataJson('media');
+        foreach ($mediaFiles as $media) {
+            $question->files[] = new NullMedia($media);
         }
 
         return $question;
@@ -250,7 +249,7 @@ final class ApiController extends Controller
         $answer->createdBy  = new Profile(new NullAccount($request->header->account));
 
         if (!empty($uploadedFiles = $request->files)) {
-            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+            $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
                 [],
                 [],
                 $uploadedFiles,
@@ -264,10 +263,9 @@ final class ApiController extends Controller
             }
         }
 
-        if (!empty($mediaFiles = $request->getDataJson('media'))) {
-            foreach ($mediaFiles as $media) {
-                $answer->files[] = new NullMedia($media);
-            }
+        $mediaFiles = $request->getDataJson('media');
+        foreach ($mediaFiles as $media) {
+            $answer->files[] = new NullMedia($media);
         }
 
         return $answer;

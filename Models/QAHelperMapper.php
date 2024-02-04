@@ -50,9 +50,7 @@ final class QAHelperMapper extends DataMapperFactory
             ->execute()
             ?->fetchAll();
 
-        if ($questionScore === null) {
-            $questionScore = [];
-        }
+        $questionScore ??= [];
 
         foreach ($questionScore as $votes) {
             $scores[(int) $votes['qa_question_vote_created_for']] = (int) $votes['score'];
@@ -67,9 +65,7 @@ final class QAHelperMapper extends DataMapperFactory
             ->execute()
             ?->fetchAll();
 
-        if ($answerScore === null) {
-            $answerScore = [];
-        }
+        $answerScore ??= [];
 
         foreach ($answerScore as $votes) {
             $scores[(int) $votes['qa_answer_vote_created_for']] ??= 0;
