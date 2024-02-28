@@ -14,8 +14,12 @@ declare(strict_types=1);
 
 namespace Modules\QA\Controller;
 
+use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\NullMedia;
+use Modules\Notification\Models\Notification;
+use Modules\Notification\Models\NotificationMapper;
+use Modules\Notification\Models\NotificationType;
 use Modules\Profile\Models\Profile;
 use Modules\QA\Models\NullQAApp;
 use Modules\QA\Models\NullQAQuestion;
@@ -49,6 +53,28 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  */
 final class ApiController extends Controller
 {
+    // @todo Create another notification whenever a comment is created for a question or answer
+    //      The question/answer owner should receive a notification
+    private function createQuestionNotifications(QAAnswer $answer, RequestAbstract $request) : void
+    {
+        $question = QAQuestionMapper::get()
+            ->with('createdBy')
+            ->where('id', $answer->question->id)
+            ->execute();
+
+        $notification = new Notification();
+        $notification->module = self::NAME;
+        $notification->title = $question->name;
+        $notification->createdBy = $answer->createdBy->account;
+        $notification->createdFor = $question->createdBy->account;
+        $notification->type = NotificationType::CREATE;
+        $notification->category = PermissionCategory::QUESTION;
+        $notification->element = $question->id;
+        $notification->redirect = '{/base}/qa/question?{?}&id=' . $answer->id;
+
+        $this->createModel($request->header->account, $notification, NotificationMapper::class, 'notification', $request->getOrigin());
+    }
+
     /**
      * Api method to create a question
      *
@@ -226,6 +252,9 @@ final class ApiController extends Controller
 
         $answer = $this->createQAAnswerFromRequest($request);
         $this->createModel($request->header->account, $answer, QAAnswerMapper::class, 'answer', $request->getOrigin());
+
+        $this->createQuestionNotifications($answer, $request);
+
         $this->createStandardCreateResponse($request, $response, $answer);
     }
 
