@@ -82,7 +82,10 @@ echo $this->data['nav']->render();
                             foreach ($question->tags as $tag) :
                                 if ($tag->id === 0) { continue; }
                         ?>
-                            <span class="tag"><?= empty($tag->icon) ? '' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
+                            <span class="tag">
+                                <?= empty($tag->icon) ? '' : '<i class="g-icon">' . $this->printHtml($tag->icon) . '</i>'; ?>
+                                <?= $this->printHtml($tag->getL11n()); ?>
+                            </span>
                         <?php endforeach; ?>
                     </div>
 
