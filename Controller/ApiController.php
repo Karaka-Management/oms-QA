@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\QA\Controller;
 
-use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\NullMedia;
 use Modules\Notification\Models\Notification;
@@ -53,8 +52,19 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  */
 final class ApiController extends Controller
 {
-    // @todo Create another notification whenever a comment is created for a question or answer
-    //      The question/answer owner should receive a notification
+    /**
+     * Create notification for new qa answer
+     *
+     * @param QAAnswer        $answer  QA answer
+     * @param RequestAbstract $request Request
+     *
+     * @return void
+     *
+     * @todo Create another notification whenever a comment is created for a question or answer
+     *      The question/answer owner should receive a notification
+     *
+     * @since 1.0.0
+     */
     private function createQuestionNotifications(QAAnswer $answer, RequestAbstract $request) : void
     {
         $question = QAQuestionMapper::get()
@@ -62,15 +72,15 @@ final class ApiController extends Controller
             ->where('id', $answer->question->id)
             ->execute();
 
-        $notification = new Notification();
-        $notification->module = self::NAME;
-        $notification->title = $question->name;
-        $notification->createdBy = $answer->createdBy->account;
+        $notification             = new Notification();
+        $notification->module     = self::NAME;
+        $notification->title      = $question->name;
+        $notification->createdBy  = $answer->createdBy->account;
         $notification->createdFor = $question->createdBy->account;
-        $notification->type = NotificationType::CREATE;
-        $notification->category = PermissionCategory::QUESTION;
-        $notification->element = $question->id;
-        $notification->redirect = '{/base}/qa/question?{?}&id=' . $answer->id;
+        $notification->type       = NotificationType::CREATE;
+        $notification->category   = PermissionCategory::QUESTION;
+        $notification->element    = $question->id;
+        $notification->redirect   = '{/base}/qa/question?{?}&id=' . $answer->id;
 
         $this->createModel($request->header->account, $notification, NotificationMapper::class, 'notification', $request->getOrigin());
     }
