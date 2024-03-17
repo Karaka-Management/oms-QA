@@ -75,8 +75,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         TestUtils::setMember($account, 'id', 1);
 
         $permission       = new AccountPermission();
-        $permission->unit = 1;
-        $permission->app  = 2;
+        $permission->unit = $this->app->unitId;
+        $permission->app  = $this->app->appId;
         $permission->setPermission(
             PermissionType::READ
             | PermissionType::CREATE
@@ -298,7 +298,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest();
 
-        $request->header->account = 1;
+        $request->header->account = 2;
         $request->setData('id', '1');
         $request->setData('type', '-1');
 
@@ -308,7 +308,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest();
 
-        $request->header->account = 1;
+        $request->header->account = 2;
         $request->setData('id', '1');
         $request->setData('type', '1');
 

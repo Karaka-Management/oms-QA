@@ -368,7 +368,7 @@ final class ApiController extends Controller
                 ->hasPermission(PermissionType::CREATE, $this->app->unitId, null, self::NAME, PermissionCategory::ACCEPT)
         ) {
             $response->header->status = RequestStatusCode::R_403;
-            $this->createInvalidUpdateResponse($request, $response, null);
+            $this->createInvalidUpdateResponse($request, $response, []);
 
             return;
         }
