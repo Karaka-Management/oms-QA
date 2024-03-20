@@ -19,6 +19,7 @@ use Modules\QA\Models\QAAnswerVote;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\QAAnswerVote::class)]
 final class QAAnswerVoteTest extends \PHPUnit\Framework\TestCase
 {
     private QAAnswerVote $vote;
@@ -31,10 +32,7 @@ final class QAAnswerVoteTest extends \PHPUnit\Framework\TestCase
         $this->vote = new QAAnswerVote();
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAAnswerVote
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->vote->id);

@@ -25,6 +25,7 @@ use phpOMS\Localization\ISO639x1Enum;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\QAQuestion::class)]
 final class QAQuestionTest extends \PHPUnit\Framework\TestCase
 {
     private QAQuestion $question;
@@ -37,10 +38,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
         $this->question = new QAQuestion();
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAQuestion
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->question->id);
@@ -62,10 +60,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->question->getAnswerCount());
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAQuestion
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testAnswerInputOutput() : void
     {
         $answer             = new QAAnswer();
@@ -81,10 +76,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $this->question->getAnswerCount());
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAQuestion
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testVoteInputOutput() : void
     {
         $vote            = new QAQuestionVote();
@@ -97,10 +89,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->question->getAccountVoteScore(1));
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAQuestion
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->question->name        = 'Test Title';

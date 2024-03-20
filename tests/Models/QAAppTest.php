@@ -19,6 +19,7 @@ use Modules\QA\Models\QAApp;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\QAApp::class)]
 final class QAAppTest extends \PHPUnit\Framework\TestCase
 {
     private QAApp $app;
@@ -31,20 +32,14 @@ final class QAAppTest extends \PHPUnit\Framework\TestCase
         $this->app = new QAApp();
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAApp
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->app->id);
         self::assertEquals('', $this->app->name);
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAApp
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->app->name = 'Test Title';

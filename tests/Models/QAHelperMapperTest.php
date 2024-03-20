@@ -19,13 +19,11 @@ use Modules\QA\Models\QAHelperMapper;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\QAHelperMapper::class)]
 final class QAHelperMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @depends Modules\QA\tests\Models\QAAnswerVoteMapperTest::testCRUD
-     * @covers \Modules\QA\Models\QAHelperMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\DependsExternal('\Modules\QA\tests\Models\QAAnswerVoteMapperTest', 'testCRUD')]
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testAccountScore() : void
     {
         self::assertGreaterThan(0, QAHelperMapper::getAccountScore([1])[1]);

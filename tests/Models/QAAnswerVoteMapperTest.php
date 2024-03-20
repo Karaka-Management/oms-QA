@@ -21,13 +21,11 @@ use Modules\QA\Models\QAAnswerVoteMapper;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\QAAnswerVoteMapper::class)]
 final class QAAnswerVoteMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @depends Modules\QA\tests\Models\QAAnswerMapperTest::testCRUD
-     * @covers \Modules\QA\Models\QAAnswerVoteMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\DependsExternal('\Modules\QA\tests\Models\QAAnswerMapperTest', 'testCRUD')]
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCRUD() : void
     {
         \Modules\Admin\tests\Helper::createAccounts(1);

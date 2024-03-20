@@ -22,6 +22,7 @@ use Modules\QA\Models\QAAnswerVote;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\QAAnswer::class)]
 final class QAAnswerTest extends \PHPUnit\Framework\TestCase
 {
     private QAAnswer $answer;
@@ -34,10 +35,7 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
         $this->answer = new QAAnswer();
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAAnswer
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->answer->id);
@@ -53,10 +51,7 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTimeImmutable', $this->answer->createdAt);
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAAnswer
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testVoteInputOutput() : void
     {
         $vote            = new QAAnswerVote();
@@ -69,10 +64,7 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->answer->getAccountVoteScore(1));
     }
 
-    /**
-     * @covers \Modules\QA\Models\QAAnswer
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->answer->status    = QAAnswerStatus::ACTIVE;

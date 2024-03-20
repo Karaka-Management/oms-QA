@@ -24,13 +24,11 @@ use Modules\QA\Models\QAAnswerStatus;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\QAAnswerMapper::class)]
 final class QAAnswerMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @depends Modules\QA\tests\Models\QAQuestionMapperTest::testCRUD
-     * @covers \Modules\QA\Models\QAAnswerMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\DependsExternal('\Modules\QA\tests\Models\QAQuestionMapperTest', 'testCRUD')]
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCRUD() : void
     {
         $answer = new QAAnswer();

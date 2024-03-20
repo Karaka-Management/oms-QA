@@ -37,10 +37,10 @@ use phpOMS\System\MimeType;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox Modules\QA\tests\Controller\ApiControllerTest: QA api controller
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Controller\ApiController::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('Modules\QA\tests\Controller\ApiControllerTest: QA api controller')]
 final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
@@ -95,10 +95,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         TestUtils::setMember($this->module, 'app', $this->app);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiQAAppCreate() : void
     {
         $response = new HttpResponse();
@@ -111,10 +108,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiQAAppCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -127,10 +121,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiQAQuestionCreate() : void
     {
         $response = new HttpResponse();
@@ -163,10 +154,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiQAQuestionCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -179,10 +167,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiQAAnswerCreate() : void
     {
         $response = new HttpResponse();
@@ -213,10 +198,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiChangeAnsweredStatus() : void
     {
         $response = new HttpResponse();
@@ -230,10 +212,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiQAAnswerCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -246,10 +225,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiChangeQAQuestionVote() : void
     {
         $response = new HttpResponse();
@@ -273,10 +249,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiChangeQAQuestionVoteInvalidData() : void
     {
         $response = new HttpResponse();
@@ -289,10 +262,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiChangeQAAnswerVote() : void
     {
         $response = new HttpResponse();
@@ -316,10 +286,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
-    /**
-     * @covers \Modules\QA\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiChangeQAAnswerVoteInvalidData() : void
     {
         $response = new HttpResponse();

@@ -19,31 +19,23 @@ use Modules\QA\Models\NullQAQuestion;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\QA\Models\NullQAQuestion::class)]
 final class NullQAQuestionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\QA\Models\NullQAQuestion
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\QA\Models\QAQuestion', new NullQAQuestion());
     }
 
-    /**
-     * @covers \Modules\QA\Models\NullQAQuestion
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullQAQuestion(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\QA\Models\NullQAQuestion
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullQAQuestion(2);
