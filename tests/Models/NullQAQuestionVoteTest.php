@@ -22,7 +22,7 @@ use Modules\QA\Models\NullQAQuestionVote;
 final class NullQAQuestionVoteTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\QA\Models\NullQAQuestionVote
+     * @covers \Modules\QA\Models\NullQAQuestionVote
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullQAQuestionVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\NullQAQuestionVote
+     * @covers \Modules\QA\Models\NullQAQuestionVote
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullQAQuestionVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\NullQAQuestionVote
+     * @covers \Modules\QA\Models\NullQAQuestionVote
      * @group module
      */
     public function testJsonSerialize() : void

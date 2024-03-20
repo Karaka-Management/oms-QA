@@ -32,7 +32,7 @@ final class QAAnswerVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAAnswerVote
+     * @covers \Modules\QA\Models\QAAnswerVote
      * @group module
      */
     public function testDefault() : void

@@ -38,7 +38,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAQuestion
+     * @covers \Modules\QA\Models\QAQuestion
      * @group module
      */
     public function testDefault() : void
@@ -63,7 +63,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAQuestion
+     * @covers \Modules\QA\Models\QAQuestion
      * @group module
      */
     public function testAnswerInputOutput() : void
@@ -82,7 +82,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAQuestion
+     * @covers \Modules\QA\Models\QAQuestion
      * @group module
      */
     public function testVoteInputOutput() : void
@@ -98,7 +98,7 @@ final class QAQuestionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAQuestion
+     * @covers \Modules\QA\Models\QAQuestion
      * @group module
      */
     public function testSerialize() : void

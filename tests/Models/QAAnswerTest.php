@@ -35,7 +35,7 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAAnswer
+     * @covers \Modules\QA\Models\QAAnswer
      * @group module
      */
     public function testDefault() : void
@@ -54,7 +54,7 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAAnswer
+     * @covers \Modules\QA\Models\QAAnswer
      * @group module
      */
     public function testVoteInputOutput() : void
@@ -70,7 +70,7 @@ final class QAAnswerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAAnswer
+     * @covers \Modules\QA\Models\QAAnswer
      * @group module
      */
     public function testSerialize() : void

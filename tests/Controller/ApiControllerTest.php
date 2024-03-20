@@ -96,7 +96,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiQAAppCreate() : void
@@ -112,7 +112,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiQAAppCreateInvalidData() : void
@@ -128,7 +128,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiQAQuestionCreate() : void
@@ -164,7 +164,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiQAQuestionCreateInvalidData() : void
@@ -180,7 +180,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiQAAnswerCreate() : void
@@ -214,7 +214,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiChangeAnsweredStatus() : void
@@ -231,7 +231,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiQAAnswerCreateInvalidData() : void
@@ -247,7 +247,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiChangeQAQuestionVote() : void
@@ -274,7 +274,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiChangeQAQuestionVoteInvalidData() : void
@@ -290,7 +290,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiChangeQAAnswerVote() : void
@@ -317,7 +317,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Controller\ApiController
+     * @covers \Modules\QA\Controller\ApiController
      * @group module
      */
     public function testApiChangeQAAnswerVoteInvalidData() : void

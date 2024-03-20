@@ -26,7 +26,7 @@ use Modules\QA\Models\QAQuestionStatus;
 final class QAQuestionMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\QA\Models\QAQuestionMapper
+     * @covers \Modules\QA\Models\QAQuestionMapper
      * @group module
      */
     public function testCRUD() : void

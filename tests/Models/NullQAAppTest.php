@@ -22,7 +22,7 @@ use Modules\QA\Models\NullQAApp;
 final class NullQAAppTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\QA\Models\NullQAApp
+     * @covers \Modules\QA\Models\NullQAApp
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullQAAppTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\NullQAApp
+     * @covers \Modules\QA\Models\NullQAApp
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullQAAppTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\NullQAApp
+     * @covers \Modules\QA\Models\NullQAApp
      * @group module
      */
     public function testJsonSerialize() : void

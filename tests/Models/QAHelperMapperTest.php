@@ -23,7 +23,7 @@ final class QAHelperMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @depends Modules\QA\tests\Models\QAAnswerVoteMapperTest::testCRUD
-     * @covers Modules\QA\Models\QAHelperMapper
+     * @covers \Modules\QA\Models\QAHelperMapper
      * @group module
      */
     public function testAccountScore() : void

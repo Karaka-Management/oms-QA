@@ -32,7 +32,7 @@ final class QAAppTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAApp
+     * @covers \Modules\QA\Models\QAApp
      * @group module
      */
     public function testDefault() : void
@@ -42,7 +42,7 @@ final class QAAppTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\QA\Models\QAApp
+     * @covers \Modules\QA\Models\QAApp
      * @group module
      */
     public function testSerialize() : void

@@ -25,7 +25,7 @@ final class QAAnswerVoteMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @depends Modules\QA\tests\Models\QAAnswerMapperTest::testCRUD
-     * @covers Modules\QA\Models\QAAnswerVoteMapper
+     * @covers \Modules\QA\Models\QAAnswerVoteMapper
      * @group module
      */
     public function testCRUD() : void
