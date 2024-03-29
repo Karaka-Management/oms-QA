@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/admin/module/settings\?id=QA&app=.*?$' => [
+    '^/admin/module/settings\?id=QA&app=.*?$' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewAppSettings',
             'verb'       => RouteVerb::GET,
@@ -29,7 +29,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/.*' => [
+    '^/qa/.*' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:setUpBackend',
             'verb'       => RouteVerb::GET,
@@ -40,7 +40,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/dashboard(\?.*$|$)' => [
+    '^/qa/dashboard(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADashboard',
             'verb'       => RouteVerb::GET,
@@ -51,7 +51,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/question(\?.*$|$)' => [
+    '^/qa/question(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADoc',
             'verb'       => RouteVerb::GET,
@@ -62,7 +62,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/question/create(\?.*$|$)' => [
+    '^/qa/question/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAQuestionCreate',
             'verb'       => RouteVerb::GET,
@@ -73,7 +73,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/app/list(\?.*$|$)' => [
+    '^/qa/app/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAAppList',
             'verb'       => RouteVerb::GET,
@@ -84,7 +84,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/app/view(\?.*$|$)' => [
+    '^/qa/app/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAApp',
             'verb'       => RouteVerb::GET,
@@ -95,7 +95,7 @@ return [
             ],
         ],
     ],
-    '^.*/qa/app/create(\?.*$|$)' => [
+    '^/qa/app/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAAppCreate',
             'verb'       => RouteVerb::GET,
