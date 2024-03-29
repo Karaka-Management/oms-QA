@@ -48,13 +48,13 @@
                 "pid": "/qa",
                 "type": 3,
                 "subtype": 1,
-                "name": "Badges",
-                "uri": "{/base}/qa/badge/list?{?}",
+                "name": "Apps",
+                "uri": "{/base}/qa/app/list?{?}",
                 "target": "self",
                 "icon": null,
-                "order": 10,
+                "order": 20,
                 "from": "QA",
-                "permission": { "permission": 2, "category": null, "element": null },
+                "permission": { "permission": 4, "category": null, "element": null },
                 "parent": 1006001001,
                 "children": []
             }

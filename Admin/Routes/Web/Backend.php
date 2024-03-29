@@ -73,4 +73,37 @@ return [
             ],
         ],
     ],
+    '^.*/qa/app/list(\?.*$|$)' => [
+        [
+            'dest'       => '\Modules\QA\Controller\BackendController:viewQAAppList',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::APP,
+            ],
+        ],
+    ],
+    '^.*/qa/app/view(\?.*$|$)' => [
+        [
+            'dest'       => '\Modules\QA\Controller\BackendController:viewQAApp',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::APP,
+            ],
+        ],
+    ],
+    '^.*/qa/app/create(\?.*$|$)' => [
+        [
+            'dest'       => '\Modules\QA\Controller\BackendController:viewQAAppCreate',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionCategory::APP,
+            ],
+        ],
+    ],
 ];

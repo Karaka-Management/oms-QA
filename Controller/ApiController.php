@@ -358,7 +358,7 @@ final class ApiController extends Controller
         }
 
         /** @var \Modules\QA\Models\QAAnswer $newAccepted */
-        $newAccepted    = QAAnswerMapper::get()->with('profile')->where('id', (int) $request->getData('id'))->execute();
+        $newAccepted    = QAAnswerMapper::get()->with('createdBy')->where('id', (int) $request->getData('id'))->execute();
         $oldNewAccepted = clone $newAccepted;
 
         /** @var \Modules\QA\Models\QAQuestion $question */
