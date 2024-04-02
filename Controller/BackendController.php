@@ -86,12 +86,12 @@ final class BackendController extends Controller
             ->with('tags/title')
             ->where('tags/title/language', $response->header->l11n->language)
             ->where('language', $response->header->l11n->language)
-            ->limit(50)->execute();
+            ->limit(50)->executeGetArray();
 
         $view->data['questions'] = $list;
 
         /** @var \Modules\QA\Models\QAApp[] $apps */
-        $apps               = QAAppMapper::getAll()->execute();
+        $apps               = QAAppMapper::getAll()->executeGetArray();
         $view->data['apps'] = $apps;
 
         return $view;
@@ -199,11 +199,11 @@ final class BackendController extends Controller
         $id = $request->getDataString('id') ?? '';
 
         /** @var \Model\Setting[] $settings */
-        $settings               = SettingMapper::getAll()->where('module', $id)->execute();
+        $settings               = SettingMapper::getAll()->where('module', $id)->executeGetArray();
         $view->data['settings'] = $settings;
 
         /** @var \Modules\QA\Models\QAApp[] $apps */
-        $apps               = QAAppMapper::getAll()->execute();
+        $apps               = QAAppMapper::getAll()->executeGetArray();
         $view->data['apps'] = $apps;
 
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
