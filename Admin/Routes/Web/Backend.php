@@ -22,7 +22,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewAppSettings',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -34,7 +34,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:setUpBackend',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -46,7 +46,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADashboard',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -58,7 +58,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADoc',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -70,7 +70,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAQuestionCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -82,7 +82,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAAppList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -94,7 +94,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAApp',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -106,7 +106,7 @@ return [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQAAppCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,

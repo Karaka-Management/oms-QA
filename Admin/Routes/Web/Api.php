@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAAppCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAAppUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -47,7 +47,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAQuestionCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -58,7 +58,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQuestionUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -71,7 +71,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiChangeQAQuestionVote',
             'verb'       => RouteVerb::PUT | RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -84,7 +84,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiQAAnswerCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -95,7 +95,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiAnswerUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -108,7 +108,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiChangeQAAnswerVote',
             'verb'       => RouteVerb::PUT | RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -121,7 +121,7 @@ return [
             'dest'       => '\Modules\QA\Controller\ApiController:apiChangeAnsweredStatus',
             'verb'       => RouteVerb::PUT | RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
