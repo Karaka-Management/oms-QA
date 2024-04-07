@@ -19,7 +19,7 @@ use Modules\Profile\Models\ProfileMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * QAAnswer mapper class.
  *
  * @package Modules\QA\Models
  * @license OMS License 2.0

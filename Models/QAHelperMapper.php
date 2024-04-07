@@ -18,7 +18,7 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
- * Mapper class.
+ * QAHelper mapper class.
  *
  * @package Modules\QA\Models
  * @license OMS License 2.0

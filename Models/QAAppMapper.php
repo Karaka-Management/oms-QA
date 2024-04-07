@@ -17,7 +17,7 @@ namespace Modules\QA\Models;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * QAApp mapper class.
  *
  * @package Modules\QA\Models
  * @license OMS License 2.0

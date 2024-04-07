@@ -20,7 +20,7 @@ use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * QAQuestion mapper class.
  *
  * @package Modules\QA\Models
  * @license OMS License 2.0
