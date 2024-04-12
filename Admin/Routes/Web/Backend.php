@@ -54,7 +54,7 @@ return [
             ],
         ],
     ],
-    '^/qa/question(\?.*$|$)' => [
+    '^/qa/question/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\QA\Controller\BackendController:viewQADoc',
             'verb'       => RouteVerb::GET,

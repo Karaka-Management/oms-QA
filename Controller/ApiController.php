@@ -189,17 +189,18 @@ final class ApiController extends Controller
             $question->tags = $this->app->moduleManager->get('Tag', 'Api')->createTagsFromRequest($request);
         }
 
-        if (!empty($uploadedFiles = $request->files)) {
+        // @todo implement subfolders
+        if (!empty($request->files)) {
             $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
-                [],
-                [],
-                $uploadedFiles,
-                $request->header->account,
-                __DIR__ . '/../../../Modules/Media/Files/Modules/QA',
-                '/Modules/QA',
+                names:       [],
+                fileNames:   [],
+                files:       $request->files,
+                account:     $request->header->account,
+                basePath:    __DIR__ . '/../../../Modules/Media/Files/Modules/QA',
+                virtualPath: '/Modules/QA',
             );
 
-            foreach ($uploaded as $media) {
+            foreach ($uploaded->sources as $media) {
                 $question->files[] = $media;
             }
         }
@@ -287,14 +288,15 @@ final class ApiController extends Controller
         $answer->status     = QAAnswerStatus::tryFromValue($request->getDataInt('status')) ?? QAAnswerStatus::ACTIVE;
         $answer->createdBy  = new Profile(new NullAccount($request->header->account));
 
-        if (!empty($uploadedFiles = $request->files)) {
+        // @todo Implement subdirectories
+        if (!empty($request->files)) {
             $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
-                [],
-                [],
-                $uploadedFiles,
-                $request->header->account,
-                __DIR__ . '/../../../Modules/Media/Files/Modules/QA',
-                '/Modules/QA',
+                names:       [],
+                fileNames:   [],
+                files:       $request->files,
+                account:     $request->header->account,
+                basePath:    __DIR__ . '/../../../Modules/Media/Files/Modules/QA',
+                virtualPath: '/Modules/QA',
             );
 
             foreach ($uploaded as $media) {

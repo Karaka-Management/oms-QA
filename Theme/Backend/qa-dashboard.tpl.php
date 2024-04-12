@@ -14,16 +14,16 @@ declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
 
-/** @var \Modules\QA\Modles\QAQuestion[] $questions */
+/** @var \Modules\QA\Modules\QAQuestion[] $questions */
 $questions = $this->data['questions'];
 
-/** @var \Modules\QA\Modles\QAApp[] $apps */
+/** @var \Modules\QA\Modules\QAApp[] $apps */
 $apps = $this->data['apps'];
 
 echo $this->data['nav']->render(); ?>
 
 <div class="row">
-    <div class="col-xs-12 box">
+    <div class="col-xs-12 col-md-4 box">
         <select name="app">
             <option value="0"><?= $this->getHtml('All'); ?>
             <?php foreach ($apps as $app) : ?>
@@ -50,7 +50,7 @@ echo $this->data['nav']->render(); ?>
                         </div>
                     </div>
                     <div class="title">
-                        <a href="<?= UriFactory::build('{/base}/qa/question?{?}&id=' . $question->id); ?>"><?= $this->printHtml($question->name); ?></a>
+                        <a href="<?= UriFactory::build('{/base}/qa/question/view?{?}&id=' . $question->id); ?>"><?= $this->printHtml($question->name); ?></a>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@ echo $this->data['nav']->render(); ?>
                     <?php foreach ($question->tags as $tag) :
                         if ($tag->id === 0) { continue; }
                     ?>
-                        <span class="tag">
+                        <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>">
                             <?= empty($tag->icon) ? '' : '<i class="g-icon">' . $this->printHtml($tag->icon) . '</i>'; ?>
                             <?= $this->printHtml($tag->getL11n()); ?>
                         </span>
