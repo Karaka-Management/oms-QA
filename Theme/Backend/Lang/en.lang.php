@@ -21,4 +21,6 @@ return ['QA' => [
     'Badges'   => 'Badges',
     'Title'    => 'Title',
     'Name'     => 'Name',
+    'App'     => 'App',
+    'Apps'     => 'Apps',
 ]];

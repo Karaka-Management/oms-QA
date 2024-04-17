@@ -23,6 +23,7 @@ use Modules\QA\Models\QAQuestion;
 use Modules\QA\Models\QAQuestionMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
@@ -75,7 +76,7 @@ final class BackendController extends Controller
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         /** @var \Modules\QA\Models\QAQuestion[] $list */
-        $list = QAQuestionMapper::getAll()
+        $view->data['questions'] = QAQuestionMapper::getAll()
             ->with('createdBy')
             ->with('createdBy/account')
             ->with('createdBy/image')
@@ -88,11 +89,10 @@ final class BackendController extends Controller
             ->where('language', $response->header->l11n->language)
             ->limit(50)->executeGetArray();
 
-        $view->data['questions'] = $list;
 
-        /** @var \Modules\QA\Models\QAApp[] $apps */
-        $apps               = QAAppMapper::getAll()->executeGetArray();
-        $view->data['apps'] = $apps;
+        $view->data['apps'] = QAAppMapper::getAll()
+            ->where('unit', [$this->app->unitId, null])
+            ->executeGetArray();
 
         return $view;
     }
@@ -112,11 +112,18 @@ final class BackendController extends Controller
     public function viewQADoc(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
+        if (!$request->hasData('id')) {
+            $response->header->status = RequestStatusCode::R_404;
+            $view->setTemplate('/Web/Backend/Error/404');
+
+            return $view;
+        }
+
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-question');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         /** @var \Modules\QA\Models\QAQuestion $question */
-        $question = QAQuestionMapper::get()
+        $view->data['question'] = QAQuestionMapper::get()
             ->with('answers')
             ->with('answers/createdBy')
             ->with('answers/createdBy/image')
@@ -133,10 +140,7 @@ final class BackendController extends Controller
             ->where('tags/title/language', $response->header->l11n->language)
             ->execute();
 
-        $view->data['question'] = $question;
-
-        $scores               = QAHelperMapper::getAccountScore($question->getAccounts());
-        $view->data['scores'] = $scores;
+        $view->data['scores'] = QAHelperMapper::getAccountScore($question->getAccounts());
 
         return $view;
     }
@@ -173,8 +177,8 @@ final class BackendController extends Controller
                 ->execute();
         }
 
-        $scores                 = QAHelperMapper::getAccountScore($question->getAccounts());
-        $view->data['scores']   = $scores;
+        $view->data['scores'] = QAHelperMapper::getAccountScore($question->getAccounts());
+
         $view->data['question'] = $question;
 
         return $view;
@@ -199,12 +203,13 @@ final class BackendController extends Controller
         $id = $request->getDataString('id') ?? '';
 
         /** @var \Model\Setting[] $settings */
-        $settings               = SettingMapper::getAll()->where('module', $id)->executeGetArray();
-        $view->data['settings'] = $settings;
+        $view->data['settings'] = SettingMapper::getAll()
+            ->where('module', $id)
+            ->executeGetArray();
 
-        /** @var \Modules\QA\Models\QAApp[] $apps */
-        $apps               = QAAppMapper::getAll()->executeGetArray();
-        $view->data['apps'] = $apps;
+        $view->data['apps'] = QAAppMapper::getAll()
+            ->where('unit', [$this->app->unitId, null])
+            ->executeGetArray();
 
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
 
@@ -228,7 +233,82 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings-app');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000105001, $request, $response);
 
-        $view->data['app'] = QAAppMapper::get()->where('id', (int) $request->getData('app'))->execute();
+        $view->data['app'] = QAAppMapper::get()
+            ->where('id', (int) $request->getData('app'))
+            ->execute();
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewQAAppCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+        $view->setTemplate('/Modules/QA/Theme/Backend/qa-app-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewQAAppList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/QA/Theme/Backend/qa-app-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
+
+        $view->data['apps'] = QAAppMapper::getAll()
+            ->where('unit', [$this->app->unitId, null])
+            ->executeGetArray();
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewQAApp(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/QA/Theme/Backend/qa-app-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
+
+        $view->data['app'] = QAAppMapper::get()
+            ->where('id', (int) $request->getData('id'))
+            ->execute();
 
         return $view;
     }
