@@ -112,15 +112,6 @@ final class BackendController extends Controller
     public function viewQADoc(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
-        if (!$request->hasData('id')) {
-            $response->header->status = RequestStatusCode::R_404;
-            $view->setTemplate('/Web/Backend/Error/404');
-
-            return $view;
-        }
-
-        $view->setTemplate('/Modules/QA/Theme/Backend/qa-question');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         /** @var \Modules\QA\Models\QAQuestion $question */
         $view->data['question'] = QAQuestionMapper::get()
@@ -140,7 +131,17 @@ final class BackendController extends Controller
             ->where('tags/title/language', $response->header->l11n->language)
             ->execute();
 
-        $view->data['scores'] = QAHelperMapper::getAccountScore($question->getAccounts());
+        if ($view->data['question']->id === 0) {
+            $response->header->status = RequestStatusCode::R_404;
+            $view->setTemplate('/Web/Backend/Error/404');
+
+            return $view;
+        }
+
+        $view->setTemplate('/Modules/QA/Theme/Backend/qa-question');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
+
+        $view->data['scores'] = QAHelperMapper::getAccountScore($view->data['question']->getAccounts());
 
         return $view;
     }
