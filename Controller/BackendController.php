@@ -75,7 +75,6 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/QA/Theme/Backend/qa-dashboard');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
-        /** @var \Modules\QA\Models\QAQuestion[] $list */
         $view->data['questions'] = QAQuestionMapper::getAll()
             ->with('createdBy')
             ->with('createdBy/account')
@@ -87,8 +86,8 @@ final class BackendController extends Controller
             ->with('tags/title')
             ->where('tags/title/language', $response->header->l11n->language)
             ->where('language', $response->header->l11n->language)
-            ->limit(50)->executeGetArray();
-
+            ->limit(50)
+            ->executeGetArray();
 
         $view->data['apps'] = QAAppMapper::getAll()
             ->where('unit', [$this->app->unitId, null])
@@ -113,7 +112,6 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        /** @var \Modules\QA\Models\QAQuestion $question */
         $view->data['question'] = QAQuestionMapper::get()
             ->with('answers')
             ->with('answers/createdBy')
@@ -203,7 +201,6 @@ final class BackendController extends Controller
 
         $id = $request->getDataString('id') ?? '';
 
-        /** @var \Model\Setting[] $settings */
         $view->data['settings'] = SettingMapper::getAll()
             ->where('module', $id)
             ->executeGetArray();
