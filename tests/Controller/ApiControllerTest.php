@@ -88,6 +88,11 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $account->addPermission($permission);
 
         $this->app->accountManager->add($account);
+
+        $account2 = clone $account;
+        TestUtils::setMember($account2, 'id', 2);
+        $this->app->accountManager->add($account2);
+
         $this->app->router = new WebRouter();
 
         $this->module = $this->app->moduleManager->get('QA');
@@ -225,13 +230,15 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
+    #[\PHPUnit\Framework\Attributes\Depends('testApiQAQuestionCreate')]
     #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiChangeQAQuestionVote() : void
     {
         $response = new HttpResponse();
         $request  = new HttpRequest();
 
-        $request->header->account = 1;
+        // Needs to be different than creator, creator cannot vote on his own question
+        $request->header->account = 2;
         $request->setData('id', '1');
         $request->setData('type', '-1');
 
@@ -241,7 +248,8 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest();
 
-        $request->header->account = 1;
+        // Needs to be different than creator, creator cannot vote on his own question
+        $request->header->account = 2;
         $request->setData('id', '1');
         $request->setData('type', '1');
 
@@ -262,6 +270,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
+    #[\PHPUnit\Framework\Attributes\Depends('testApiQAAnswerCreate')]
     #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiChangeQAAnswerVote() : void
     {
