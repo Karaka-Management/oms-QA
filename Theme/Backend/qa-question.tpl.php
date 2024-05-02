@@ -38,7 +38,7 @@ echo $this->data['nav']->render();
                                 "key": 1, "listener": "click", "action": [
                                     {"key": 1, "type": "event.prevent"},
                                     {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/question/vote?id=' . $question->id);?>&type=1", "method": "PUT", "request_type": "json"},
-                                    {"key": 3, "type": "dom.reload", "delay": 0}
+                                    {"key": 3, "type": "redirect", "uri": "{%}", "delay": 0}
                                 ]
                             }
                         ]' href="#">
@@ -53,7 +53,7 @@ echo $this->data['nav']->render();
                                 "key": 1, "listener": "click", "action": [
                                     {"key": 1, "type": "event.prevent"},
                                     {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/question/vote?id=' . $question->id);?>&type=-1", "method": "PUT", "request_type": "json"},
-                                    {"key": 3, "type": "dom.reload", "delay": 0}
+                                    {"key": 3, "type": "redirect", "uri": "{%}", "delay": 0}
                                 ]
                             }
                         ]' href="#">
@@ -143,7 +143,7 @@ echo $this->data['nav']->render();
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
                                         {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/vote?id=' . $answer->id);?>&type=1", "method": "PUT", "request_type": "json"},
-                                        {"key": 3, "type": "dom.reload", "delay": 0}
+                                        {"key": 3, "type": "redirect", "uri": "{%}", "delay": 0}
                                     ]
                                 }
                             ]' href="#">
@@ -158,7 +158,7 @@ echo $this->data['nav']->render();
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
                                         {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/vote?id=' . $answer->id);?>&type=-1", "method": "PUT", "request_type": "json"},
-                                        {"key": 3, "type": "dom.reload", "delay": 0}
+                                        {"key": 3, "type": "redirect", "uri": "{%}", "delay": 0}
                                     ]
                                 }
                         ]' href="#">
@@ -173,7 +173,7 @@ echo $this->data['nav']->render();
                                     "key": 1, "listener": "click", "action": [
                                         {"key": 1, "type": "event.prevent"},
                                         {"key": 2, "type": "message.request", "uri": "<?= UriFactory::build('{/api}qa/answer/accept?id=' . $answer->id);?>&type=1", "method": "PUT", "request_type": "json"},
-                                        {"key": 3, "type": "dom.reload", "delay": 0}
+                                        {"key": 3, "type": "redirect", "uri": "{%}", "delay": 0}
                                     ]
                                 }
                         ]' href="#">

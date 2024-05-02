@@ -80,6 +80,10 @@ class QAQuestion implements \JsonSerializable
     /**
      * Created by.
      *
+     * @todo Answers and questions reference a profile.
+     *      This goes against almost every other model. Use the account instead.
+     *      https://github.com/Karaka-Management/oms-QA/issues/8
+     *
      * @var Profile
      * @since 1.0.0
      */

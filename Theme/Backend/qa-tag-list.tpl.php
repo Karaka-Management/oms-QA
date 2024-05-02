@@ -30,7 +30,7 @@ echo $this->data['nav']->render();
                 <tr><td colspan="2">
                         <tbody>
                         <?php $c = 0; foreach ($this->data['tags'] as $key => $value) : ++$c;
-                        $url     = \phpOMS\Uri\UriFactory::build('{/base}/admin/account/settings?{?}&id=' . $value->id); ?>
+                        $url     = \phpOMS\Uri\UriFactory::build('{/base}/admin/account/view?{?}&id=' . $value->id); ?>
                 <tr tabindex="0" data-href="<?= $url; ?>">
                     <td><a href="<?= $url; ?>"><?= $value->id; ?></a>
                     <td><a href="<?= $url; ?>"><?= $this->printHtml($value->name); ?></a>

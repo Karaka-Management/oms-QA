@@ -60,8 +60,7 @@ final class ApiController extends Controller
      *
      * @return void
      *
-     * @todo Create another notification whenever a comment is created for a question or answer
-     *      The question/answer owner should receive a notification
+     * @performance This should happen in the cli if possible?
      *
      * @since 1.0.0
      */
