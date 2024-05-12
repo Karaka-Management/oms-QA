@@ -184,9 +184,11 @@ final class ApiController extends Controller
         $question->status      = QAQuestionStatus::tryFromValue($request->getDataInt('status')) ?? QAQuestionStatus::ACTIVE;
         $question->createdBy   = new Profile(new NullAccount($request->header->account));
 
+        /*
         if ($request->hasData('tags')) {
             $question->tags = $this->app->moduleManager->get('Tag', 'Api')->createTagsFromRequest($request);
         }
+        */
 
         // @todo implement subfolders
         if (!empty($request->files)) {
