@@ -15,7 +15,7 @@ declare(strict_types=1);
 use Modules\QA\Models\NullQAApp;
 use phpOMS\Uri\UriFactory;
 
-$app = $this->data['app'] ?? new NullQAApp();
+$app   = $this->data['app'] ?? new NullQAApp();
 $isNew = $app->id === 0;
 
 /** @var \phpOMS\Views\View $this */
