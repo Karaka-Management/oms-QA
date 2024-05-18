@@ -18,7 +18,6 @@ return ['QA' => [
     'Answers'  => 'Answers',
     'Question' => 'Question',
     'Score'    => 'Score',
-    'Badges'   => 'Badges',
     'Title'    => 'Title',
     'Name'     => 'Name',
     'App'      => 'App',

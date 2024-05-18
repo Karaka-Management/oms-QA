@@ -18,7 +18,6 @@ return ['QA' => [
     'Answers'  => 'Antworten',
     'Question' => 'Frage',
     'Score'    => 'Bewertung',
-    'Badges'   => 'Abzeichen',
     'Title'    => 'Titel',
     'Name'     => 'Name',
     'App'      => 'App',
