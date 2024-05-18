@@ -28,7 +28,7 @@ final class QAQuestionVoteMapperTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCRUD() : void
     {
-        \Modules\Admin\tests\Helper::createAccounts(1);
+        \Modules\Admin\tests\Script::createAccounts(1);
 
         $vote             = new QAQuestionVote();
         $vote->question   = 1;
