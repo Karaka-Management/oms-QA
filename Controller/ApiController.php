@@ -6,7 +6,7 @@
  *
  * @package   Modules\QA
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -46,7 +46,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * QA api controller class.
  *
  * @package Modules\QA
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */
