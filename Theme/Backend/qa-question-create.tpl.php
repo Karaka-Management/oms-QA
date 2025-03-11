@@ -25,7 +25,6 @@ $scores = $this->data['scores'];
 
 echo $this->data['nav']->render();
 ?>
-
 <div class="row qa">
     <div class="col-xs-12">
         <div class="qa-question-view">
