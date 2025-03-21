@@ -86,7 +86,7 @@ final class BackendController extends Controller
             ->with('tags/title')
             ->where('tags/title/language', $response->header->l11n->language)
             ->where('language', $response->header->l11n->language)
-            ->limit(50)
+            ->limit(25)
             ->executeGetArray();
 
         $view->data['apps'] = QAAppMapper::getAll()
@@ -125,7 +125,7 @@ final class BackendController extends Controller
             ->with('tags')
             ->with('tags/title')
             ->with('files')
-            ->where('id', (int) $request->getData('id'))
+            ->where('id', $request->getDataInt('id') ?? 0)
             ->where('tags/title/language', $response->header->l11n->language)
             ->execute();
 
@@ -305,7 +305,7 @@ final class BackendController extends Controller
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1006001001, $request, $response);
 
         $view->data['app'] = QAAppMapper::get()
-            ->where('id', (int) $request->getData('id'))
+            ->where('id', $request->getDataInt('id') ?? 0)
             ->execute();
 
         return $view;

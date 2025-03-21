@@ -361,7 +361,7 @@ final class ApiController extends Controller
         }
 
         /** @var \Modules\QA\Models\QAAnswer $newAccepted */
-        $newAccepted    = QAAnswerMapper::get()->with('createdBy')->where('id', (int) $request->getData('id'))->execute();
+        $newAccepted    = QAAnswerMapper::get()->with('createdBy')->where('id', $request->getDataInt('id') ?? 0)->execute();
         $oldNewAccepted = clone $newAccepted;
 
         /** @var \Modules\QA\Models\QAQuestion $question */
@@ -519,7 +519,7 @@ final class ApiController extends Controller
 
         /** @var \Modules\QA\Models\QAQuestionVote $questionVote */
         $questionVote = QAQuestionVoteMapper::get()
-            ->where('question', (int) $request->getData('id'))
+            ->where('question', $request->getDataInt('id') ?? 0)
             ->where('createdBy', $request->header->account)
             ->execute();
 
@@ -527,7 +527,7 @@ final class ApiController extends Controller
             /** @var \Modules\QA\Models\QAQuestion $question */
             $question = QAQuestionMapper::get()
                 ->with('createdBy')
-                ->where('id', (int) $request->getData('id'))
+                ->where('id', $request->getDataInt('id') ?? 0)
                 ->execute();
 
             // You cannot upvote your own question
@@ -540,7 +540,7 @@ final class ApiController extends Controller
 
             $new             = new QAQuestionVote();
             $new->score      = \min(\max((int) $request->getData('type'), -1), 1);
-            $new->question   = (int) $request->getData('id');
+            $new->question   = $request->getDataInt('id') ?? 0;
             $new->createdBy  = new NullAccount($request->header->account);
             $new->createdFor = $question->createdBy->id;
 
@@ -603,7 +603,7 @@ final class ApiController extends Controller
 
         /** @var \Modules\QA\Models\QAAnswerVote $answerVote */
         $answerVote = QAAnswerVoteMapper::get()
-            ->where('answer', (int) $request->getData('id'))
+            ->where('answer', $request->getDataInt('id') ?? 0)
             ->where('createdBy', $request->header->account)
             ->execute();
 
@@ -611,7 +611,7 @@ final class ApiController extends Controller
             /** @var \Modules\QA\Models\QAAnswer $answer */
             $answer = QAAnswerMapper::get()
                 ->with('createdBy')
-                ->where('id', (int) $request->getData('id'))
+                ->where('id', $request->getDataInt('id') ?? 0)
                 ->execute();
 
             // You cannot upvote your own answer
@@ -624,7 +624,7 @@ final class ApiController extends Controller
 
             $new             = new QAAnswerVote();
             $new->score      = \min(\max((int) $request->getData('type'), -1), 1);
-            $new->answer     = (int) $request->getData('id');
+            $new->answer     = $request->getDataInt('id') ?? 0;
             $new->createdBy  = new NullAccount($request->header->account);
             $new->createdFor = $answer->createdBy->id;
 
